@@ -11,6 +11,10 @@
   width: 48px;
 }
 
+.github-icon {
+  width: 34px;
+}
+
 .auto {
   font-weight: ${x.app.textWeightMedium};
   user-select: none;
