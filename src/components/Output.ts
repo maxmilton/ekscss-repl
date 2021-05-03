@@ -30,9 +30,8 @@ export function Output(): OutputComponent {
   editor.contentEditable = 'false';
   editor.className = `${editor.className} editor-wrap`;
 
-  refs.output = editor;
-  append(editor, result);
-  append(Console(), console);
+  append((refs.output = editor), result);
+  append((refs.console = Console()), console);
 
   return root;
 }
