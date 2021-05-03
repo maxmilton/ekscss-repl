@@ -42,7 +42,7 @@ export const error = (...args: any[]): void => {
 };
 
 export function run(): void {
-  const src = refs.input.innerText.replace(/&nbsp;/g, ' ');
+  const src = refs.input.getContent();
   let compiled: XCSSCompileResult;
 
   try {
@@ -86,8 +86,7 @@ export function run(): void {
     '<strong class=red3>$&</strong>',
   );
 
-  // FIXME: Can the same thing be accomplished with `innerText`?
-  // refs.output.innerText = cssHighlighted;
-  // refs.output.innerHTML = cssHighlighted;
+  // TODO: ConsoleComponent#setContent uses set innerHTML which could be a
+  // security issue; consider a refactor to use innerText and DOM methods
   refs.output.setContent(cssHighlighted);
 }
