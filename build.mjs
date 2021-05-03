@@ -64,9 +64,7 @@ function makeHtml(jsPath, cssPath) {
 <link href=/favicon-16x16.png rel=icon type=image/png sizes=16x16 />
 <link href=/app.webmanifest rel=manifest />
 <title>ekscss REPL</title>
-<!--
--->
-<meta http-equiv=Content-Security-Policy content="default-src 'none';script-src 'self' 'unsafe-eval' cdn.jsdelivr.net 'sha256-/6UhwfJdAVD14FmUy+KdWA5ndRmzj4wA0ooqXacOhow=';style-src 'self';img-src 'self';manifest-src 'self';connect-src api.trackx.app">
+<meta http-equiv=Content-Security-Policy content="default-src 'none';script-src 'self' 'unsafe-eval' cdn.jsdelivr.net 'sha256-/6UhwfJdAVD14FmUy+KdWA5ndRmzj4wA0ooqXacOhow=';style-src 'self';img-src 'self' data:;manifest-src 'self';connect-src api.trackx.app">
 <link href=/${cssPath} rel=stylesheet>
 <script src=https://cdn.jsdelivr.net/npm/trackx@0/dist/index.js crossorigin></script>
 <script>window.trackx&&trackx.setup('https://api.trackx.app/v1/8c6cfd78d7e/event');</script>
