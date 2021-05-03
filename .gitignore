@@ -1,4 +1,5 @@
 *.log
+/.firebase/
 /*.zip
 /coverage/
 /dist/
