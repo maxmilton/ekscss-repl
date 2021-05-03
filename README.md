@@ -6,7 +6,7 @@
 
 # ekscss REPL
 
-TODO: Write me!
+REPL as a web app. Use to live compile XCSS into CSS via ekscss.
 
 ### Technology
 
