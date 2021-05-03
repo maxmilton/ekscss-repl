@@ -1,0 +1,12 @@
+// packages
+@import '@ekscss/framework';
+// @import '@ekscss/framework/addons/type-extended-click-zone.xcss';
+@import '@ekscss/framework/addons/code.xcss';
+@import '@ekscss/framework/addons/alert.xcss';
+// @import '@ekscss/framework/addons/card.xcss';
+@import '@ekscss/framework/addons/app-footer.xcss';
+@import '@ekscss/framework/addons/pretty.xcss';
+
+// local
+@import './global.xcss';
+@import './buttons.xcss';

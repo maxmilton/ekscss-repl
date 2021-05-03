@@ -1,0 +1,63 @@
+{
+  "name": "ekscss-repl",
+  "version": "0.0.0",
+  "private": true,
+  "description": "ekscss REPL",
+  "license": "MIT",
+  "repository": "maxmilton/ekscss-repl",
+  "author": "Max Milton <max@happycode.ltd>",
+  "homepage": "https://github.com/MaxMilton/ekscss-repl",
+  "scripts": {
+    "build": "NODE_ENV=production node build.mjs",
+    "dev": "NODE_ENV=development node build.mjs",
+    "lint": "yarn lint:css && yarn lint:js && yarn lint:ts",
+    "lint:css": "echo 'TODO: CSS linting'; exit 0",
+    "lint:js": "eslint --ignore-path .gitignore --ext .ts,.js,.mjs,.cjs .",
+    "lint:ts": "tsc --noEmit",
+    "prebuild": "rm -rf dist; cp -r static dist",
+    "serve": "sirv dist --dev --cors",
+    "test": "c8 --all --include=src --reporter=text --reporter=lcovonly uvu -r esbuild-register test '\\.test\\.ts$'"
+  },
+  "dependencies": {
+    "@ekscss/framework": "0.0.3",
+    "ekscss": "0.0.4",
+    "stage0": "0.0.25"
+  },
+  "devDependencies": {
+    "@types/csso": "3.5.1",
+    "@types/jsdom": "16.2.10",
+    "@types/node": "15.0.1",
+    "@typescript-eslint/eslint-plugin": "4.22.0",
+    "@typescript-eslint/parser": "4.22.0",
+    "@wearegenki/renovate-config": "1.0.0",
+    "c8": "7.7.2",
+    "csso": "4.2.0",
+    "deepmerge": "4.2.2",
+    "esbuild": "0.11.18",
+    "esbuild-minify-templates": "0.2.0",
+    "esbuild-plugin-ekscss": "0.0.1",
+    "esbuild-register": "2.5.0",
+    "eslint": "7.25.0",
+    "eslint-config-airbnb-typescript": "12.3.1",
+    "eslint-plugin-import": "2.22.1",
+    "git-ref": "0.0.2",
+    "jsdom": "16.5.3",
+    "prettier": "2.2.1",
+    "prettier-plugin-package2": "0.6.0",
+    "purgecss": "4.0.3",
+    "sirv-cli": "1.0.11",
+    "typescript": "4.2.4",
+    "uvu": "0.5.1"
+  },
+  "prettier": {
+    "arrowParens": "always",
+    "endOfLine": "lf",
+    "singleQuote": true,
+    "trailingComma": "all"
+  },
+  "renovate": {
+    "extends": [
+      "@wearegenki"
+    ]
+  }
+}

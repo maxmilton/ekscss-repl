@@ -1,0 +1,34 @@
+.editor {
+  // FIXME: This fixes the .error-line overflow background not full-width but
+  // doesn't feel like a great solution
+  // display: grid;
+
+  max-width: 100%;
+  overflow-x: auto;
+  padding: 0;
+  text-indent: 1em;
+  white-space: pre;
+  list-style-position: inside;
+  list-style-type: decimal-leading-zero;
+  list-style: ;
+  contain: layout style paint;
+
+  & > li {
+    // FIXME: Doesn't work
+    // highlight current line selection
+    // &:focus-within {
+    &:focus,
+    &:hover {
+      background-color: ${x.color.light4};
+    }
+
+    &::marker {
+      color: ${x.color.gray2};
+    }
+  }
+}
+
+.editor-wrap {
+  white-space: normal;
+  word-break: break-all;
+}

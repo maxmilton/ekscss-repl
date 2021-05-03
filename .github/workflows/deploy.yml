@@ -1,0 +1,33 @@
+name: deploy
+on:
+  workflow_run:
+    workflows:
+      - ci
+    types:
+      - completed
+    branches:
+      - master
+jobs:
+  deploy:
+    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event_name != 'pull_request' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16
+      - run: yarn install --frozen-lockfile
+      - run: yarn run build
+      - name: Deploy to firebase
+        run: |
+          curl -Lo ./firebase_bin https://firebase.tools/bin/linux/latest
+          chmod +x ./firebase_bin
+          ./firebase_bin deploy --only hosting
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      - name: Purge CDN
+        run: |
+          curl -X POST "https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLARE_ZONE }}/purge_cache" \
+          -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_AUTH }}" \
+          -H "Content-Type: application/json" \
+          --data '{"purge_everything":true}'

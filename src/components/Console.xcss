@@ -1,0 +1,5 @@
+#console {
+  max-height: 240px;
+  overflow: auto;
+  contain: layout style paint;
+}
