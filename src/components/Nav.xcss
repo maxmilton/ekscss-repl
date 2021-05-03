@@ -4,7 +4,7 @@
 
 #logo {
   font-size: 32px;
-  font-weight: ${x.app.textWeightHeavy};
+  font-weight: 800;
 }
 
 .logo-icon {
