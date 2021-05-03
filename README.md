@@ -22,9 +22,9 @@ Recent versions of evergreen browsers only.
 
 Please report any bugs you encounter on the [GitHub issue tracker](https://github.com/MaxMilton/ekscss/issues).
 
-## Licence
+## License
 
-`ekscss REPL` is an MIT licensed open source project. See [LICENCE](https://github.com/MaxMilton/ekscss/blob/master/LICENSE).
+`ekscss REPL` is an MIT licensed open source project. See [LICENSE](https://github.com/MaxMilton/ekscss/blob/master/LICENSE).
 
 The [repeat button icon](https://github.com/twitter/twemoji/blob/master/assets/svg/1f501.svg) is from [twitter/twemoji](https://github.com/twitter/twemoji) which is licensed CC-BY 4.0.
 
