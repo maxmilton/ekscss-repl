@@ -45,15 +45,8 @@ export function Nav(): NavComponent {
   compile.__click = run;
 
   clear.__click = () => {
-    // refs.input.innerText = '';
-    // refs.ouput.innerText = '';
-    // refs.console.innerText = '';
-
-    // refs.input.innerText = refs.ouput.innerText = refs.console.innerText = '';
-    // refs.ouput.innerText = refs.console.innerText = '';
-
-    refs.ouput.innerText = '';
-    refs.console.innerText = '';
+    refs.output.setContent('');
+    refs.console.clearSelf();
   };
 
   return root;
