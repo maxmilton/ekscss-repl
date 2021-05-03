@@ -1,7 +1,21 @@
 import { compile, XCSSCompileResult } from 'ekscss';
+import type { ConsoleComponent } from './components/Console';
+import type { EditorComponent } from './components/Editor';
 import { append, create } from './utils';
 
-export const refs: Record<string, HTMLElement> = {};
+interface Refs {
+  // src/components/Nav.ts
+  auto: HTMLInputElement;
+  // src/components/Input.ts
+  input: EditorComponent;
+  // src/components/Output.ts
+  output: EditorComponent;
+  // src/components/Output.ts
+  console: ConsoleComponent;
+}
+
+// @ts-expect-error - Entries set at runtime
+export const refs: Refs = {};
 
 function print(args: any[], color = ''): void {
   const line = create('div');
