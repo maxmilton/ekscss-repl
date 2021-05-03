@@ -1,8 +1,9 @@
 import h, { HNode } from 'stage0';
 import './Editor.xcss';
 
-interface EditorComponent extends HNode<HTMLDivElement> {
+export interface EditorComponent extends HNode<HTMLDivElement> {
   setContent(code: string): void;
+  getContent(): string;
 }
 
 const view = h`
@@ -22,11 +23,15 @@ export function Editor(): EditorComponent {
   };
 
   root.setContent = (code) => {
+    // TODO: Using innerHTML whichcould be a security issue; consider a
+    // refactor to use innerText and DOM methods
     root.innerHTML = code
       .split('\n')
       .map((line) => `<li>${line}</li>`)
       .join('');
   };
+
+  root.getContent = () => root.innerText;
 
   return root;
 }
