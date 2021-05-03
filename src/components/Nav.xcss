@@ -7,10 +7,6 @@
   font-weight: 800;
 }
 
-.logo-icon {
-  width: 48px;
-}
-
 .github-icon {
   width: 34px;
 }
