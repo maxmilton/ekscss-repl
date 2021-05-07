@@ -2,10 +2,9 @@ import h, { HNode } from 'stage0';
 
 export type FooterComponent = HNode<HTMLElement>;
 
-// FIXME: stage0 seems to be removing the spaces; PR fix or create a fork
 const view = h`
-  <footer class="mv3 fss muted tc">
-    ©&nbsp;<a href=https://maxmilton.com class="normal muted" target=_blank rel=noreferrer>Max Milton</a>&nbsp;| ekscss v${process.env.EKSCSS_VERSION} &middot; REPL ${process.env.APP_VERSION}
+  <footer id=foot class="mv3 fss muted tc">
+    © <a href=https://maxmilton.com class="normal muted" rel=noreferrer>Max Milton</a> | <a href=https://github.com/MaxMilton/ekscss rel=noreferrer>ekscss</a> v${process.env.EKSCSS_VERSION} &middot; <a href=https://github.com/MaxMilton/ekscss-repl rel=noreferrer>REPL</a> ${process.env.APP_VERSION}
   </footer>
 `;
 

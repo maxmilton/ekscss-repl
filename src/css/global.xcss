@@ -2,4 +2,51 @@
 * Global app styles
 */
 
-${null}
+#app {
+  display: grid;
+  height: 100%;
+  column-gap: 1em;
+  row-gap: 1em;
+  grid-template:
+    'nav'
+    'in'
+    'out'
+    'con'
+    'foot';
+
+  @media ${x.media.l} {
+    grid-template:
+    'nav nav'
+    'in out'
+    'in con'
+    'foot foot';
+  }
+}
+
+#nav {
+  grid-area: nav;
+}
+
+#in {
+  grid-area: in;
+  padding-left: 1em;
+}
+
+#out {
+  grid-area: out;
+  padding-right: 1em;
+}
+
+#con {
+  grid-area: con;
+  padding-right: 1em;
+}
+
+#foot {
+  grid-area: foot;
+}
+
+h2 {
+  margin: 0 0 0.5em;
+  line-height: 0; // FIXME: Just an experiment; REMOVE!!
+}

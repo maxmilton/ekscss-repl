@@ -6,8 +6,8 @@ import { Editor } from './Editor';
 type InputComponent = HNode<HTMLDivElement>;
 
 const view = h`
-  <div id=input>
-    <h2>Input Source</h2>
+  <div id=in>
+    <h2>Source Code</h2>
   </div>
 `;
 
@@ -15,30 +15,24 @@ export function Input(): InputComponent {
   const root = view as InputComponent;
   const editor = Editor();
   editor.autofocus = true;
-  /* minify-templates-ignore */
   editor.setContent(`/**
-* Sample XCSS Code
+* Sample XCSS Styles
 * Try modify this code to see the build result live!
 */
 
-// the "default" function sets values if they're not already defined
-\${x.fn.default({
-  color: {
-    blue: 'deepskyblue',
-    red: 'coral',
-  },
-})}
+\${x.color = {
+  red: 'coral',
+  green: 'seagreen',
+  blue: 'deepskyblue',
+}, null}
 
 body {
   font-size: 20px;
   color: \${x.color.red};
 }
 
-// the "entries" function works the same as Object.entries but also joins the
-// callback result, also note the use of "xcss" template tag which must
-// explicitly be used when returning a template literal
-\${x.fn.entries(x.color, ([key, value]) => xcss\`
-  .\${key} { color: \${value}; }
+\${x.fn.each(x.color, (name, value) => xcss\`
+  .\${name} { color: \${value}; }
 \`)}
 `);
 

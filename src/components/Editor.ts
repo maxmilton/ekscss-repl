@@ -7,7 +7,7 @@ export interface EditorComponent extends HNode<HTMLDivElement> {
 }
 
 const view = h`
-  <ol contenteditable=true class="editor textarea w100 code" rows=10 spellcheck=false></ol>
+  <ol contenteditable=true class="editor textarea w100 mt0 code" rows=10 spellcheck=false></ol>
 `;
 
 export function Editor(): EditorComponent {
@@ -15,7 +15,7 @@ export function Editor(): EditorComponent {
 
   document.execCommand('defaultParagraphSeparator', false, 'li');
 
-  // convert rich content to plain text
+  // convert rich content to plain text when pasting
   root.onpaste = (event) => {
     event.preventDefault();
     const text = event.clipboardData?.getData('text/plain');
@@ -23,8 +23,8 @@ export function Editor(): EditorComponent {
   };
 
   root.setContent = (code) => {
-    // TODO: Using innerHTML whichcould be a security issue; consider a
-    // refactor to use innerText and DOM methods
+    // TODO: Using innerHTML could be a security issue so consider a refactor
+    // to use innerText and DOM methods
     root.innerHTML = code
       .split('\n')
       .map((line) => `<li>${line}</li>`)

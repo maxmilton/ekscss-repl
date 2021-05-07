@@ -3,6 +3,7 @@ import { Input } from './components/Input';
 import { Nav } from './components/Nav';
 import { Output } from './components/Output';
 import { Footer } from './components/Footer';
+import { Console } from './components/Console';
 import { append, create } from './utils';
 import './css/index.xcss';
 
@@ -16,13 +17,11 @@ declare global {
 setupSyntheticEvent('click');
 
 const app = create('div');
-const main = create('main');
 app.id = 'app';
-main.className = 'grid l-x2 mh3';
 
 append(Nav(), app);
-append(Input(), main);
-append(Output(), main);
-append(main, app);
+append(Input(), app);
+append(Output(), app);
+append(Console(), app);
 append(Footer(), app);
 append(app, document.body);

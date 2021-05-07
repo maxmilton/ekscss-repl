@@ -1,5 +1,10 @@
 #console {
-  max-height: 240px;
+  max-height: 60vh;
+  height: 100%;
   overflow: auto;
-  contain: layout style paint;
+  contain: layout paint style;
+}
+
+.console {
+  height: 100%;
 }
