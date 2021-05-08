@@ -9,8 +9,8 @@
 import csso from 'csso';
 import esbuild from 'esbuild';
 import {
-  encodeUTF8,
   decodeUTF8,
+  encodeUTF8,
   minifyTemplates,
   writeFiles,
 } from 'esbuild-minify-templates';
@@ -19,6 +19,7 @@ import fs from 'fs';
 import { gitRef } from 'git-ref';
 import path from 'path';
 import { PurgeCSS } from 'purgecss';
+import { minify } from 'terser';
 
 const mode = process.env.NODE_ENV;
 const dev = mode === 'development';
@@ -132,6 +133,38 @@ async function minifyCss(buildResult) {
   return buildResult;
 }
 
+/**
+ * @param {esbuild.BuildResult} buildResult
+ * @returns {Promise<esbuild.BuildResult>}
+ */
+async function minifyJs(buildResult) {
+  if (buildResult.outputFiles) {
+    const distPath = path.join(dir, 'dist');
+    const outputJsMap = findOutputFile(buildResult.outputFiles, '.js.map');
+    const { file, index } = findOutputFile(buildResult.outputFiles, '.js');
+
+    const { code, map } = await minify(decodeUTF8(file.contents), {
+      ecma: 2020,
+      compress: {
+        passes: 2,
+        unsafe_methods: true,
+        unsafe_proto: true,
+      },
+      sourceMap: {
+        content: decodeUTF8(outputJsMap.file.contents),
+        filename: path.relative(distPath, file.path),
+        url: path.relative(distPath, outputJsMap.file.path),
+      },
+    });
+
+    // @ts-expect-error - map is string
+    buildResult.outputFiles[outputJsMap.index].contents = encodeUTF8(map);
+    buildResult.outputFiles[index].contents = encodeUTF8(code);
+  }
+
+  return buildResult;
+}
+
 esbuild
   .build({
     entryPoints: ['src/index.ts'],
@@ -160,5 +193,6 @@ esbuild
   .then(minifyTemplates)
   .then(buildHtml)
   .then(minifyCss)
+  .then(minifyJs)
   .then(writeFiles)
   .catch(handleErr);
