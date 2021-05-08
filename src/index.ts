@@ -1,4 +1,4 @@
-import { setupSyntheticEvent } from 'stage1';
+import { h, setupSyntheticEvent } from 'stage1';
 import { Input } from './components/Input';
 import { Nav } from './components/Nav';
 import { Output } from './components/Output';
@@ -15,6 +15,16 @@ declare global {
 }
 
 setupSyntheticEvent('click');
+
+// TODO: Remove temporary warning (and its assossiated styles)
+append(
+  h`
+  <div id=alert>
+    <strong>Warning:</strong> This REPL app is still a <abbr title="Work In Progress">WIP</abbr>!
+  </div>
+`,
+  document.body,
+);
 
 const app = create('div');
 app.id = 'app';

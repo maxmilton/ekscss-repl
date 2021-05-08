@@ -2,6 +2,11 @@
 * Global app styles
 */
 
+// TODO: Remove this once we no longer need the "WIP alert"
+#alert {
+  #apply: .alert, .alert-warn, .ma0, .tc;
+}
+
 #app {
   display: grid;
   height: 100%;
