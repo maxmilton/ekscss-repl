@@ -58,12 +58,12 @@ function findOutputFile(outputFiles, ext) {
 function makeHtml(jsPath, cssPath) {
   return `<!doctype html>
 <meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1.0">
+<meta name=viewport content="width=device-width">
 <meta name=google value=notranslate>
-<link href=/apple-touch-icon.png rel=apple-touch-icon sizes=180x180 />
-<link href=/favicon-32x32.png rel=icon type=image/png sizes=32x32 />
-<link href=/favicon-16x16.png rel=icon type=image/png sizes=16x16 />
-<link href=/app.webmanifest rel=manifest />
+<link href=/apple-touch-icon.png rel=apple-touch-icon sizes=180x180>
+<link href=/favicon-32x32.png rel=icon type=image/png sizes=32x32>
+<link href=/favicon-16x16.png rel=icon type=image/png sizes=16x16>
+<link href=/app.webmanifest rel=manifest>
 <title>ekscss REPL</title>
 <meta http-equiv=Content-Security-Policy content="default-src 'none';script-src 'self' 'unsafe-eval' cdn.jsdelivr.net 'sha256-/6UhwfJdAVD14FmUy+KdWA5ndRmzj4wA0ooqXacOhow=';style-src 'self';img-src 'self' data:;manifest-src 'self';connect-src api.trackx.app">
 <link href=/${cssPath} rel=stylesheet>
