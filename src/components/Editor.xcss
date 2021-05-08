@@ -15,10 +15,9 @@
   contain: layout paint style;
 
   & > li {
-    // FIXME: Doesn't work
+    // FIXME: focus doesn't work
     // highlight current line selection
-    // &:focus-within {
-    &:focus,
+    &:focus-within,
     &:hover {
       background-color: ${x.color.light4};
     }

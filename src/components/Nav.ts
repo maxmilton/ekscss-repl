@@ -1,14 +1,14 @@
-import h, { HNode } from 'stage0';
+import { h, S1Node } from 'stage1';
 import { refs, run } from '../service';
 import './Nav.xcss';
 
-type NavComponent = HNode<HTMLDivElement>;
+type NavComponent = S1Node & HTMLDivElement;
 
-interface RefNodes {
+type RefNodes = {
   auto: HTMLInputElement;
   compile: HTMLButtonElement;
   clear: HTMLButtonElement;
-}
+};
 
 const view = h`
   <div id=nav class="dfc pv1 ph3">
@@ -27,7 +27,7 @@ const view = h`
 
 export function Nav(): NavComponent {
   const root = view as NavComponent;
-  const { auto, compile, clear } = view.collect(root) as RefNodes;
+  const { auto, compile, clear } = view.collect<RefNodes>(root);
 
   refs.auto = auto;
 

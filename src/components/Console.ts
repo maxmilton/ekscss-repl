@@ -1,18 +1,19 @@
-import h, { HNode } from 'stage0';
+import { h, S1Node } from 'stage1';
 import { refs } from '../service';
 import { append, create } from '../utils';
 import './Console.xcss';
 
-export interface ConsoleComponent extends HNode<HTMLDivElement> {
+export type ConsoleComponent = S1Node &
+HTMLDivElement & {
   log(...args: any[]): void;
   warn(...args: any[]): void;
   error(...args: any[]): void;
   clear(): void;
-}
+};
 
-interface RefNodes {
+type RefNodes = {
   con: HTMLDivElement;
-}
+};
 
 const view = h`
   <div id=con>
@@ -25,7 +26,7 @@ type ConsoleMethodName = 'log' | 'warn' | 'error';
 
 export function Console(): ConsoleComponent {
   const root = view as ConsoleComponent;
-  const { con } = view.collect(root) as RefNodes;
+  const { con } = view.collect<RefNodes>(root);
 
   const print = (method: ConsoleMethodName, color = '') => (...args: any[]) => {
     const line = create('div');
