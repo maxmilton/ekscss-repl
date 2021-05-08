@@ -1,9 +1,9 @@
-import h, { HNode } from 'stage0';
+import { h, S1Node } from 'stage1';
 import { refs, run } from '../service';
 import { append, debounce } from '../utils';
 import { Editor } from './Editor';
 
-type InputComponent = HNode<HTMLDivElement>;
+type InputComponent = S1Node & HTMLDivElement;
 
 const view = h`
   <div id=in>

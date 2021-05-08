@@ -1,4 +1,4 @@
-import { setupSyntheticEvent } from 'stage0/syntheticEvents';
+import { setupSyntheticEvent } from 'stage1';
 import { Input } from './components/Input';
 import { Nav } from './components/Nav';
 import { Output } from './components/Output';
@@ -9,7 +9,7 @@ import './css/index.xcss';
 
 declare global {
   interface HTMLElement {
-    /** `stage0` synthetic click event handler. */
+    /** `stage1` synthetic click event handler. */
     __click(event: MouseEvent): void;
   }
 }

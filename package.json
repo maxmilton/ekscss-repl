@@ -21,7 +21,7 @@
   "dependencies": {
     "@ekscss/framework": "0.0.6",
     "ekscss": "0.0.5",
-    "stage0": "0.0.25"
+    "stage1": "0.0.4"
   },
   "devDependencies": {
     "@types/csso": "3.5.1",
@@ -32,7 +32,7 @@
     "c8": "7.7.2",
     "csso": "4.2.0",
     "esbuild": "0.11.19",
-    "esbuild-minify-templates": "0.2.0",
+    "esbuild-minify-templates": "0.3.0",
     "esbuild-plugin-ekscss": "0.0.1",
     "esbuild-register": "2.5.0",
     "eslint": "7.25.0",

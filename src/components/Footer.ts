@@ -1,6 +1,6 @@
-import h, { HNode } from 'stage0';
+import { h, S1Node } from 'stage1';
 
-export type FooterComponent = HNode<HTMLElement>;
+export type FooterComponent = S1Node & HTMLElement;
 
 const view = h`
   <footer id=foot class="mv3 fss muted tc">
@@ -9,7 +9,7 @@ const view = h`
 `;
 
 export function Footer(): FooterComponent {
-  const root = view;
+  const root = view as FooterComponent;
 
   return root;
 }

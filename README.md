@@ -11,7 +11,7 @@ REPL as a web app. Use to live compile XCSS into CSS via [ekscss](https://github
 ### Technology
 
 - [ekscss](https://github.com/MaxMilton/ekscss) style preprocessor
-- [stage0](https://github.com/Freak613/stage0) JavaScript framework
+- [stage1](https://github.com/MaxMilton/stage1) JavaScript framework
 - [esbuild](https://esbuild.github.io/) JavaScript bundler
 
 ## Browser support

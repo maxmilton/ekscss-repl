@@ -1,10 +1,11 @@
-import h, { HNode } from 'stage0';
+import { h, S1Node } from 'stage1';
 import './Editor.xcss';
 
-export interface EditorComponent extends HNode<HTMLDivElement> {
+export type EditorComponent = S1Node &
+HTMLDivElement & {
   setContent(code: string): void;
   getContent(): string;
-}
+};
 
 const view = h`
   <ol contenteditable=true class="editor textarea w100 mt0 code" rows=10 spellcheck=false></ol>
