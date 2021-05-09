@@ -28,7 +28,7 @@ export function Editor(): EditorComponent {
     // to use innerText and DOM methods
     root.innerHTML = code
       .split('\n')
-      .map((line) => `<li>${line}</li>`)
+      .map((line) => `<li>${line || '<br>'}</li>`)
       .join('');
   };
 

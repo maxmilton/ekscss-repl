@@ -35,6 +35,8 @@
 #in {
   grid-area: in;
   padding-left: 1em;
+  // TODO: Allow users to resize the input, output, and console views
+  // resize: horizontal;
 }
 
 #out {

@@ -62,8 +62,8 @@ export function run(): void {
       '<strong class=red3>$&</strong>',
     );
 
-    // TODO: ConsoleComponent#setContent uses set innerHTML which could be a
-    // security issue; consider a refactor to use innerText and DOM methods
+    // TODO: Editor#setContent uses set innerHTML which could be a security
+    // issue; consider a refactor to use innerText and DOM methods
     refs.output.setContent(cssHighlighted);
   }
 }
