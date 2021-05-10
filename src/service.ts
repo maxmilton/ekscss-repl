@@ -56,6 +56,7 @@ export function run(): void {
 
   if (!compiled.css) {
     refs.console.warn('Compile result empty');
+    refs.output.setContent('');
   } else {
     // highlight potential code issues
     const cssHighlighted = compiled.css.replace(
