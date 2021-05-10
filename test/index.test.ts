@@ -18,7 +18,6 @@ test.before.each(mocksSetup);
 test.after.each(mocksTeardown);
 test.after.each(teardown);
 
-// test('renders entire REPL app', async () => {
 test('renders entire REPL app', () => {
   // eslint-disable-next-line global-require, import/no-dynamic-require
   require(`../dist/${appJsFilename}`);
