@@ -22,9 +22,6 @@ test('renders correctly', () => {
   // eslint-disable-next-line @typescript-eslint/no-var-requires, global-require
   const { Console } = require('../src/components/Console') as ConsoleComponent;
   const rendered = render(Console());
-
-  rendered.debug();
-
   assert.snapshot(
     rendered.container.innerHTML,
     `<div id="con">
