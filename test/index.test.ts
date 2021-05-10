@@ -1,32 +1,42 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+
+import fs from 'fs';
+import path from 'path';
 import { test } from 'uvu';
 import * as assert from 'uvu/assert';
-// import { App } from '../src/index';
-import { setup, render, cleanup } from './utils';
+import {
+  mocksSetup, mocksTeardown, setup, teardown,
+} from './utils';
 
-test.before(setup);
-test.after.each(cleanup);
+// esbuild adds a hash to the filename so we need to find the file path
+const appJsFilename = /app.*\.js/.exec(
+  fs.readFileSync(path.resolve(__dirname, '../dist/index.html'), 'utf8'),
+)![0];
 
-// test('renders correctly', () => {
-//   const rendered = render(Menu());
-//   rendered.debug();
-//
-//   assert.snapshot(rendered.container.innerHTML, '');
-// });
+test.before.each(setup);
+test.before.each(mocksSetup);
+test.after.each(mocksTeardown);
+test.after.each(teardown);
 
-// test('test util can render', () => {
-//   const el = document.createElement('a');
-//   el.className = 'link';
+// test('renders entire REPL app', async () => {
+test('renders entire REPL app', () => {
+  // eslint-disable-next-line global-require, import/no-dynamic-require
+  require(`../dist/${appJsFilename}`);
 
-//   const rendered = render(el);
-//   rendered.debug();
-//   console.log('IN TEST');
-
-//   assert.snapshot(rendered.container.innerHTML, '');
-// });
-
-test('renders app without error', () => {
-  // FIXME: Implement test
-  assert.is(1 + 1, 2);
+  // TODO: Better assertions
+  assert.is(document.body.innerHTML.length > 1000, true);
+  // TODO: Update once we remove the WIP alert
+  // assert.is((document.body.firstChild as HTMLDivElement).id, 'app');
+  assert.is((document.body.firstChild as HTMLDivElement).id, 'alert');
+  assert.is(
+    (document.body.firstChild!.nextSibling as HTMLDivElement).id,
+    'app',
+  );
+  assert.ok(document.getElementById('nav'));
+  assert.ok(document.getElementById('in'));
+  assert.ok(document.getElementById('out'));
+  assert.ok(document.getElementById('con'));
+  assert.ok(document.getElementById('foot'));
 });
 
 test.run();
