@@ -1,6 +1,7 @@
 import { compile, XCSSCompileResult } from 'ekscss';
 import type { ConsoleComponent } from './components/Console';
 import type { EditorComponent } from './components/Editor';
+import { astPlugin } from './plugins';
 
 interface Refs {
   // src/components/Nav.ts
@@ -30,8 +31,10 @@ export function run(): void {
       map: false,
       // TODO: Allow setting globals via a config
       globals: {},
-      // TODO: Use plugin to get AST (so it doesn't need to be publicly exposed in ekscss)
-      plugins: [],
+      // TODO: Allow adding plugins via config
+      // TODO: AST plugin should be disabled by default + include a note to see
+      // the output in the browser devtools console
+      plugins: [astPlugin],
     });
 
     const t1 = performance.now();
