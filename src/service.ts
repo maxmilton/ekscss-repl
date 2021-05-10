@@ -38,6 +38,7 @@ export function run(): void {
     refs.console.log(`Compile time: ${(t1 - t0).toFixed(2)}ms`);
   } catch (err) {
     refs.console.error(err);
+    refs.output.setContent('');
     return;
   }
 
