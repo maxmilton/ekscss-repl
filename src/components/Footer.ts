@@ -10,6 +10,5 @@ const view = h`
 
 export function Footer(): FooterComponent {
   const root = view as FooterComponent;
-
   return root;
 }

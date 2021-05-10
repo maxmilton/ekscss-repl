@@ -17,11 +17,11 @@ const view = h`
     <a href=https://maxmilton.github.io/ekscss class=pl4 target=_blank rel=noreferrer>Open ekscss docs</a>
 
     <label for=auto class="auto label ml-auto mb0 mr3">
-      <input id=auto type=checkbox class="checkbox mr2" checked #auto />
+      <input #auto id=auto type=checkbox class="checkbox mr2" checked>
       Auto compile on input
     </label>
-    <button class="button button-primary mr3" #compile>Compile</button>
-    <button class=button #clear>Clear Output</button>
+    <button #compile class="button button-primary mr3">Compile</button>
+    <button #clear class=button>Clear Output</button>
   </div>
 `;
 

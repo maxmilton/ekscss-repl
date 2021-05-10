@@ -18,7 +18,7 @@ type RefNodes = {
 const view = h`
   <div id=con>
     <h2>Console Output</h2>
-    <div class="console code-block code" #con></div>
+    <div #con class="console code-block code"></div>
   </div>
 `;
 
