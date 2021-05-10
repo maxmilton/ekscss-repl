@@ -1,4 +1,5 @@
 import { JSDOM } from 'jsdom';
+import { addHook } from 'pirates';
 
 const mountedContainers = new Set<{ container: HTMLDivElement }>();
 
@@ -89,7 +90,15 @@ export function cleanup(): void {
   });
 }
 
+let revertXcssHook: () => void;
+
 export function mocksSetup(): void {
+  // Force imported .xcss files to return nothing to prevent test errors (unit
+  // tests can't assert CSS properly anyway; better to use playwright!)
+  revertXcssHook = addHook(() => '', {
+    exts: ['.xcss'],
+  });
+
   // https://github.com/jsdom/jsdom/issues/1742#issuecomment-622335665
   document.execCommand = (
     commandId: string,
@@ -128,4 +137,6 @@ export function mocksSetup(): void {
   global.window.Element.prototype.scrollTo = () => {};
 }
 
-export function mocksTeardown(): void {}
+export function mocksTeardown(): void {
+  revertXcssHook();
+}
