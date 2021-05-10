@@ -42,8 +42,5 @@ body {
 
   append((refs.input = editor), root);
 
-  // Run compile on init but after mounting the component
-  setTimeout(run, 0);
-
   return root;
 }

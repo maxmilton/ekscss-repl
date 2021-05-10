@@ -1,9 +1,10 @@
 import { h, setupSyntheticEvent } from 'stage1';
+import { Console } from './components/Console';
+import { Footer } from './components/Footer';
 import { Input } from './components/Input';
 import { Nav } from './components/Nav';
 import { Output } from './components/Output';
-import { Footer } from './components/Footer';
-import { Console } from './components/Console';
+import { run } from './service';
 import { append, create } from './utils';
 import './css/index.xcss';
 
@@ -16,7 +17,7 @@ declare global {
 
 setupSyntheticEvent('click');
 
-// TODO: Remove temporary warning (and its assossiated styles)
+// TODO: Remove temporary warning (and its associated styles)
 append(
   h`
   <div id=alert>
@@ -35,3 +36,6 @@ append(Output(), app);
 append(Console(), app);
 append(Footer(), app);
 append(app, document.body);
+
+// Run initial compile
+run();
