@@ -1228,10 +1228,10 @@ getpass@^0.1.1:
   dependencies:
     assert-plus "^1.0.0"
 
-git-ref@0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/git-ref/-/git-ref-0.0.2.tgz#6fa3082850d595711db373565035e67efc23ff4a"
-  integrity sha512-pK2moboXNTrfSMpFjSuyaIfwhkCMuC1MbFWUJ22vuPqjlp/9LBynnN6QkgKSaU0axg4gnbiHaz9jVMHZGUjxcg==
+git-ref@0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/git-ref/-/git-ref-0.0.3.tgz#6e734b166dea442e645ae27118535d81836ca11a"
+  integrity sha512-IGkY7xniQ8yoMMj1SV8TszC/rCbiBphbGTnV4c21CHp3jeeXIML93pf1jI6+WzTRyhOrAcsMTrVyr/B0Kjvmig==
 
 glob-parent@^5.0.0, glob-parent@^5.1.0:
   version "5.1.2"
