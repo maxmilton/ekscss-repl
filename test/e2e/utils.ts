@@ -34,19 +34,16 @@ export async function setup(context: TestContext): Promise<void> {
 
   server = http.createServer(
     sirv(DIST_DIR, {
-      single: true,
+      // single: true,
       onNoMatch(req) {
         throw new Error(`No matching URL: ${req.url!}`);
       },
     }),
   );
-
   server.on('error', (err) => {
     if (err) throw err;
   });
-
   server.listen(Number(PORT));
-
   context.browser = await chromium.launch();
 }
 

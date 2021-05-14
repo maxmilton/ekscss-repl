@@ -62,8 +62,11 @@ test('renders entire REPL app', async (context) => {
     await context.page.$('a[href="https://maxmilton.github.io/ekscss"]'),
     'has link to the ekscss docs',
   );
+
   // TODO: Footer contains ekscss version
   // TODO: Footer contains REPL version
+
+  assert.is(context.unhandledErrors.length, 0, 'zero unhandled errors');
 });
 
 test('only entries in console are "log"s', async (context) => {
@@ -72,6 +75,7 @@ test('only entries in console are "log"s', async (context) => {
   context.consoleMessages.forEach((msg) => {
     assert.is(msg.type(), 'log');
   });
+  assert.is(context.unhandledErrors.length, 0, 'zero unhandled errors');
 });
 
 // TODO: Write tests to verify each feature of the app works
