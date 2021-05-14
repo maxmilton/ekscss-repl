@@ -6,7 +6,6 @@
   "license": "MIT",
   "repository": "maxmilton/ekscss-repl",
   "author": "Max Milton <max@happycode.ltd>",
-  "homepage": "https://github.com/MaxMilton/ekscss-repl",
   "scripts": {
     "build": "NODE_ENV=production node build.mjs",
     "dev": "NODE_ENV=development node build.mjs",
