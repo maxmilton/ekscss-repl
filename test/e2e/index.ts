@@ -52,11 +52,18 @@ test.after.each(async (context) => {
 });
 
 test('renders entire REPL app', async (context) => {
-  assert.ok(await context.page.$('#nav'));
-  assert.ok(await context.page.$('#in'));
-  assert.ok(await context.page.$('#out'));
-  assert.ok(await context.page.$('#con'));
-  assert.ok(await context.page.$('#foot'));
+  assert.ok(await context.page.$('#alert'), 'has #alert element');
+  assert.ok(await context.page.$('#nav'), 'has #nav element');
+  assert.ok(await context.page.$('#in'), 'has #in element');
+  assert.ok(await context.page.$('#out'), 'has #out element');
+  assert.ok(await context.page.$('#con'), 'has #con element');
+  assert.ok(await context.page.$('#foot'), 'has #foot element');
+  assert.ok(
+    await context.page.$('a[href="https://maxmilton.github.io/ekscss"]'),
+    'has link to the ekscss docs',
+  );
+  // TODO: Footer contains ekscss version
+  // TODO: Footer contains REPL version
 });
 
 test('only entries in console are "log"s', async (context) => {
@@ -66,5 +73,18 @@ test('only entries in console are "log"s', async (context) => {
     assert.is(msg.type(), 'log');
   });
 });
+
+// TODO: Write tests to verify each feature of the app works
+//  - source code in vs output
+//  - on-screen virtual console
+//  - "Auto compile on input"
+//  - "Compile" button
+//  - "Clear Output" button
+//  - editor has line numbers
+//  - editor works as expected
+//  - view looks correct on desktop screen size
+//  - view looks correct on mobile screen size
+//  - view looks correct on tablet screen size
+//  - headings are visible
 
 test.run();
