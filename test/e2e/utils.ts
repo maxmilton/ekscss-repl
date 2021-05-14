@@ -12,6 +12,7 @@ import sirv from 'sirv';
 export interface TestContext {
   browser: Browser;
   consoleMessages: ConsoleMessage[];
+  unhandledErrors: Error[];
   page: Page;
 }
 
@@ -72,14 +73,14 @@ export async function renderPage(context: TestContext): Promise<void> {
 
   const page = await context.browser.newPage();
   context.page = page;
-  page.on('crash', (crashedPage) => {
-    throw new Error(`Page crashed ${crashedPage.url()}`);
-  });
-  // unhandled error
-  page.on('pageerror', (err) => {
-    throw err;
-  });
+  context.unhandledErrors = [];
   context.consoleMessages = [];
+  page.on('crash', (crashedPage) => {
+    throw new Error(`Page crashed: ${crashedPage.url()}`);
+  });
+  page.on('pageerror', (err) => {
+    context.unhandledErrors.push(err);
+  });
   page.on('console', (msg) => {
     const loc = msg.location();
     console.log(
@@ -102,5 +103,5 @@ export async function cleanupPage(context: TestContext): Promise<void> {
 
   await context.page.close();
   // @ts-expect-error - reset for next renderPage
-  context.consoleMessages = context.page = undefined;
+  context.unhandledErrors = context.consoleMessages = context.page = undefined;
 }
