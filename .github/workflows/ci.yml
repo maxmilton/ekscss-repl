@@ -30,11 +30,10 @@ jobs:
       - uses: maxmilton/action-setup-playwright@v1
         with:
           browsers: chromium
-          headless: false
       - run: yarn install --frozen-lockfile
       - run: yarn run build
       - run: yarn install --cwd=test/e2e --frozen-lockfile
-      - run: xvfb-run --auto-servernum -- yarn run --cwd=test/e2e test-e2e
+      - run: yarn run --cwd=test/e2e test-e2e
   lint:
     runs-on: ubuntu-latest
     steps:
