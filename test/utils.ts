@@ -1,22 +1,20 @@
 import { JSDOM } from 'jsdom';
 import { addHook } from 'pirates';
 
-const mountedContainers = new Set<{ container: HTMLDivElement }>();
+// increase limit from 10
+global.Error.stackTraceLimit = 100;
 
-function innerText(el: HTMLElement) {
-  // eslint-disable-next-line no-param-reassign
-  el = el.cloneNode(true) as HTMLElement;
-  el.querySelectorAll('script,style').forEach((s) => s.remove());
-  return el.textContent;
-}
+const mountedContainers = new Set<HTMLDivElement>();
 
 function mockInnerText() {
   Object.defineProperty(global.window.HTMLElement.prototype, 'innerText', {
-    get() {
-      return innerText(this);
+    get(this: HTMLElement) {
+      const el = this.cloneNode(true) as HTMLElement;
+      el.querySelectorAll('script,style').forEach((s) => s.remove());
+      return el.textContent;
     },
-    set(value: string) {
-      (this as HTMLElement).textContent = value;
+    set(this: HTMLElement, value: string) {
+      this.textContent = value;
     },
   });
 }
@@ -60,8 +58,10 @@ export interface RenderResult {
    * A helper to print the HTML structure of the mounted container. The HTML is
    * prettified and may not accurately represent your actual HTML. It's intended
    * for debugging tests only and should not be used in any assertions.
+   *
+   * @param el - An element to inspect. Default is the mounted container.
    */
-  debug(): void;
+  debug(el?: Element): void;
 }
 
 export function render(component: Node): RenderResult {
@@ -70,20 +70,23 @@ export function render(component: Node): RenderResult {
   container.appendChild(component);
   document.body.appendChild(container);
 
-  mountedContainers.add({ container });
+  mountedContainers.add(container);
 
   return {
     container,
-    debug() {
+    debug(el = container) {
       // TODO: Prettify HTML
       console.log('DEBUG:');
-      console.log(container.innerHTML);
+      console.log(el.innerHTML);
     },
+    // unmount() {
+    //   container.removeChild(component);
+    // },
   };
 }
 
 export function cleanup(): void {
-  mountedContainers.forEach(({ container }) => {
+  mountedContainers.forEach((container) => {
     if (container.parentNode === document.body) {
       document.body.removeChild(container);
     }
