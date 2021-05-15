@@ -76,6 +76,7 @@ export async function renderPage(context: TestContext): Promise<void> {
     throw new Error(`Page crashed: ${crashedPage.url()}`);
   });
   page.on('pageerror', (err) => {
+    console.error(colors.red('Page Error:'), err);
     context.unhandledErrors.push(err);
   });
   page.on('console', (msg) => {
