@@ -6,7 +6,7 @@
 
 # ekscss REPL
 
-REPL web app. Use to live compile XCSS into CSS via [ekscss](https://github.com/maxmilton/ekscss).
+REPL web app. Live compile XCSS into CSS with [ekscss](https://github.com/maxmilton/ekscss).
 
 Try it: <https://ekscss-repl.web.app>
 
