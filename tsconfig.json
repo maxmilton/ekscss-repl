@@ -1,5 +1,8 @@
 {
   "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist",
+
     "target": "es2020",
     "module": "esnext",
     "moduleResolution": "node",
@@ -11,7 +14,7 @@
     "allowJs": true,
     "checkJs": true,
 
-    "noEmit": true, // prevents errors in VS Code and ESLint
+    // "noEmit": true, // prevents errors in VS Code and ESLint
     "sourceMap": true,
 
     "strict": true,
