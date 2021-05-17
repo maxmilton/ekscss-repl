@@ -86,18 +86,26 @@ export function render(component: Node): RenderResult {
 }
 
 export function cleanup(): void {
+  if (!mountedContainers || !mountedContainers.size) {
+    throw new Error(
+      'No mounted components exist, did you forget to call render()?',
+    );
+  }
+
   mountedContainers.forEach((container) => {
     if (container.parentNode === document.body) {
       document.body.removeChild(container);
     }
+
+    mountedContainers.delete(container);
   });
 }
 
 let revertXcssHook: () => void;
 
 export function mocksSetup(): void {
-  // Force imported .xcss files to return nothing to prevent test errors (unit
-  // tests can't assert CSS properly anyway; better to use playwright!)
+  // Make imported .xcss files return empty to prevent test errors (unit tests
+  // can't assert styles properly anyway; better to create e2e tests!)
   revertXcssHook = addHook(() => '', {
     exts: ['.xcss'],
   });
@@ -136,7 +144,7 @@ export function mocksSetup(): void {
     return true;
   };
 
-  // TODO: Stub only to prevent test errors -- create UI tests in playwright for actual use cases
+  // Stub only; create e2e tests for actual use cases
   global.window.Element.prototype.scrollTo = () => {};
 }
 
