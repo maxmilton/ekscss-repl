@@ -1,6 +1,6 @@
 {
   "name": "ekscss-repl",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "REPL web app to live compile XCSS into CSS with ekscss",
   "repository": "maxmilton/ekscss-repl",
   "author": "Max Milton <max@happycode.ltd>",
