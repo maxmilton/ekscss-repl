@@ -23,6 +23,8 @@ jobs:
           node-version: 16
       - run: curl -f https://get.pnpm.io/v6.js | node - add --global pnpm@6
       - run: pnpm install --frozen-lockfile
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
       - run: pnpm run build
       - name: Deploy to firebase
         run: |
