@@ -1,6 +1,4 @@
 import { h, S1Node } from 'stage1';
-// https://github.com/benmosher/eslint-plugin-import/issues/1453
-// eslint-disable-next-line import/no-cycle
 import { refs } from '../service';
 import { append, create } from '../utils';
 import './Console.xcss';

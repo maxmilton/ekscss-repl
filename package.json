@@ -38,15 +38,16 @@
     "eslint": "7.27.0",
     "eslint-config-airbnb-typescript": "12.3.1",
     "eslint-plugin-import": "2.23.3",
-    "playwright-chromium": "1.11.0",
-    "kleur": "4.1.4",
     "git-ref": "0.0.3",
     "jsdom": "16.6.0",
+    "kleur": "4.1.4",
     "pirates": "4.0.1",
+    "playwright-chromium": "1.11.0",
     "prettier": "2.3.0",
     "prettier-plugin-pkg": "0.9.0",
     "prettier-plugin-sh": "0.6.1",
     "purgecss": "4.0.3",
+    "sirv": "1.0.12",
     "sirv-cli": "1.0.12",
     "terser": "5.7.0",
     "typescript": "4.2.4",
@@ -56,6 +57,10 @@
     "arrowParens": "always",
     "endOfLine": "lf",
     "singleQuote": true,
-    "trailingComma": "all"
+    "trailingComma": "all",
+    "plugins": [
+      "./node_modules/prettier-plugin-pkg",
+      "./node_modules/prettier-plugin-sh"
+    ]
   }
 }
