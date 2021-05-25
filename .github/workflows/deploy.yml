@@ -21,8 +21,9 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: 16
-      - run: yarn install --frozen-lockfile
-      - run: yarn run build
+      - run: curl -f https://get.pnpm.io/v6.js | node - add --global pnpm@6
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run build
       - name: Deploy to firebase
         run: |
           curl -Lo ./firebase_bin https://firebase.tools/bin/linux/latest
