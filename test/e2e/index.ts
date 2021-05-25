@@ -1,4 +1,4 @@
-/* eslint-disable import/no-extraneous-dependencies, no-console */
+/* eslint-disable no-console */
 
 // TODO: Write tests to verify each feature of the app works:
 //  - source code in vs output
