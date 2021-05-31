@@ -1,7 +1,8 @@
+*-lock.json*
+*.lock
 *.log
+*.zip
 /.firebase/
-/*.zip
 /coverage/
-/dist/
-/node_modules/
-/package-lock.json*
+dist
+node_modules
