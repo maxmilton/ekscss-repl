@@ -3,8 +3,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable no-param-reassign */
+/* eslint-disable import/no-extraneous-dependencies, no-param-reassign */
 
 import csso from 'csso';
 import esbuild from 'esbuild';
@@ -26,7 +25,7 @@ const dev = mode === 'development';
 const dir = path.resolve(); // no __dirname in node ESM
 const release = gitRef();
 
-// esbuild-minify-templates option
+// esbuild-minify-templates option; prevents markdown package errors
 process.env.MINIFY_TAGGED_TEMPLATES_ONLY = 'true';
 
 /** @param {Error|null} err */
