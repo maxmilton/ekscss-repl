@@ -19,7 +19,7 @@
     "test-e2e": "node -r esbuild-register test/e2e/index.ts"
   },
   "dependencies": {
-    "@ekscss/framework": "0.0.16",
+    "@ekscss/framework": "0.0.17",
     "ekscss": "0.0.7",
     "stage1": "0.0.7"
   },
