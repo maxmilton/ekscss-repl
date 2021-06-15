@@ -25,13 +25,15 @@ export function Editor(): EditorComponent {
 
   root.setContent = (code) => {
     // TODO: Using innerHTML could be a security issue so consider a refactor
-    // to use innerText and DOM methods
+    // to use textContent/innerText and DOM methods
     root.innerHTML = code
       .split('\n')
       .map((line) => `<li>${line || '<br>'}</li>`)
       .join('');
   };
 
+  // use innerText instead of textContent here so we also get \n etc.
+  // eslint-disable-next-line unicorn/prefer-dom-node-text-content
   root.getContent = () => root.innerText;
 
   return root;

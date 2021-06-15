@@ -39,14 +39,14 @@ export function run(): void {
 
     const t1 = performance.now();
     refs.console.log(`Compile time: ${(t1 - t0).toFixed(2)}ms`);
-  } catch (err) {
-    refs.console.error(err);
+  } catch (error) {
+    refs.console.error(error);
     refs.output.setContent('');
     return;
   }
 
   for (const warning of compiled.warnings) {
-    refs.console.warn(`Warning: ${warning.message || warning}`);
+    refs.console.warn(`Warning: ${(warning.message || warning).toString()}`);
 
     if (warning.file) {
       refs.console.log(

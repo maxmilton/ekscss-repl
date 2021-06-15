@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+
 import { JSDOM } from 'jsdom';
 import { addHook } from 'pirates';
 
@@ -9,9 +11,11 @@ let unhookXcss: () => void;
 
 function mockInnerText() {
   Object.defineProperty(global.window.HTMLElement.prototype, 'innerText', {
+    // TODO: If we rely on innerText in any tests (editor tests?), improve this
+    // because the current implementation will not return \n etc.
     get(this: HTMLElement) {
       const el = this.cloneNode(true) as HTMLElement;
-      el.querySelectorAll('script,style').forEach((s) => s.remove());
+      for (const s of el.querySelectorAll('script,style')) s.remove();
       return el.textContent;
     },
     set(this: HTMLElement, value: string) {
@@ -27,7 +31,7 @@ export function setup(): void {
     );
   }
   if (typeof unhookXcss === 'function') {
-    throw new Error(
+    throw new TypeError(
       '.xcss hook already exists, did you forget to run teardown()?',
     );
   }
@@ -56,7 +60,7 @@ export function teardown(): void {
     throw new Error('No JSDOM globals exist, did you forget to run setup()?');
   }
   if (typeof unhookXcss !== 'function') {
-    throw new Error(
+    throw new TypeError(
       '.xcss hook does not exist, did you forget to run setup()?',
     );
   }
@@ -105,19 +109,19 @@ export function render(component: Node): RenderResult {
 }
 
 export function cleanup(): void {
-  if (!mountedContainers || !mountedContainers.size) {
+  if (!mountedContainers || mountedContainers.size === 0) {
     throw new Error(
       'No mounted components exist, did you forget to call render()?',
     );
   }
 
-  mountedContainers.forEach((container) => {
+  for (const container of mountedContainers) {
     if (container.parentNode === document.body) {
-      document.body.removeChild(container);
+      container.remove();
     }
 
     mountedContainers.delete(container);
-  });
+  }
 }
 
 export function mocksSetup(): void {

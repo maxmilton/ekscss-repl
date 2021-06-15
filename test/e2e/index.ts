@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+/* eslint-disable unicorn/no-process-exit */
 
 // TODO: Write tests to verify each feature of the app works:
 //  - source code in vs output
@@ -34,32 +35,32 @@ const test = suite<TestContext>('e2e');
 test.before(async (context) => {
   try {
     await setup(context);
-  } catch (err) {
-    console.error(err);
+  } catch (error) {
+    console.error(error);
     process.exit(1);
   }
 });
 test.after(async (context) => {
   try {
     await teardown(context);
-  } catch (err) {
-    console.error(err);
+  } catch (error) {
+    console.error(error);
     process.exit(1);
   }
 });
 test.before.each(async (context) => {
   try {
     await renderPage(context);
-  } catch (err) {
-    console.error(err);
+  } catch (error) {
+    console.error(error);
     process.exit(1);
   }
 });
 test.after.each(async (context) => {
   try {
     await cleanupPage(context);
-  } catch (err) {
-    console.error(err);
+  } catch (error) {
+    console.error(error);
     process.exit(1);
   }
 });
@@ -86,9 +87,9 @@ test('only entries in console are "log"s', async (context) => {
   await sleep(200);
   assert.is(context.unhandledErrors.length, 0, 'zero unhandled errors');
   assert.is(context.consoleMessages.length, 2); // 1. compile time, 2. AST
-  context.consoleMessages.forEach((msg) => {
+  for (const msg of context.consoleMessages) {
     assert.is(msg.type(), 'log');
-  });
+  }
 });
 
 test.run();
