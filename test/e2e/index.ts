@@ -65,7 +65,7 @@ test.after.each(async (context) => {
 });
 
 test('renders entire REPL app', async (context) => {
-  assert.ok(await context.page.$('#alert'), 'has #alert element');
+  assert.ok(await context.page.$('#warn'), 'has #warn element');
   assert.ok(await context.page.$('#nav'), 'has #nav element');
   assert.ok(await context.page.$('#in'), 'has #in element');
   assert.ok(await context.page.$('#out'), 'has #out element');
