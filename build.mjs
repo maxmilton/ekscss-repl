@@ -121,7 +121,12 @@ async function minifyCss(buildResult) {
       css: [{ raw: decodeUTF8(file.contents) }],
       safelist: ['html', 'body'],
     });
-    const { css } = csso.minify(purgedcss[0].css);
+    const { css } = csso.minify(
+      csso.minify(purgedcss[0].css, {
+        restructure: true,
+        forceMediaMerge: true,
+      }).css,
+    );
 
     buildResult.outputFiles[index].contents = encodeUTF8(css);
   }
