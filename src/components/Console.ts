@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { h, S1Node } from 'stage1';
 import { refs } from '../service';
 import { append, create } from '../utils';
@@ -31,7 +33,7 @@ export function Console(): ConsoleComponent {
   const print = (method: ConsoleMethodName, color = '') => (...args: any[]) => {
     const line = create('div');
     line.className = color;
-    line.innerText = args.toString();
+    line.textContent = args.toString();
     append(line, con);
     con.scrollTo(0, con.scrollHeight);
 
@@ -44,7 +46,7 @@ export function Console(): ConsoleComponent {
   root.error = print('error', 'red5');
 
   root.clear = () => {
-    con.innerText = '';
+    con.textContent = '';
   };
 
   append(con, root);
