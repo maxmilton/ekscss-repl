@@ -16,12 +16,12 @@
 import { suite } from 'uvu';
 import * as assert from 'uvu/assert';
 import {
-  setup,
-  teardown,
-  renderPage,
   cleanupPage,
-  TestContext,
+  renderPage,
+  setup,
   sleep,
+  teardown,
+  TestContext,
 } from './utils';
 
 const test = suite<TestContext>('e2e');
@@ -84,11 +84,11 @@ test('renders entire REPL app', async (context) => {
 
 test('only entries in console are "log"s', async (context) => {
   await sleep(200);
+  assert.is(context.unhandledErrors.length, 0, 'zero unhandled errors');
   assert.is(context.consoleMessages.length, 2); // 1. compile time, 2. AST
   context.consoleMessages.forEach((msg) => {
     assert.is(msg.type(), 'log');
   });
-  assert.is(context.unhandledErrors.length, 0, 'zero unhandled errors');
 });
 
 test.run();

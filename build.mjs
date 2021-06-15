@@ -34,7 +34,6 @@ function handleErr(err) {
 }
 
 /**
- *
  * @param {esbuild.OutputFile[]} outputFiles
  * @param {string} ext - File extension to match.
  * @returns {{ file: esbuild.OutputFile; index: number; }}
@@ -49,8 +48,6 @@ function findOutputFile(outputFiles, ext) {
 }
 
 /**
- * Construct a HTML file and save it to disk.
- *
  * @param {string} jsPath
  * @param {string} cssPath
  */
