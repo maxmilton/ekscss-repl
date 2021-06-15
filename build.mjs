@@ -174,7 +174,7 @@ esbuild
     platform: 'browser',
     target: ['chrome78', 'firefox77', 'safari11', 'edge44'],
     define: {
-      'process.env.APP_VERSION': JSON.stringify(release),
+      'process.env.APP_RELEASE': JSON.stringify(release),
       'process.env.EKSCSS_VERSION': JSON.stringify(
         process.env.npm_package_dependencies_ekscss,
       ),
