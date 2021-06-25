@@ -67,7 +67,7 @@ function makeHtml(jsPath, cssPath) {
 <script>window.trackx&&trackx.setup('https://api.trackx.app/v1/8c6cfd78d7e/event');${
   process.env.NODE_ENV === 'production'
     ? ''
-    : `trackx.meta.NODE_ENV=${process.env.NODE_ENV || 'NULL'};`
+    : `trackx.meta.NODE_ENV='${process.env.NODE_ENV || 'NULL'}';`
 }</script>
 <script src=/${jsPath} defer></script>
 <noscript>You need to enable JavaScript to run this app.</noscript>`;
