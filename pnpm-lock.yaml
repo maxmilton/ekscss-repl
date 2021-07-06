@@ -3,7 +3,7 @@ lockfileVersion: 5.3
 specifiers:
   '@ekscss/framework': 0.0.18
   '@types/csso': 3.5.1
-  '@types/jsdom': 16.2.12
+  '@types/jsdom': 16.2.13
   '@types/node': 15.12.5
   '@typescript-eslint/eslint-plugin': 4.28.2
   '@typescript-eslint/parser': 4.28.2
@@ -42,7 +42,7 @@ dependencies:
 
 devDependencies:
   '@types/csso': 3.5.1
-  '@types/jsdom': 16.2.12
+  '@types/jsdom': 16.2.13
   '@types/node': 15.12.5
   '@typescript-eslint/eslint-plugin': 4.28.2_5031fffb45dfb7117e61c1d8ea1ef3ff
   '@typescript-eslint/parser': 4.28.2_eslint@7.30.0+typescript@4.3.5
@@ -451,8 +451,8 @@ packages:
     resolution: {integrity: sha512-sz7iLqvVUg1gIedBOvlkxPlc8/uVzyS5OwGz1cKjXzkl3FpL3al0crU8YGU1WoHkxn0Wxbw5tyi6hvzJKNzFsw==}
     dev: true
 
-  /@types/jsdom/16.2.12:
-    resolution: {integrity: sha512-rD68Q2XSKBYOl38Tb9jbPuqZeTtpw09dFeuKWi7yhlZVfY8rV4xnQmISNQQZfhkQJGpJWp2qCmmrWjhiqDFNvA==}
+  /@types/jsdom/16.2.13:
+    resolution: {integrity: sha512-8JQCjdeAidptSsOcRWk2iTm9wCcwn9l+kRG6k5bzUacrnm1ezV4forq0kWjUih/tumAeoG+OspOvQEbbRucBTw==}
     dependencies:
       '@types/node': 15.12.5
       '@types/parse5': 6.0.0
