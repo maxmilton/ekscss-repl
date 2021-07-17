@@ -2,7 +2,7 @@ import { h, S1Node } from 'stage1';
 import './Editor.xcss';
 
 export type EditorComponent = S1Node &
-HTMLDivElement & {
+HTMLOListElement & {
   setContent(code: string): void;
   getContent(): string;
 };
