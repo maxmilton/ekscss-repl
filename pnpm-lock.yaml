@@ -10,7 +10,7 @@ specifiers:
   c8: 7.7.3
   csso: 4.2.0
   ekscss: 0.0.8
-  esbuild: 0.12.15
+  esbuild: 0.12.19
   esbuild-minify-templates: 0.5.0
   esbuild-plugin-ekscss: 0.0.4
   esbuild-register: 2.6.0
@@ -48,9 +48,9 @@ devDependencies:
   '@typescript-eslint/parser': 4.29.0_eslint@7.32.0+typescript@4.3.5
   c8: 7.7.3
   csso: 4.2.0
-  esbuild: 0.12.15
-  esbuild-minify-templates: 0.5.0_esbuild@0.12.15
-  esbuild-plugin-ekscss: 0.0.4_ekscss@0.0.8+esbuild@0.12.15
+  esbuild: 0.12.19
+  esbuild-minify-templates: 0.5.0_esbuild@0.12.19
+  esbuild-plugin-ekscss: 0.0.4_ekscss@0.0.8+esbuild@0.12.19
   esbuild-register: 2.6.0
   eslint: 7.32.0
   eslint-config-airbnb-typescript: 12.3.1_b78d56622185c270608ea85d5b4fefff
@@ -1184,7 +1184,7 @@ packages:
       is-symbol: 1.0.4
     dev: true
 
-  /esbuild-minify-templates/0.5.0_esbuild@0.12.15:
+  /esbuild-minify-templates/0.5.0_esbuild@0.12.19:
     resolution: {integrity: sha512-SRjej2ZIpf1Msp4NQ9Kx+DKhsV55oOtrSXokDyUUKa8zgnCLPSVK7aqNT69uHNBAUFhckn2zlYRznVRRz949oA==}
     engines: {node: '>= 12'}
     peerDependencies:
@@ -1192,19 +1192,19 @@ packages:
     dependencies:
       '@ampproject/remapping': 1.0.1
       astray: 1.1.1
-      esbuild: 0.12.15
+      esbuild: 0.12.19
       magic-string: 0.25.7
       meriyah: 4.2.0
     dev: true
 
-  /esbuild-plugin-ekscss/0.0.4_ekscss@0.0.8+esbuild@0.12.15:
+  /esbuild-plugin-ekscss/0.0.4_ekscss@0.0.8+esbuild@0.12.19:
     resolution: {integrity: sha512-3pjJe6dHZUd7sfUwAvhZmOwWp2YgLbDrhi3O3Ube3NmgwdBMHRLnOtqv+qQXS20aA/yhUqNhyhnHCqhcXv9bgQ==}
     peerDependencies:
       ekscss: ^0.0.8
       esbuild: ^0.12.0
     dependencies:
       ekscss: 0.0.8
-      esbuild: 0.12.15
+      esbuild: 0.12.19
       joycon: 3.0.1
     dev: true
 
@@ -1217,6 +1217,12 @@ packages:
 
   /esbuild/0.12.15:
     resolution: {integrity: sha512-72V4JNd2+48eOVCXx49xoSWHgC3/cCy96e7mbXKY+WOWghN00cCmlGnwVLRhRHorvv0dgCyuMYBZlM2xDM5OQw==}
+    hasBin: true
+    requiresBuild: true
+    dev: true
+
+  /esbuild/0.12.19:
+    resolution: {integrity: sha512-5NuT1G6THW7l3fsSCDkcPepn24R0XtyPjKoqKHD8LfhqMXzCdz0mrS9HgO6hIhzVT7zt0T+JGbzCqF5AH8hS9w==}
     hasBin: true
     requiresBuild: true
     dev: true
