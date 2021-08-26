@@ -1,6 +1,5 @@
-import { h, S1Node } from 'stage1';
+import { append, h, S1Node } from 'stage1';
 import { refs } from '../service';
-import { append } from '../utils';
 import { Editor } from './Editor';
 
 type OutputComponent = S1Node & HTMLDivElement;

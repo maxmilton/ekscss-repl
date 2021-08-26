@@ -1,4 +1,6 @@
-import { h, setupSyntheticEvent } from 'stage1';
+import {
+  append, create, h, setupSyntheticEvent,
+} from 'stage1';
 import { Console } from './components/Console';
 import { Footer } from './components/Footer';
 import { Input } from './components/Input';
@@ -6,7 +8,6 @@ import { Nav } from './components/Nav';
 import { Output } from './components/Output';
 import './css/index.xcss';
 import { run } from './service';
-import { append, create } from './utils';
 
 declare global {
   interface HTMLElement {

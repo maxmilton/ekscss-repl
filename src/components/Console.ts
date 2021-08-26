@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { h, S1Node } from 'stage1';
+import {
+  append, create, h, S1Node,
+} from 'stage1';
 import { refs } from '../service';
-import { append, create } from '../utils';
 import './Console.xcss';
 
 export type ConsoleComponent = S1Node &
