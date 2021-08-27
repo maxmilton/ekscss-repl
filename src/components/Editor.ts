@@ -3,6 +3,8 @@ import './Editor.xcss';
 
 export type EditorComponent = S1Node &
 HTMLOListElement & {
+  /** `autofocus` global attribute for `contenteditable` element. */
+  autofocus?: boolean;
   setContent(code: string): void;
   getContent(): string;
 };
