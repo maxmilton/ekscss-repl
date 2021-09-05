@@ -19,6 +19,7 @@
 
     "strict": true,
     "allowUnreachableCode": false,
+    "exactOptionalPropertyTypes": true,
     "forceConsistentCasingInFileNames": true,
     "importsNotUsedAsValues": "error",
     "noFallthroughCasesInSwitch": true,
