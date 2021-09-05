@@ -75,7 +75,7 @@ function makeHtml(jsPath, cssPath) {
   process.env.GITHUB_JOB === 'e2e'
     ? '#'
     : 'https://api.trackx.app/v1/8c6cfd78d7e/ping'
-} crossorigin height=0>`;
+} crossorigin hidden>`;
 }
 
 /**
