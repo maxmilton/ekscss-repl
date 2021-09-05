@@ -33,8 +33,6 @@ jobs:
       - run: npm install --global pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm run build
-        env:
-          CI_E2E: true
       - run: pnpm playwright install-deps chromium
       - run: pnpm run test-e2e
   lint:
