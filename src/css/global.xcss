@@ -7,6 +7,8 @@
   #apply: .alert, .alert-warn, .ma0, .tc;
 }
 
+/* Layout */
+
 #app {
   display: grid;
   height: 100%;
@@ -56,4 +58,11 @@
 h2 {
   margin: 0 0 0.5em;
   line-height: 0; // FIXME: Just an experiment; REMOVE!!
+}
+
+/* Utils */
+
+#out > .editor {
+  // make it easy to copy the entire output
+  user-select: all;
 }
