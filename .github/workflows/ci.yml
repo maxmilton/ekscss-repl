@@ -13,8 +13,6 @@ jobs:
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
       - run: pnpm run build
-        env:
-          CI_E2E: true
       - run: pnpm run test
       - name: Report coverage
         run: |
@@ -35,6 +33,8 @@ jobs:
       - run: npm install --global pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm run build
+        env:
+          CI_E2E: true
       - run: pnpm playwright install-deps chromium
       - run: pnpm run test-e2e
   lint:
