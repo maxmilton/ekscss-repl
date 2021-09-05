@@ -71,7 +71,7 @@ function makeHtml(jsPath, cssPath) {
 }</script>
 <script src=/${jsPath} defer></script>
 <noscript>You need to enable JavaScript to run this app.</noscript>
-<img src=https://api.trackx.app/v1/8c6cfd78d7e/ping crossorigin loading=lazy>`;
+<img src=https://api.trackx.app/v1/8c6cfd78d7e/ping crossorigin>`;
 }
 
 /**
