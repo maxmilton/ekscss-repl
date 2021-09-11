@@ -47,17 +47,15 @@ function findOutputFile(outputFiles, ext) {
   };
 }
 
-{
-  /* <script>window.trackx&&(trackx.setup("https://api.trackx.app/v1/8c6cfd78d7e/event"),trackx.meta.release="${release}"${
-  process.env.NODE_ENV === 'production'
-    ? ''
-    : `,trackx.meta.NODE_ENV='${process.env.NODE_ENV || 'NULL'}'`
-},trackx.ping("${
-  process.env.GITHUB_JOB === 'e2e'
-    ? '#'
-    : 'https://api.trackx.app/v1/8c6cfd78d7e/ping'
-}"));</script> */
-}
+// <script>window.trackx&&(trackx.setup("https://api.trackx.app/v1/8c6cfd78d7e/event"),trackx.meta.release="${release}"${
+//   process.env.NODE_ENV === 'production'
+//     ? ''
+//     : `,trackx.meta.NODE_ENV='${process.env.NODE_ENV || 'NULL'}'`
+// },trackx.ping("${
+//   process.env.GITHUB_JOB === 'e2e'
+//     ? '#'
+//     : 'https://api.trackx.app/v1/8c6cfd78d7e/ping'
+// }"));</script>
 
 /**
  * @param {string} jsPath
