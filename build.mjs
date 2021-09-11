@@ -47,6 +47,18 @@ function findOutputFile(outputFiles, ext) {
   };
 }
 
+{
+  /* <script>window.trackx&&(trackx.setup("https://api.trackx.app/v1/8c6cfd78d7e/event"),trackx.meta.release="${release}"${
+  process.env.NODE_ENV === 'production'
+    ? ''
+    : `,trackx.meta.NODE_ENV='${process.env.NODE_ENV || 'NULL'}'`
+},trackx.ping("${
+  process.env.GITHUB_JOB === 'e2e'
+    ? '#'
+    : 'https://api.trackx.app/v1/8c6cfd78d7e/ping'
+}"));</script> */
+}
+
 /**
  * @param {string} jsPath
  * @param {string} cssPath
@@ -63,16 +75,12 @@ function makeHtml(jsPath, cssPath) {
 <title>ekscss REPL</title>
 <meta http-equiv=Content-Security-Policy content="default-src 'none';script-src 'self' 'unsafe-eval' cdn.jsdelivr.net '${
   process.env.GITHUB_JOB === 'e2e'
-    ? 'sha256-/QNY7qm+kEw2opa/WnydaaN0OfaAO6kR0KnZxpzwd9U='
-    : 'sha256-+GrhL+yjs3c81j8fAsCMiyn2LR+7abXLD9S75B9+juU='
+    ? 'sha256-SI+pufC+B67H6bKYx+Btbmw+lbMd1vmQSVZzJFWY32Q='
+    : 'sha256-bdkB0o+CwFoROZ7q+dBYt7ZMiyVobnvW0prhfFgSVtg='
 }';style-src 'self';img-src 'self' data: https://api.trackx.app;manifest-src 'self';connect-src https://api.trackx.app">
 <link href=/${cssPath} rel=stylesheet>
 <script src=https://cdn.jsdelivr.net/npm/trackx@0/dist/index.js crossorigin></script>
-<script>window.trackx&&(trackx.setup("https://api.trackx.app/v1/8c6cfd78d7e/event"),trackx.meta.release="${release}"${
-  process.env.NODE_ENV === 'production'
-    ? ''
-    : `,trackx.meta.NODE_ENV='${process.env.NODE_ENV || 'NULL'}'`
-},trackx.ping("${
+<script>window.trackx&&(trackx.setup("https://api.trackx.app/v1/8c6cfd78d7e/event"),trackx.ping("${
   process.env.GITHUB_JOB === 'e2e'
     ? '#'
     : 'https://api.trackx.app/v1/8c6cfd78d7e/ping'
