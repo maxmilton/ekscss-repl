@@ -64,18 +64,17 @@ function makeHtml(jsPath, cssPath) {
 <meta http-equiv=Content-Security-Policy content="default-src 'none';script-src 'self' 'unsafe-eval' cdn.jsdelivr.net 'sha256-/6UhwfJdAVD14FmUy+KdWA5ndRmzj4wA0ooqXacOhow=';style-src 'self';img-src 'self' data: https://api.trackx.app;manifest-src 'self';connect-src https://api.trackx.app">
 <link href=/${cssPath} rel=stylesheet>
 <script src=https://cdn.jsdelivr.net/npm/trackx@0/dist/index.js crossorigin></script>
-<script>window.trackx&&trackx.setup('https://api.trackx.app/v1/8c6cfd78d7e/event');${
+<script>window.trackx&&(trackx.setup("https://api.trackx.app/v1/8c6cfd78d7e/event"),trackx.meta.release="${release}"${
   process.env.NODE_ENV === 'production'
     ? ''
-    : `trackx.meta.NODE_ENV='${process.env.NODE_ENV || 'NULL'}';`
-}</script>
-<script src=/${jsPath} defer></script>
-<noscript>You need to enable JavaScript to run this app.</noscript>
-<img src=${
+    : `,trackx.meta.NODE_ENV='${process.env.NODE_ENV || 'NULL'}'`
+},trackx.ping("${
   process.env.GITHUB_JOB === 'e2e'
     ? '#'
     : 'https://api.trackx.app/v1/8c6cfd78d7e/ping'
-} crossorigin hidden>`;
+}"));</script>
+<script src=/${jsPath} defer></script>
+<noscript>You need to enable JavaScript to run this app.</noscript>`;
 }
 
 /**
