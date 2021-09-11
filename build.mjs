@@ -61,7 +61,11 @@ function makeHtml(jsPath, cssPath) {
 <link href=/favicon-16x16.png rel=icon type=image/png sizes=16x16>
 <link href=/app.webmanifest rel=manifest>
 <title>ekscss REPL</title>
-<meta http-equiv=Content-Security-Policy content="default-src 'none';script-src 'self' 'unsafe-eval' cdn.jsdelivr.net 'sha256-/6UhwfJdAVD14FmUy+KdWA5ndRmzj4wA0ooqXacOhow=';style-src 'self';img-src 'self' data: https://api.trackx.app;manifest-src 'self';connect-src https://api.trackx.app">
+<meta http-equiv=Content-Security-Policy content="default-src 'none';script-src 'self' 'unsafe-eval' cdn.jsdelivr.net '${
+  process.env.GITHUB_JOB === 'e2e'
+    ? 'sha256-/QNY7qm+kEw2opa/WnydaaN0OfaAO6kR0KnZxpzwd9U='
+    : 'sha256-+GrhL+yjs3c81j8fAsCMiyn2LR+7abXLD9S75B9+juU='
+}';style-src 'self';img-src 'self' data: https://api.trackx.app;manifest-src 'self';connect-src https://api.trackx.app">
 <link href=/${cssPath} rel=stylesheet>
 <script src=https://cdn.jsdelivr.net/npm/trackx@0/dist/index.js crossorigin></script>
 <script>window.trackx&&(trackx.setup("https://api.trackx.app/v1/8c6cfd78d7e/event"),trackx.meta.release="${release}"${
