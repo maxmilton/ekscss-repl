@@ -1,18 +1,21 @@
 .editor {
+  #apply: .textarea;
+
   // FIXME: This fixes the .error-line overflow background not full-width but
   // doesn't feel like a great solution
   // display: grid;
 
-  max-width: 100%;
+  // max-width: 100%;
   height: 100%;
   overflow-x: auto;
-  padding: 0;
+  padding-left: 0;
   text-indent: 1em;
   white-space: pre;
   list-style-position: inside;
   list-style-type: decimal-leading-zero;
   list-style: ;
   contain: layout paint style;
+  // contain: size layout paint style;
 
   & > li {
     // FIXME: focus doesn't work

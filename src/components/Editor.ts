@@ -10,7 +10,7 @@ HTMLOListElement & {
 };
 
 const view = h`
-  <ol contenteditable=true class="editor textarea w100 mt0 code" rows=10 spellcheck=false></ol>
+  <ol contenteditable=true class="editor w100 mt0 code" rows=10 spellcheck=false></ol>
 `;
 
 export function Editor(): EditorComponent {

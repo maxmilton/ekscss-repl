@@ -1,3 +1,12 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+
 // @ts-expect-error - no types yet
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+const { preloadApply } = require('@ekscss/framework/utils');
+const { onBeforeBuild } = require('ekscss');
+
+// generate references so #apply can be used in any file
+onBeforeBuild(preloadApply);
+
+// @ts-expect-error - no types yet
 module.exports = require('@ekscss/framework/config');
