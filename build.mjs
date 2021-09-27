@@ -47,16 +47,6 @@ function findOutputFile(outputFiles, ext) {
   };
 }
 
-// <script>window.trackx&&(trackx.setup("https://api.trackx.app/v1/8c6cfd78d7e/event"),trackx.meta.release="${release}"${
-//   process.env.NODE_ENV === 'production'
-//     ? ''
-//     : `,trackx.meta.NODE_ENV='${process.env.NODE_ENV || 'NULL'}'`
-// },trackx.ping("${
-//   process.env.GITHUB_JOB === 'e2e'
-//     ? '#'
-//     : 'https://api.trackx.app/v1/8c6cfd78d7e/ping'
-// }"));</script>
-
 /**
  * @param {string} jsPath
  * @param {string} cssPath
@@ -66,13 +56,13 @@ function makeHtml(jsPath, cssPath) {
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width">
 <meta name=google value=notranslate>
-<link href=/apple-touch-icon.png rel=apple-touch-icon sizes=180x180>
-<link href=/favicon-32x32.png rel=icon type=image/png sizes=32x32>
-<link href=/favicon-16x16.png rel=icon type=image/png sizes=16x16>
+<meta name=theme-color content=#f5f8fa>
 <link href=/app.webmanifest rel=manifest>
+<link href=/favicon.svg rel=icon>
+<link href=/apple-touch-icon.png rel=apple-touch-icon>
 <title>ekscss REPL</title>
 <link href=/${cssPath} rel=stylesheet>
-<script src=https://cdn.jsdelivr.net/npm/trackx@0/dist/index.js crossorigin></script>
+<script src=https://cdn.jsdelivr.net/npm/trackx@0/default.js crossorigin></script>
 <script>window.trackx&&(trackx.setup("https://api.trackx.app/v1/8c6cfd78d7e/event"),trackx.ping("${
   // FIXME: Needs to also work locally when running test-e2e
   process.env.GITHUB_JOB === 'e2e'
