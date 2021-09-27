@@ -71,14 +71,10 @@ function makeHtml(jsPath, cssPath) {
 <link href=/favicon-16x16.png rel=icon type=image/png sizes=16x16>
 <link href=/app.webmanifest rel=manifest>
 <title>ekscss REPL</title>
-<meta http-equiv=Content-Security-Policy content="default-src 'none';script-src 'self' 'unsafe-eval' cdn.jsdelivr.net '${
-  process.env.GITHUB_JOB === 'e2e'
-    ? 'sha256-SI+pufC+B67H6bKYx+Btbmw+lbMd1vmQSVZzJFWY32Q='
-    : 'sha256-bdkB0o+CwFoROZ7q+dBYt7ZMiyVobnvW0prhfFgSVtg='
-}';style-src 'self';img-src 'self' data: https://api.trackx.app;manifest-src 'self';connect-src https://api.trackx.app">
 <link href=/${cssPath} rel=stylesheet>
 <script src=https://cdn.jsdelivr.net/npm/trackx@0/dist/index.js crossorigin></script>
 <script>window.trackx&&(trackx.setup("https://api.trackx.app/v1/8c6cfd78d7e/event"),trackx.ping("${
+  // FIXME: Needs to also work locally when running test-e2e
   process.env.GITHUB_JOB === 'e2e'
     ? '#'
     : 'https://api.trackx.app/v1/8c6cfd78d7e/ping'
