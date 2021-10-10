@@ -2,7 +2,7 @@
 /* eslint-disable no-console, no-multi-assign */
 
 import getPort from 'get-port';
-import http, { Server } from 'http';
+import http from 'http';
 import colors from 'kleur';
 import path from 'path';
 import {
@@ -20,9 +20,9 @@ export interface TestContext {
 // increase limit from 10
 global.Error.stackTraceLimit = 100;
 
-const DIST_DIR = path.join(__dirname, '../../dist');
+const DIST_DIR = path.join(__dirname, '..', '..', 'dist');
 let port: number;
-let server: Server;
+let server: http.Server;
 
 export function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -73,6 +73,7 @@ export async function renderPage(context: TestContext): Promise<void> {
   context.page = page;
   context.unhandledErrors = [];
   context.consoleMessages = [];
+
   page.on('crash', (crashedPage) => {
     throw new Error(`Page crashed: ${crashedPage.url()}`);
   });
@@ -89,6 +90,14 @@ export async function renderPage(context: TestContext): Promise<void> {
       msg.text(),
     );
     context.consoleMessages.push(msg);
+  });
+  // Mock trackx script with empty file
+  await page.route(/^https:\/\/cdn\.jsdelivr\.net\/npm\/trackx/, (route) => {
+    void route.fulfill({
+      status: 200,
+      headers: { 'Access-Control-Allow-Origin': '*' },
+      body: '',
+    });
   });
   await page.goto(`http://localhost:${port}`);
 }

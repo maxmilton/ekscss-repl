@@ -75,12 +75,7 @@ function makeHtml(jsPath, cssPath) {
 <title>ekscss REPL</title>
 <link href=/${cssPath} rel=stylesheet>
 <script src=https://cdn.jsdelivr.net/npm/trackx@0/default.js crossorigin></script>
-<script>window.trackx&&(trackx.setup("https://api.trackx.app/v1/8c6cfd78d7e/event"),trackx.ping("${
-  // FIXME: Needs to also work locally when running test-e2e
-  process.env.GITHUB_JOB === 'e2e'
-    ? '#'
-    : 'https://api.trackx.app/v1/8c6cfd78d7e/ping'
-}"));</script>
+<script>window.trackx&&(trackx.setup("https://api.trackx.app/v1/8c6cfd78d7e/event"),trackx.ping("https://api.trackx.app/v1/8c6cfd78d7e/ping"));</script>
 <script src=/${jsPath} defer></script>
 <noscript>You need to enable JavaScript to run this app.</noscript>`;
 }

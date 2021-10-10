@@ -27,6 +27,7 @@ module.exports = {
     'no-restricted-syntax': OFF,
     // stage1 uses underscores in synthetic event handler names
     'no-underscore-dangle': OFF,
+    'no-void': OFF,
     'unicorn/filename-case': OFF,
     'unicorn/no-abusive-eslint-disable': WARN,
     'unicorn/no-null': OFF,
