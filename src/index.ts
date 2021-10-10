@@ -21,7 +21,7 @@ setupSyntheticEvent('click');
 // TODO: Remove temporary warning (and its associated styles)
 append(
   h`
-  <div id=warn>
+  <div id=alert>
     <strong>Warning:</strong> This REPL app is a <abbr title="Work In Progress">WIP</abbr>, please <a href=https://github.com/maxmilton/ekscss-repl/issues rel=noreferrer>report issues</a>!
   </div>
 `,

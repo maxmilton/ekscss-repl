@@ -3,7 +3,7 @@
 */
 
 // TODO: Remove this once we no longer need the "WIP alert"
-#warn {
+#alert {
   #apply: .alert, .alert-warning, .ma0, .tc;
 }
 
