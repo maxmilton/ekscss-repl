@@ -1,3 +1,5 @@
+/* eslint-disable no-console, unicorn/no-process-exit */
+
 import { test } from 'uvu';
 import * as assert from 'uvu/assert';
 // import { Console } from '../src/components/Console';
@@ -12,11 +14,52 @@ import {
 
 type ConsoleComponent = typeof import('../src/components/Console');
 
-test.before(setup);
-test.before(mocksSetup);
-test.after(mocksTeardown);
-test.after(teardown);
-test.after.each(cleanup);
+// FIXME: Use hooks normally once issue is fixed -- https://github.com/lukeed/uvu/issues/80
+// test.before(setup);
+// test.before(mocksSetup);
+// test.after(mocksTeardown);
+// test.after(teardown);
+// test.after.each(cleanup);
+test.before(() => {
+  try {
+    setup();
+  } catch (error) {
+    console.error(error);
+    process.exit(1);
+  }
+});
+test.before(() => {
+  try {
+    mocksSetup();
+  } catch (error) {
+    console.error(error);
+    process.exit(1);
+  }
+});
+test.after(() => {
+  try {
+    mocksTeardown();
+  } catch (error) {
+    console.error(error);
+    process.exit(1);
+  }
+});
+test.after(() => {
+  try {
+    teardown();
+  } catch (error) {
+    console.error(error);
+    process.exit(1);
+  }
+});
+test.after.each(() => {
+  try {
+    cleanup();
+  } catch (error) {
+    console.error(error);
+    process.exit(1);
+  }
+});
 
 test('renders correctly', () => {
   // eslint-disable-next-line @typescript-eslint/no-var-requires, global-require

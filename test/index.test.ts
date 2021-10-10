@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable no-console, unicorn/no-process-exit */
 
 import fs from 'fs';
 import path from 'path';
@@ -13,10 +14,43 @@ const appJsFilename = /app.*\.js/.exec(
   fs.readFileSync(path.resolve(__dirname, '../dist/index.html'), 'utf8'),
 )![0];
 
-test.before.each(setup);
-test.before.each(mocksSetup);
-test.after.each(mocksTeardown);
-test.after.each(teardown);
+// FIXME: Use hooks normally once issue is fixed -- https://github.com/lukeed/uvu/issues/80
+// test.before.each(setup);
+// test.before.each(mocksSetup);
+// test.after.each(mocksTeardown);
+// test.after.each(teardown);
+test.before.each(() => {
+  try {
+    setup();
+  } catch (error) {
+    console.error(error);
+    process.exit(1);
+  }
+});
+test.before.each(() => {
+  try {
+    mocksSetup();
+  } catch (error) {
+    console.error(error);
+    process.exit(1);
+  }
+});
+test.after.each(() => {
+  try {
+    mocksTeardown();
+  } catch (error) {
+    console.error(error);
+    process.exit(1);
+  }
+});
+test.after.each(() => {
+  try {
+    teardown();
+  } catch (error) {
+    console.error(error);
+    process.exit(1);
+  }
+});
 
 test('renders entire REPL app', () => {
   // eslint-disable-next-line global-require, import/no-dynamic-require
@@ -24,13 +58,12 @@ test('renders entire REPL app', () => {
 
   // TODO: Better assertions
   assert.is(document.body.innerHTML.length > 1000, true);
+  const firstNode = document.body.firstChild as HTMLDivElement;
   // TODO: Update once we remove the WIP alert
-  // assert.is((document.body.firstChild as HTMLDivElement).id, 'app');
-  assert.is((document.body.firstChild as HTMLDivElement).id, 'alert');
-  assert.is(
-    (document.body.firstChild!.nextSibling as HTMLDivElement).id,
-    'app',
-  );
+  // assert.is((firstNode as HTMLDivElement).id, 'app', 'first element id=app');
+  assert.is(firstNode.id, 'alert', 'first element id=alert');
+  assert.instance(firstNode, window.HTMLDivElement);
+  assert.is((firstNode.nextSibling as HTMLDivElement).id, 'app');
   assert.ok(document.getElementById('nav'));
   assert.ok(document.getElementById('in'));
   assert.ok(document.getElementById('out'));
