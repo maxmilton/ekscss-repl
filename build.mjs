@@ -48,6 +48,18 @@ function findOutputFile(outputFiles, ext) {
 }
 
 /**
+ * @param {esbuild.BuildResult} buildResult
+ * @returns {Promise<esbuild.BuildResult>}
+ */
+async function analyzeMeta(buildResult) {
+  if (buildResult.metafile) {
+    console.log(await esbuild.analyzeMetafile(buildResult.metafile));
+  }
+
+  return buildResult;
+}
+
+/**
  * @param {string} jsPath
  * @param {string} cssPath
  */
@@ -193,8 +205,10 @@ esbuild
     sourcemap: true,
     watch: dev,
     write: dev,
+    metafile: process.stdout.isTTY,
     logLevel: 'debug',
   })
+  .then(analyzeMeta)
   .then(minifyTemplates)
   .then(buildHtml)
   .then(minifyCss)
