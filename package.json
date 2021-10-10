@@ -15,8 +15,8 @@
     "lint:ts": "tsc --project test",
     "prebuild": "rm -rf dist; cp -r static dist",
     "serve": "sirv dist --dev --cors",
-    "test": "c8 --all --include=src --reporter=text --reporter=lcovonly uvu -r esbuild-register test '\\.test\\.ts$'",
-    "test-e2e": "node -r esbuild-register test/e2e/index.ts"
+    "test": "c8 --all --include=src --reporter=text --reporter=lcovonly uvu -r tsm test '\\.test\\.ts$'",
+    "test-e2e": "node -r tsm test/e2e/index.ts"
   },
   "dependencies": {
     "@ekscss/framework": "0.0.25",
@@ -34,7 +34,6 @@
     "esbuild": "0.13.4",
     "esbuild-minify-templates": "0.5.1",
     "esbuild-plugin-ekscss": "0.0.5",
-    "esbuild-register": "3.0.0",
     "eslint": "7.32.0",
     "eslint-config-airbnb-base": "14.2.1",
     "eslint-config-airbnb-typescript": "14.0.0",
@@ -53,6 +52,7 @@
     "sirv": "1.0.17",
     "sirv-cli": "1.0.14",
     "terser": "5.9.0",
+    "tsm": "2.1.2",
     "typescript": "4.4.3",
     "uvu": "0.5.2"
   },
