@@ -49,7 +49,7 @@
     "prettier-plugin-pkg": "0.10.0",
     "prettier-plugin-sh": "0.7.1",
     "purgecss": "4.0.3",
-    "sirv": "1.0.17",
+    "sirv": "1.0.18",
     "sirv-cli": "1.0.14",
     "terser": "5.9.0",
     "tsm": "2.1.2",
