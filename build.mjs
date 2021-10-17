@@ -1,9 +1,11 @@
+// TODO: Fix types and remove these lint exceptions once TS can handle mjs
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
-/* eslint-disable import/no-extraneous-dependencies, no-param-reassign */
+/* eslint-disable import/no-extraneous-dependencies, no-param-reassign, no-console */
 
 import csso from 'csso';
 import esbuild from 'esbuild';

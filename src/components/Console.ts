@@ -38,7 +38,7 @@ export function Console(): ConsoleComponent {
     append(line, con);
     con.scrollTo(0, con.scrollHeight);
 
-    // eslint-disable-next-line no-console
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, no-console
     console[method](...args);
   };
 

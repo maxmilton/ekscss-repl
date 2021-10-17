@@ -1,5 +1,6 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-var-requires */
 
 // @ts-expect-error - no types yet
 const { preloadApply } = require('@ekscss/framework/utils');
