@@ -30,7 +30,7 @@ specifiers:
   purgecss: 4.0.3
   sirv: 1.0.18
   sirv-cli: 1.0.14
-  stage1: 0.0.10
+  stage1: 0.0.11
   terser: 5.9.0
   tsm: 2.1.2
   typescript: 4.4.4
@@ -39,7 +39,7 @@ specifiers:
 dependencies:
   '@ekscss/framework': 0.0.27_ekscss@0.0.9
   ekscss: 0.0.9
-  stage1: 0.0.10
+  stage1: 0.0.11
 
 devDependencies:
   '@types/csso': 4.2.0
@@ -2964,8 +2964,8 @@ packages:
       escape-string-regexp: 2.0.0
     dev: true
 
-  /stage1/0.0.10:
-    resolution: {integrity: sha512-EoeK8oH/N57wAv61dhKXeqUby9nPWZ8KChC97SJvKQ4zDAeIxE8S1z5V2K18sSExT2q7AVNcL04ulR4hSbInUA==}
+  /stage1/0.0.11:
+    resolution: {integrity: sha512-ad5X1TPS0Vc+ccYxh4fCG3ZoDnkZ3xlkEi8kfQGkiI4GSucl9X4Cfh+kfELZT3np7HYfxx68EDoqhekHzK6/8w==}
     dev: false
 
   /string-width/4.2.3:
