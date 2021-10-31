@@ -74,7 +74,7 @@ test('renders entire REPL app', async (context) => {
   assert.ok(await context.page.$('#con'), 'has #con element');
   assert.ok(await context.page.$('#foot'), 'has #foot element');
   assert.ok(
-    await context.page.$('a[href="https://maxmilton.github.io/ekscss"]'),
+    await context.page.$('a[href="https://ekscss.js.org"]'),
     'has link to the ekscss docs',
   );
 
