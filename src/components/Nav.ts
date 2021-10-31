@@ -14,7 +14,7 @@ const view = h`
   <div id=nav class="dfc pv1 ph3">
     <h1 id=logo class=mv0>ekscss REPL</h1>
 
-    <a href=https://maxmilton.github.io/ekscss class=pl4 target=_blank rel=noreferrer>ekscss docs</a>
+    <a href=https://ekscss.js.org class=pl4 target=_blank rel=noreferrer>Docs</a>
 
     <div class="df ml-auto">
       <input #auto id=auto type=checkbox class=checkbox checked>
