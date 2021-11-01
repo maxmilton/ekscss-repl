@@ -20,7 +20,7 @@ specifiers:
   eslint-plugin-unicorn: 37.0.1
   get-port: 6.0.0
   git-ref: 0.3.0
-  jsdom: 18.0.0
+  jsdom: 18.0.1
   kleur: 4.1.4
   pirates: 4.0.1
   playwright-chromium: 1.16.2
@@ -59,7 +59,7 @@ devDependencies:
   eslint-plugin-unicorn: 37.0.1_eslint@7.32.0
   get-port: 6.0.0
   git-ref: 0.3.0
-  jsdom: 18.0.0
+  jsdom: 18.0.1
   kleur: 4.1.4
   pirates: 4.0.1
   playwright-chromium: 1.16.2
@@ -2100,8 +2100,8 @@ packages:
       esprima: 4.0.1
     dev: true
 
-  /jsdom/18.0.0:
-    resolution: {integrity: sha512-HVLuBcFmwdWulStv5U+J59b1AyzXhM92KXlM8HQ3ecYtRM2OQEUCPMa4oNuDeCBmtRcC7tJvb0Xz5OeFXMOKTA==}
+  /jsdom/18.0.1:
+    resolution: {integrity: sha512-mgVzrYP4IJiJKVqXkAdBn+jg+nQgPusBxTJulz3m1Y/1RIrkk8aDoNaQE5BNbHwe72WwiwE7k3Av2THXDpvzPQ==}
     engines: {node: '>=12'}
     peerDependencies:
       canvas: ^2.5.0
