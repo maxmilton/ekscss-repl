@@ -1,4 +1,6 @@
-// TODO: Fix types and remove these lint exceptions once TS can handle mjs
+// FIXME: Remove these lint exceptions once linting can handle mjs
+//  ↳ When TS 4.5 is released and typescript-eslint has support
+//  ↳ https://github.com/typescript-eslint/typescript-eslint/issues/3950
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
@@ -16,7 +18,7 @@ import {
   writeFiles,
 } from 'esbuild-minify-templates';
 import { xcss } from 'esbuild-plugin-ekscss';
-import fs from 'fs';
+import fs from 'fs/promises';
 import { gitRef } from 'git-ref';
 import path from 'path';
 import { PurgeCSS } from 'purgecss';
@@ -27,14 +29,6 @@ const dev = mode === 'development';
 const dir = path.resolve(); // no __dirname in node ESM
 const release = gitRef();
 
-// esbuild-minify-templates option; prevents markdown package errors
-process.env.MINIFY_TAGGED_TEMPLATES_ONLY = 'true';
-
-/** @param {Error|null} err */
-function handleErr(err) {
-  if (err) throw err;
-}
-
 /**
  * @param {esbuild.OutputFile[]} outputFiles
  * @param {string} ext - File extension to match.
@@ -42,24 +36,18 @@ function handleErr(err) {
  */
 function findOutputFile(outputFiles, ext) {
   const index = outputFiles.findIndex((outputFile) => outputFile.path.endsWith(ext));
-
-  return {
-    file: outputFiles[index],
-    index,
-  };
+  return { file: outputFiles[index], index };
 }
 
-/**
- * @param {esbuild.BuildResult} buildResult
- * @returns {Promise<esbuild.BuildResult>}
- */
-async function analyzeMeta(buildResult) {
-  if (buildResult.metafile) {
-    console.log(await esbuild.analyzeMetafile(buildResult.metafile));
-  }
-
-  return buildResult;
-}
+/** @type {esbuild.Plugin} */
+const analyzeMeta = {
+  name: 'analyze-meta',
+  setup(build) {
+    if (!build.initialOptions.metafile) return;
+    // @ts-expect-error - FIXME:!
+    build.onEnd((result) => esbuild.analyzeMetafile(result.metafile).then(console.log));
+  },
+};
 
 /**
  * @param {string} jsPath
@@ -82,133 +70,138 @@ function makeHtml(jsPath, cssPath) {
 <noscript>You need to enable JavaScript to run this app.</noscript>`;
 }
 
-/**
- * @param {esbuild.BuildResult} buildResult
- * @returns {Promise<esbuild.BuildResult>}
- */
-async function buildHtml(buildResult) {
-  const distPath = path.join(dir, 'dist');
-
-  if (buildResult.outputFiles) {
-    const outputJs = findOutputFile(buildResult.outputFiles, '.js').file;
-    const outputCss = findOutputFile(buildResult.outputFiles, '.css').file;
-
-    const html = makeHtml(
-      path.relative(distPath, outputJs.path),
-      path.relative(distPath, outputCss.path),
-    );
-
-    buildResult.outputFiles[buildResult.outputFiles.length] = {
-      path: path.join(distPath, 'index.html'),
-      contents: encodeUTF8(html),
-      get text() {
-        return decodeUTF8(this.contents);
-      },
-    };
-  } else {
-    await fs.promises.writeFile(
-      path.join(distPath, 'index.html'),
-      makeHtml('app.js', 'app.css'),
-      'utf8',
-    );
-  }
-
-  return buildResult;
-}
-
-/**
- * @param {esbuild.BuildResult} buildResult
- * @returns {Promise<esbuild.BuildResult>}
- */
-async function minifyCss(buildResult) {
-  if (buildResult.outputFiles) {
-    const outputHtml = findOutputFile(buildResult.outputFiles, '.html').file;
-    const outputJs = findOutputFile(buildResult.outputFiles, '.js').file;
-    const { file, index } = findOutputFile(buildResult.outputFiles, '.css');
-
-    const purgedcss = await new PurgeCSS().purge({
-      content: [
-        { extension: '.html', raw: decodeUTF8(outputHtml.contents) },
-        { extension: '.js', raw: decodeUTF8(outputJs.contents) },
-      ],
-      css: [{ raw: decodeUTF8(file.contents) }],
-      safelist: ['html', 'body'],
-    });
-    const { css } = csso.minify(
-      csso.minify(purgedcss[0].css, {
-        restructure: true,
-        forceMediaMerge: true,
-      }).css,
-    );
-
-    buildResult.outputFiles[index].contents = encodeUTF8(css);
-  }
-
-  return buildResult;
-}
-
-/**
- * @param {esbuild.BuildResult} buildResult
- * @returns {Promise<esbuild.BuildResult>}
- */
-async function minifyJs(buildResult) {
-  if (buildResult.outputFiles) {
+/** @type {esbuild.Plugin} */
+const buildHtml = {
+  name: 'build-html',
+  setup(build) {
     const distPath = path.join(dir, 'dist');
-    const outputJsMap = findOutputFile(buildResult.outputFiles, '.js.map');
-    const { file, index } = findOutputFile(buildResult.outputFiles, '.js');
 
-    const { code, map } = await minify(decodeUTF8(file.contents), {
-      ecma: 2020,
-      compress: {
-        passes: 2,
-        unsafe_methods: true,
-        unsafe_proto: true,
-      },
-      sourceMap: {
-        content: decodeUTF8(outputJsMap.file.contents),
-        filename: path.relative(distPath, file.path),
-        url: path.relative(distPath, outputJsMap.file.path),
-      },
+    build.onEnd(async (result) => {
+      if (result.outputFiles) {
+        const outputJs = findOutputFile(result.outputFiles, '.js').file;
+        const outputCss = findOutputFile(result.outputFiles, '.css').file;
+
+        const html = makeHtml(
+          path.relative(distPath, outputJs.path),
+          path.relative(distPath, outputCss.path),
+        );
+
+        result.outputFiles[result.outputFiles.length] = {
+          path: path.join(distPath, 'index.html'),
+          contents: encodeUTF8(html),
+          get text() {
+            return decodeUTF8(this.contents);
+          },
+        };
+      } else {
+        await fs.writeFile(
+          path.join(distPath, 'index.html'),
+          makeHtml('app.js', 'app.css'),
+          'utf8',
+        );
+      }
     });
+  },
+};
 
-    // @ts-expect-error - map is string
-    buildResult.outputFiles[outputJsMap.index].contents = encodeUTF8(map);
-    buildResult.outputFiles[index].contents = encodeUTF8(code);
-  }
+/** @type {esbuild.Plugin} */
+const minifyCss = {
+  name: 'minify-css',
+  setup(build) {
+    if (build.initialOptions.write !== false) return;
 
-  return buildResult;
-}
+    build.onEnd(async (result) => {
+      if (result.outputFiles) {
+        const outputHtml = findOutputFile(result.outputFiles, '.html').file;
+        const outputJs = findOutputFile(result.outputFiles, '.js').file;
+        const { file, index } = findOutputFile(result.outputFiles, '.css');
 
-esbuild
-  .build({
-    entryPoints: ['src/index.ts'],
-    outfile: 'dist/app.js',
-    entryNames: dev ? '[name]' : '[name]-[hash]',
-    assetNames: dev ? '[name]' : '[name]-[hash]',
-    chunkNames: dev ? '[name]' : '[name]-[hash]',
-    platform: 'browser',
-    target: ['chrome78', 'firefox77', 'safari11', 'edge44'],
-    define: {
-      'process.env.APP_RELEASE': JSON.stringify(release),
-      'process.env.EKSCSS_VERSION': JSON.stringify(
-        process.env.npm_package_dependencies_ekscss,
-      ),
-      'process.env.NODE_ENV': JSON.stringify(mode),
-    },
-    plugins: [xcss()],
-    banner: { js: '"use strict";' },
-    bundle: true,
-    minify: !dev,
-    sourcemap: true,
-    watch: dev,
-    write: dev,
-    metafile: process.stdout.isTTY,
-    logLevel: 'debug',
-  })
-  .then(analyzeMeta)
-  .then(minifyTemplates)
-  .then(buildHtml)
-  .then(minifyCss)
-  .then(minifyJs)
-  .then(writeFiles)
-  .catch(handleErr);
+        const purgedcss = await new PurgeCSS().purge({
+          content: [
+            { extension: '.html', raw: decodeUTF8(outputHtml.contents) },
+            { extension: '.js', raw: decodeUTF8(outputJs.contents) },
+          ],
+          css: [{ raw: decodeUTF8(file.contents) }],
+          safelist: ['html', 'body'],
+        });
+        const { css } = csso.minify(
+          csso.minify(purgedcss[0].css, {
+            restructure: true,
+            forceMediaMerge: true,
+          }).css,
+        );
+
+        result.outputFiles[index].contents = encodeUTF8(css);
+      }
+    });
+  },
+};
+
+/** @type {esbuild.Plugin} */
+const minifyJs = {
+  name: 'minify-js',
+  setup(build) {
+    if (build.initialOptions.write !== false) return;
+
+    build.onEnd(async (result) => {
+      if (result.outputFiles) {
+        const distPath = path.join(dir, 'dist');
+        const outputJsMap = findOutputFile(result.outputFiles, '.js.map');
+        const { file, index } = findOutputFile(result.outputFiles, '.js');
+
+        const { code, map } = await minify(decodeUTF8(file.contents), {
+          ecma: 2020,
+          compress: {
+            passes: 2,
+            unsafe_methods: true,
+            unsafe_proto: true,
+          },
+          sourceMap: {
+            content: decodeUTF8(outputJsMap.file.contents),
+            filename: path.relative(distPath, file.path),
+            url: path.relative(distPath, outputJsMap.file.path),
+          },
+        });
+
+        // @ts-expect-error - map is string
+        result.outputFiles[outputJsMap.index].contents = encodeUTF8(map);
+        // @ts-expect-error - FIXME: code is defined
+        result.outputFiles[index].contents = encodeUTF8(code);
+      }
+    });
+  },
+};
+
+await esbuild.build({
+  entryPoints: ['src/index.ts'],
+  outfile: 'dist/app.js',
+  entryNames: dev ? '[name]' : '[name]-[hash]',
+  assetNames: dev ? '[name]' : '[name]-[hash]',
+  chunkNames: dev ? '[name]' : '[name]-[hash]',
+  platform: 'browser',
+  target: ['chrome78', 'firefox77', 'safari11', 'edge44'],
+  define: {
+    'process.env.APP_RELEASE': JSON.stringify(release),
+    'process.env.EKSCSS_VERSION': JSON.stringify(
+      process.env.npm_package_dependencies_ekscss,
+    ),
+    'process.env.NODE_ENV': JSON.stringify(mode),
+  },
+  plugins: [
+    xcss(),
+    minifyTemplates({ taggedOnly: true }),
+    buildHtml,
+    minifyCss,
+    minifyJs,
+    writeFiles(),
+    analyzeMeta,
+  ],
+  banner: { js: '"use strict";' },
+  bundle: true,
+  minify: !dev,
+  sourcemap: true,
+  watch: dev,
+  write: dev,
+  metafile: !dev && process.stdout.isTTY,
+  logLevel: 'debug',
+});
