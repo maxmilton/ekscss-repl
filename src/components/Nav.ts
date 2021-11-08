@@ -17,12 +17,12 @@ const view = h`
     <a href=https://ekscss.js.org class=pl4 target=_blank rel=noreferrer>Docs</a>
 
     <div class="df ml-auto">
-      <input #auto id=auto type=checkbox class=checkbox checked>
+      <input id=auto type=checkbox class=checkbox checked #auto>
       <label for=auto class=label>Auto compile on input</label>
     </div>
 
-    <button #compile class="button button-primary mh3">Compile</button>
-    <button #clear class=button>Clear Output</button>
+    <button class="button button-primary mh3" #compile>Compile</button>
+    <button class=button #clear>Clear Output</button>
   </div>
 `;
 
