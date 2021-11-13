@@ -1,5 +1,5 @@
 // FIXME: Remove these lint exceptions once linting can handle mjs
-//  ↳ When TS 4.5 is released and typescript-eslint has support
+//  ↳ When TS 4.6+ is released and typescript-eslint has support
 //  ↳ https://github.com/typescript-eslint/typescript-eslint/issues/3950
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
@@ -65,7 +65,7 @@ function makeHtml(jsPath, cssPath) {
 <title>ekscss REPL</title>
 <link href=/${cssPath} rel=stylesheet>
 <script src=https://cdn.jsdelivr.net/npm/trackx@0/default.js crossorigin></script>
-<script>window.trackx&&(trackx.setup("https://api.trackx.app/v1/8c6cfd78d7e/event"),trackx.ping("https://api.trackx.app/v1/8c6cfd78d7e/ping"));</script>
+<script>window.trackx&&(trackx.setup("https://api.trackx.app/v1/8c6cfd78d7e"),trackx.ping());</script>
 <script src=/${jsPath} defer></script>
 <noscript>You need to enable JavaScript to run this app.</noscript>`;
 }
