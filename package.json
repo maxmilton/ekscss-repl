@@ -21,7 +21,7 @@
   "dependencies": {
     "@ekscss/framework": "0.0.31",
     "ekscss": "0.0.10",
-    "stage1": "0.0.13"
+    "stage1": "0.1.0"
   },
   "devDependencies": {
     "@types/csso": "4.2.0",
