@@ -1,4 +1,4 @@
-import { h, S1Node } from 'stage1';
+import { ht, S1Node } from 'stage1';
 import './Editor.xcss';
 
 export type EditorComponent = S1Node &
@@ -9,7 +9,7 @@ HTMLOListElement & {
   getContent(): string;
 };
 
-const view = h`
+const view = ht`
   <ol contenteditable=true class="editor w100 mt0 code" rows=10 spellcheck=false></ol>
 `;
 

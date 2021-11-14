@@ -1,5 +1,5 @@
 import {
-  append, create, h, setupSyntheticEvent,
+  append, create, ht, setupSyntheticEvent,
 } from 'stage1';
 import { Console } from './components/Console';
 import { Footer } from './components/Footer';
@@ -20,7 +20,7 @@ setupSyntheticEvent('click');
 
 // TODO: Remove temporary warning (and its associated styles)
 append(
-  h`
+  ht`
   <div id=alert>
     <strong>Warning:</strong> This REPL app is a <abbr title="Work In Progress">WIP</abbr>, please <a href=https://github.com/maxmilton/ekscss-repl/issues rel=noreferrer>report issues</a>!
   </div>

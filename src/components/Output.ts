@@ -1,10 +1,10 @@
-import { append, h, S1Node } from 'stage1';
+import { append, ht, S1Node } from 'stage1';
 import { refs } from '../service';
 import { Editor } from './Editor';
 
 type OutputComponent = S1Node & HTMLDivElement;
 
-const view = h`
+const view = ht`
   <div id=out>
     <h2>Build Result</h2>
   </div>

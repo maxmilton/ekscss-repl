@@ -1,11 +1,11 @@
-import { append, h, S1Node } from 'stage1';
+import { append, ht, S1Node } from 'stage1';
 import { refs, run } from '../service';
 import { debounce } from '../utils';
 import { Editor } from './Editor';
 
 type InputComponent = S1Node & HTMLDivElement;
 
-const view = h`
+const view = ht`
   <div id=in>
     <h2>Source Code</h2>
   </div>
