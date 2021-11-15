@@ -178,7 +178,7 @@ await esbuild.build({
   assetNames: dev ? '[name]' : '[name]-[hash]',
   chunkNames: dev ? '[name]' : '[name]-[hash]',
   platform: 'browser',
-  target: ['chrome78', 'firefox77', 'safari11', 'edge44'],
+  target: ['chrome60', 'edge79', 'firefox55', 'safari11.1'],
   define: {
     'process.env.APP_RELEASE': JSON.stringify(release),
     'process.env.EKSCSS_VERSION': JSON.stringify(
