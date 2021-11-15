@@ -124,12 +124,10 @@ const minifyCss = {
           css: [{ raw: decodeUTF8(file.contents) }],
           safelist: ['html', 'body'],
         });
-        const { css } = csso.minify(
-          csso.minify(purgedcss[0].css, {
-            restructure: true,
-            forceMediaMerge: true,
-          }).css,
-        );
+        const { css } = csso.minify(purgedcss[0].css, {
+          restructure: true,
+          forceMediaMerge: true, // unsafe!
+        });
 
         result.outputFiles[index].contents = encodeUTF8(css);
       }
@@ -152,9 +150,10 @@ const minifyJs = {
         const { code, map } = await minify(decodeUTF8(file.contents), {
           ecma: 2020,
           compress: {
+            comparisons: false,
             passes: 2,
-            unsafe_methods: true,
-            unsafe_proto: true,
+            inline: 2,
+            unsafe: true,
           },
           sourceMap: {
             content: decodeUTF8(outputJsMap.file.contents),
