@@ -19,7 +19,7 @@ specifiers:
   eslint-plugin-import: 2.25.3
   eslint-plugin-unicorn: 39.0.0
   get-port: 6.0.0
-  git-ref: 0.3.0
+  git-ref: 0.3.1
   jsdom: 18.1.1
   kleur: 4.1.4
   pirates: 4.0.1
@@ -58,7 +58,7 @@ devDependencies:
   eslint-plugin-import: 2.25.3_eslint@8.3.0
   eslint-plugin-unicorn: 39.0.0_eslint@8.3.0
   get-port: 6.0.0
-  git-ref: 0.3.0
+  git-ref: 0.3.1
   jsdom: 18.1.1
   kleur: 4.1.4
   pirates: 4.0.1
@@ -1735,8 +1735,8 @@ packages:
       get-intrinsic: 1.1.1
     dev: true
 
-  /git-ref/0.3.0:
-    resolution: {integrity: sha512-AKop6VbBjRkngz+Ag0Tw2nSbJrfl+eXw0rJpgjeH27D1PX2vORB+K4uvNabA9N8zWhD6h98VmTv+TPlidEFhTQ==}
+  /git-ref/0.3.1:
+    resolution: {integrity: sha512-7H67HP83c8F/j9GcBsL9yT0FwOWpAVHTZ/TRj89PzTQbSmmsdgM+3yn+Id+ii0RmG7W4IG0f/pNb1bGGj/hgUw==}
     dev: true
 
   /glob-parent/5.1.2:
