@@ -47,7 +47,7 @@
     "playwright-chromium": "1.16.3",
     "prettier": "2.5.0",
     "prettier-plugin-pkg": "0.11.1",
-    "prettier-plugin-sh": "0.8.0",
+    "prettier-plugin-sh": "0.8.1",
     "purgecss": "4.0.3",
     "sirv": "1.0.18",
     "sirv-cli": "1.0.14",
