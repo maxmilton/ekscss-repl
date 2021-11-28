@@ -27,7 +27,7 @@ specifiers:
   prettier: 2.5.0
   prettier-plugin-pkg: 0.11.1
   prettier-plugin-sh: 0.8.1
-  purgecss: 4.0.3
+  purgecss: 4.1.1
   sirv: 1.0.18
   sirv-cli: 1.0.14
   stage1: 0.1.0
@@ -66,7 +66,7 @@ devDependencies:
   prettier: 2.5.0
   prettier-plugin-pkg: 0.11.1_prettier@2.5.0
   prettier-plugin-sh: 0.8.1_prettier@2.5.0
-  purgecss: 4.0.3
+  purgecss: 4.1.1
   sirv: 1.0.18
   sirv-cli: 1.0.14
   terser: 5.10.0
@@ -876,11 +876,6 @@ packages:
 
   /commander/2.20.3:
     resolution: {integrity: sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==}
-    dev: true
-
-  /commander/6.2.1:
-    resolution: {integrity: sha512-U7VdrJFnJgo4xjrHpTzu0yrHPGImdsmD95ZlgYSEajAn2JKzDhDTPG9kBTefmObL2w/ngeZnilk+OV9CG3d7UA==}
-    engines: {node: '>= 6'}
     dev: true
 
   /commander/8.3.0:
@@ -2844,11 +2839,11 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  /purgecss/4.0.3:
-    resolution: {integrity: sha512-PYOIn5ibRIP34PBU9zohUcCI09c7drPJJtTDAc0Q6QlRz2/CHQ8ywGLdE7ZhxU2VTqB7p5wkvj5Qcm05Rz3Jmw==}
+  /purgecss/4.1.1:
+    resolution: {integrity: sha512-oVNNzN9tRVoRCeITtpC3ofLU5wGLLYayXkOELeSr0FjwSVdxNK1GbIAvDQNSm5X1WFXGkfcb9JbvTsS2G364/w==}
     hasBin: true
     dependencies:
-      commander: 6.2.1
+      commander: 8.3.0
       glob: 7.2.0
       postcss: 8.3.11
       postcss-selector-parser: 6.0.6
