@@ -100,7 +100,9 @@ export function render(component: Node): RenderResult {
     container,
     debug(el = container) {
       // TODO: Prettify HTML
+      // eslint-disable-next-line no-console
       console.log('DEBUG:');
+      // eslint-disable-next-line no-console
       console.log(el.innerHTML);
     },
     // unmount() {
