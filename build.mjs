@@ -13,7 +13,7 @@ import fs from 'fs/promises';
 import { gitRef } from 'git-ref';
 import path from 'path';
 import { PurgeCSS } from 'purgecss';
-import { minify } from 'terser';
+import * as terser from 'terser';
 
 const mode = process.env.NODE_ENV;
 const dev = mode === 'development';
@@ -35,8 +35,14 @@ const analyzeMeta = {
   name: 'analyze-meta',
   setup(build) {
     if (!build.initialOptions.metafile) return;
-    // @ts-expect-error - FIXME:!
-    build.onEnd((result) => esbuild.analyzeMetafile(result.metafile).then(console.log));
+    build.onEnd((result) => {
+      if (result.metafile) {
+        esbuild
+          .analyzeMetafile(result.metafile)
+          .then(console.log)
+          .catch(console.error);
+      }
+    });
   },
 };
 
@@ -138,13 +144,20 @@ const minifyJs = {
         const outputJsMap = findOutputFile(result.outputFiles, '.js.map');
         const { file, index } = findOutputFile(result.outputFiles, '.js');
 
-        const { code, map } = await minify(decodeUTF8(file.contents), {
+        const { code, map } = await terser.minify(decodeUTF8(file.contents), {
           ecma: 2020,
           compress: {
             comparisons: false,
             passes: 2,
             inline: 2,
             unsafe: true,
+            negate_iife: false,
+          },
+          format: {
+            comments: false,
+            ascii_only: true,
+            wrap_iife: true,
+            wrap_func_args: true,
           },
           sourceMap: {
             content: decodeUTF8(outputJsMap.file.contents),
