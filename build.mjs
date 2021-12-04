@@ -75,12 +75,12 @@ const buildHtml = {
 
     build.onEnd(async (result) => {
       if (result.outputFiles) {
-        const outputJs = findOutputFile(result.outputFiles, '.js').file;
-        const outputCss = findOutputFile(result.outputFiles, '.css').file;
+        const outJS = findOutputFile(result.outputFiles, '.js');
+        const outCSS = findOutputFile(result.outputFiles, '.css');
 
         const html = makeHtml(
-          path.relative(distPath, outputJs.path),
-          path.relative(distPath, outputCss.path),
+          path.relative(distPath, outJS.file.path),
+          path.relative(distPath, outCSS.file.path),
         );
 
         result.outputFiles[result.outputFiles.length] = {
@@ -109,16 +109,16 @@ const minifyCss = {
 
     build.onEnd(async (result) => {
       if (result.outputFiles) {
-        const outputHtml = findOutputFile(result.outputFiles, '.html').file;
-        const outputJs = findOutputFile(result.outputFiles, '.js').file;
-        const { file, index } = findOutputFile(result.outputFiles, '.css');
+        const outHTML = findOutputFile(result.outputFiles, '.html');
+        const outJS = findOutputFile(result.outputFiles, '.js');
+        const outCSS = findOutputFile(result.outputFiles, '.css');
 
         const purgedcss = await new PurgeCSS().purge({
           content: [
-            { extension: '.html', raw: decodeUTF8(outputHtml.contents) },
-            { extension: '.js', raw: decodeUTF8(outputJs.contents) },
+            { extension: '.html', raw: decodeUTF8(outHTML.file.contents) },
+            { extension: '.js', raw: decodeUTF8(outJS.file.contents) },
           ],
-          css: [{ raw: decodeUTF8(file.contents) }],
+          css: [{ raw: decodeUTF8(outCSS.file.contents) }],
           safelist: ['html', 'body'],
         });
         const { css } = csso.minify(purgedcss[0].css, {
@@ -126,7 +126,7 @@ const minifyCss = {
           forceMediaMerge: true, // unsafe!
         });
 
-        result.outputFiles[index].contents = encodeUTF8(css);
+        result.outputFiles[outCSS.index].contents = encodeUTF8(css);
       }
     });
   },
@@ -141,35 +141,36 @@ const minifyJs = {
     build.onEnd(async (result) => {
       if (result.outputFiles) {
         const distPath = path.join(dir, 'dist');
-        const outputJsMap = findOutputFile(result.outputFiles, '.js.map');
-        const { file, index } = findOutputFile(result.outputFiles, '.js');
+        const outJS = findOutputFile(result.outputFiles, '.js');
+        const outMap = findOutputFile(result.outputFiles, '.js.map');
 
-        const { code, map } = await terser.minify(decodeUTF8(file.contents), {
-          ecma: 2020,
-          compress: {
-            comparisons: false,
-            passes: 2,
-            inline: 2,
-            unsafe: true,
-            negate_iife: false,
+        const { code = '', map = '' } = await terser.minify(
+          decodeUTF8(outJS.file.contents),
+          {
+            ecma: 2020,
+            compress: {
+              comparisons: false,
+              passes: 2,
+              inline: 2,
+              unsafe: true,
+              negate_iife: false,
+            },
+            format: {
+              comments: false,
+              ascii_only: true,
+              wrap_iife: true,
+              wrap_func_args: true,
+            },
+            sourceMap: {
+              content: decodeUTF8(outMap.file.contents),
+              filename: path.relative(distPath, outJS.file.path),
+              url: path.relative(distPath, outMap.file.path),
+            },
           },
-          format: {
-            comments: false,
-            ascii_only: true,
-            wrap_iife: true,
-            wrap_func_args: true,
-          },
-          sourceMap: {
-            content: decodeUTF8(outputJsMap.file.contents),
-            filename: path.relative(distPath, file.path),
-            url: path.relative(distPath, outputJsMap.file.path),
-          },
-        });
+        );
 
-        // @ts-expect-error - map is string
-        result.outputFiles[outputJsMap.index].contents = encodeUTF8(map);
-        // @ts-expect-error - FIXME: code is defined
-        result.outputFiles[index].contents = encodeUTF8(code);
+        result.outputFiles[outMap.index].contents = encodeUTF8(map.toString());
+        result.outputFiles[outJS.index].contents = encodeUTF8(code);
       }
     });
   },
