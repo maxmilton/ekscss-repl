@@ -9,7 +9,7 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable import/no-extraneous-dependencies, no-param-reassign, no-console */
 
-import csso from 'csso';
+import * as csso from 'csso';
 import esbuild from 'esbuild';
 import {
   decodeUTF8,
@@ -35,7 +35,9 @@ const release = gitRef();
  * @returns {{ file: esbuild.OutputFile; index: number; }}
  */
 function findOutputFile(outputFiles, ext) {
-  const index = outputFiles.findIndex((outputFile) => outputFile.path.endsWith(ext));
+  const index = outputFiles.findIndex((outputFile) =>
+    outputFile.path.endsWith(ext),
+  );
   return { file: outputFiles[index], index };
 }
 
@@ -45,7 +47,9 @@ const analyzeMeta = {
   setup(build) {
     if (!build.initialOptions.metafile) return;
     // @ts-expect-error - FIXME:!
-    build.onEnd((result) => esbuild.analyzeMetafile(result.metafile).then(console.log));
+    build.onEnd((result) =>
+      esbuild.analyzeMetafile(result.metafile).then(console.log),
+    );
   },
 };
 
