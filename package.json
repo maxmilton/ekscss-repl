@@ -10,7 +10,7 @@
     "build": "pnpm run prebuild && NODE_ENV=production node build.mjs",
     "dev": "NODE_ENV=development node build.mjs",
     "lint": "pnpm run lint:css && pnpm run lint:js && pnpm run lint:ts",
-    "lint:css": "echo 'TODO: CSS linting'; exit 0",
+    "lint:css": "stylelint --ignore-path .gitignore '**/*.{css,xcss}'",
     "lint:js": "eslint --ignore-path .gitignore --ext .ts,.js,.mjs,.cjs .",
     "lint:ts": "tsc --project test",
     "prebuild": "rm -rf dist; cp -r static dist",
@@ -24,6 +24,7 @@
     "stage1": "0.1.0"
   },
   "devDependencies": {
+    "@maxmilton/stylelint-config": "0.0.3",
     "@types/csso": "4.2.0",
     "@types/jsdom": "16.2.13",
     "@types/node": "16.11.11",
@@ -51,6 +52,8 @@
     "purgecss": "4.1.3",
     "sirv": "1.0.19",
     "sirv-cli": "1.0.14",
+    "stylelint": "14.1.0",
+    "stylelint-config-standard": "24.0.0",
     "terser": "5.10.0",
     "tsm": "2.2.1",
     "typescript": "4.5.2",
@@ -64,6 +67,18 @@
     "plugins": [
       "./node_modules/prettier-plugin-pkg",
       "./node_modules/prettier-plugin-sh"
+    ]
+  },
+  "stylelint": {
+    "reportInvalidScopeDisables": true,
+    "reportNeedlessDisables": true,
+    "extends": [
+      "stylelint-config-standard",
+      "@maxmilton/stylelint-config"
+    ],
+    "ignoreFiles": [
+      "**/dist/**",
+      "**/node_modules/**"
     ]
   }
 }
