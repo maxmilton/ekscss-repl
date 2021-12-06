@@ -17,9 +17,9 @@
     'out'
     'con'
     'foot';
-  height: 100%;
-  column-gap: 1em;
   row-gap: 1em;
+  column-gap: 1em;
+  height: 100%;
 
   @media ${x.media.l} {
     grid-template:
