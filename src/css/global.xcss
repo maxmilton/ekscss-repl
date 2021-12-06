@@ -11,22 +11,22 @@
 
 #app {
   display: grid;
-  height: 100%;
-  column-gap: 1em;
-  row-gap: 1em;
   grid-template:
     'nav'
     'in'
     'out'
     'con'
     'foot';
+  height: 100%;
+  column-gap: 1em;
+  row-gap: 1em;
 
   @media ${x.media.l} {
     grid-template:
-    'nav nav'
-    'in out'
-    'in con'
-    'foot foot';
+      'nav nav'
+      'in out'
+      'in con'
+      'foot foot';
   }
 }
 

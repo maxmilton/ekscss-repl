@@ -7,13 +7,12 @@
 
   // max-width: 100%;
   height: 100%;
-  overflow-x: auto;
   padding-left: 0;
-  text-indent: 1em;
+  overflow-x: auto;
   white-space: pre;
+  text-indent: 1em;
   list-style-position: inside;
   list-style-type: decimal-leading-zero;
-  list-style: ;
   contain: layout paint style;
   // contain: size layout paint style;
 
