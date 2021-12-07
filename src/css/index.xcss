@@ -1,15 +1,9 @@
-// packages
-// @import '@ekscss/framework';
-@import '@ekscss/framework/level2.xcss';
+// Packages
+@import '@ekscss/framework';
 @import '@ekscss/framework/addon/pretty.xcss';
 @import '@ekscss/framework/addon/button.xcss';
-// @import '@ekscss/framework/addon/tag.xcss';
 @import '@ekscss/framework/addon/alert.xcss';
 @import '@ekscss/framework/addon/code.xcss';
-// @import '@ekscss/framework/addon/card.xcss';
-// @import '@ekscss/framework/addon/app-footer.xcss';
-// @import '@ekscss/framework/addon/dark.xcss';
-// @import '@ekscss/framework/addon/ux-larger-click-zone.xcss';
 
-// local
+// Local
 @import './global.xcss';
