@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import {
-  append, create, ht, S1Node,
+  append, create, html, S1Node,
 } from 'stage1';
 import { refs } from '../service';
 import './Console.xcss';
@@ -18,8 +18,8 @@ type RefNodes = {
   con: HTMLDivElement;
 };
 
-const view = ht`
-  <div id=con>
+const view = html`
+  <div id="con">
     <h2>Console Output</h2>
     <div class="console code-block code" #con></div>
   </div>

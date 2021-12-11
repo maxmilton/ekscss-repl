@@ -1,4 +1,4 @@
-import { ht, S1Node } from 'stage1';
+import { html, S1Node } from 'stage1';
 import { refs, run } from '../service';
 import './Nav.xcss';
 
@@ -10,7 +10,7 @@ type RefNodes = {
   clear: HTMLButtonElement;
 };
 
-const view = ht`
+const view = html`
   <div id=nav class="dfc pv1 ph3">
     <h1 id=logo class=mv0>ekscss REPL</h1>
 
