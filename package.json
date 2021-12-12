@@ -21,7 +21,7 @@
   "dependencies": {
     "@ekscss/framework": "0.0.36",
     "ekscss": "0.0.11",
-    "stage1": "0.2.0"
+    "stage1": "0.3.0"
   },
   "devDependencies": {
     "@maxmilton/stylelint-config": "0.0.7",
