@@ -19,8 +19,8 @@
     "test-e2e": "node -r tsm test/e2e/index.ts"
   },
   "dependencies": {
-    "@ekscss/framework": "0.0.36",
-    "ekscss": "0.0.11",
+    "@ekscss/framework": "0.0.37",
+    "ekscss": "0.0.12",
     "stage1": "0.3.0"
   },
   "devDependencies": {
