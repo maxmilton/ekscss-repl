@@ -1,7 +1,7 @@
 lockfileVersion: 5.3
 
 specifiers:
-  '@ekscss/framework': 0.0.37
+  '@ekscss/framework': 0.0.38
   '@maxmilton/stylelint-config': 0.0.7
   '@types/csso': 5.0.0
   '@types/jsdom': 16.2.13
@@ -13,7 +13,7 @@ specifiers:
   ekscss: 0.0.12
   esbuild: 0.14.5
   esbuild-minify-templates: 0.7.1
-  esbuild-plugin-ekscss: 0.0.9
+  esbuild-plugin-ekscss: 0.0.10
   eslint: 8.5.0
   eslint-config-airbnb-base: 15.0.0
   eslint-config-airbnb-typescript: 16.1.0
@@ -40,7 +40,7 @@ specifiers:
   uvu: 0.5.2
 
 dependencies:
-  '@ekscss/framework': 0.0.37_ekscss@0.0.12
+  '@ekscss/framework': 0.0.38_ekscss@0.0.12
   ekscss: 0.0.12
   stage1: 0.3.0
 
@@ -55,7 +55,7 @@ devDependencies:
   csso: 5.0.2
   esbuild: 0.14.5
   esbuild-minify-templates: 0.7.1_esbuild@0.14.5
-  esbuild-plugin-ekscss: 0.0.9_ekscss@0.0.12+esbuild@0.14.5
+  esbuild-plugin-ekscss: 0.0.10_ekscss@0.0.12+esbuild@0.14.5
   eslint: 8.5.0
   eslint-config-airbnb-base: 15.0.0_f385d671d5f1c72a868db745a891bc1f
   eslint-config-airbnb-typescript: 16.1.0_deec940e98af5cf7289a16c8fdaf98c9
@@ -321,14 +321,14 @@ packages:
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
     dev: true
 
-  /@ekscss/framework/0.0.37_ekscss@0.0.12:
-    resolution: {integrity: sha512-YK9uDxhZb9eKsNzKnbr6hOR50ATpb3gpWKlIRyBVQJ0k+CWRsfDdmGJ9gBvWSVtOp6dTq56YJjmFUsk/4dWXpw==}
+  /@ekscss/framework/0.0.38_ekscss@0.0.12:
+    resolution: {integrity: sha512-ooiNGN91/f/gr1UN21EJbwrd6J+0S7T+8lvquWKn+42riMzU57Du2hr8wxHA/rm1IRSCyM8GcaJlQXGzmW/kJw==}
     peerDependencies:
       ekscss: ^0.0.12
     dependencies:
-      '@ekscss/plugin-apply': 0.0.7_ekscss@0.0.12
-      '@ekscss/plugin-import': 0.0.7_ekscss@0.0.12
-      '@ekscss/plugin-prefix': 0.0.6_ekscss@0.0.12
+      '@ekscss/plugin-apply': 0.0.8_ekscss@0.0.12
+      '@ekscss/plugin-import': 0.0.8_ekscss@0.0.12
+      '@ekscss/plugin-prefix': 0.0.7_ekscss@0.0.12
       color: 4.1.0
       cssremedy: github.com/jensimmons/cssremedy/468e31a
       dset: 3.1.1
@@ -336,28 +336,28 @@ packages:
       stylis: 4.0.13
     dev: false
 
-  /@ekscss/plugin-apply/0.0.7_ekscss@0.0.12:
-    resolution: {integrity: sha512-393yqLV0kcrkZceqXaGzAPW56QopcsV5qL2cSYABgDnftwPbO0GHnYO6KTjUIdK7t1AT+dvh8jMnUdtabETeTw==}
+  /@ekscss/plugin-apply/0.0.8_ekscss@0.0.12:
+    resolution: {integrity: sha512-vuCzcbeaaFeJbaDqyqxUDqAGEFHnLeyD9HU4z9ZdE+j1RYcWhUX542mED/AIRM1FhbtFVyxW5OQSAKvDsw24ng==}
     peerDependencies:
-      ekscss: ^0.0.11
+      ekscss: ^0.0.12
     dependencies:
       ekscss: 0.0.12
       stylis: 4.0.13
     dev: false
 
-  /@ekscss/plugin-import/0.0.7_ekscss@0.0.12:
-    resolution: {integrity: sha512-hb+XabEhWXvDQ+tUWTwWlu1e10NhuwZlf2tvdW3P72WYk2U5V2LIlLiQdVzCWSBEQOR4wYkJBKis2q7qpQ2dXg==}
+  /@ekscss/plugin-import/0.0.8_ekscss@0.0.12:
+    resolution: {integrity: sha512-LgoRm6LjvnmhnAtmHFNQvZCFJvXCFmJUp3lystPKchVrWsweEJmUvYRZCF7hCCgAg0g3LLo2DpJYphiPZV/fVA==}
     peerDependencies:
-      ekscss: ^0.0.11
+      ekscss: ^0.0.12
     dependencies:
       ekscss: 0.0.12
       stylis: 4.0.13
     dev: false
 
-  /@ekscss/plugin-prefix/0.0.6_ekscss@0.0.12:
-    resolution: {integrity: sha512-A73aO8dS1ifKj/R2AP1I9waZsWUGawzRopgEO74/RnKMWpT438LpmG7fRUsSc3zwlOmfyHWjVvXJQyDXgQ8v2Q==}
+  /@ekscss/plugin-prefix/0.0.7_ekscss@0.0.12:
+    resolution: {integrity: sha512-llFv/LG75mvbkguqUvws9tDTDqrBjDsjou+CcMzSC5TvGPW+Czt243/HI4WVMLdzwtawMRN2SOfZcf+/t0sekA==}
     peerDependencies:
-      ekscss: ^0.0.11
+      ekscss: ^0.0.12
     dependencies:
       ekscss: 0.0.12
       stylis: 4.0.13
@@ -1326,10 +1326,10 @@ packages:
     dev: true
     optional: true
 
-  /esbuild-plugin-ekscss/0.0.9_ekscss@0.0.12+esbuild@0.14.5:
-    resolution: {integrity: sha512-a1tgEyfKmT5TfQmM1RO9kqscTwNzeysnvpra90BaWJIhxKGK1DwsbbcSmK99X/JYeXGlimX5CJ7I5GRqhoEkiA==}
+  /esbuild-plugin-ekscss/0.0.10_ekscss@0.0.12+esbuild@0.14.5:
+    resolution: {integrity: sha512-jBGZC+Ov2bMRgl+QFYlgtiwuntkShw5XR5u82YclU787J6saZKpwjSXRdQnHUDLS47v8Aim6xZ6lYlpjNNiB/g==}
     peerDependencies:
-      ekscss: ^0.0.11
+      ekscss: ^0.0.12
       esbuild: ^0.13.0 || ^0.14.0
     dependencies:
       ekscss: 0.0.12
