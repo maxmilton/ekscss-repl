@@ -1,7 +1,7 @@
 lockfileVersion: 5.3
 
 specifiers:
-  '@ekscss/framework': 0.0.38
+  '@ekscss/framework': 0.0.39
   '@maxmilton/stylelint-config': 0.0.9
   '@types/csso': 5.0.0
   '@types/jsdom': 16.2.13
@@ -40,7 +40,7 @@ specifiers:
   uvu: 0.5.2
 
 dependencies:
-  '@ekscss/framework': 0.0.38_ekscss@0.0.12
+  '@ekscss/framework': 0.0.39_ekscss@0.0.12
   ekscss: 0.0.12
   stage1: 0.3.0
 
@@ -321,10 +321,13 @@ packages:
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
     dev: true
 
-  /@ekscss/framework/0.0.38_ekscss@0.0.12:
-    resolution: {integrity: sha512-ooiNGN91/f/gr1UN21EJbwrd6J+0S7T+8lvquWKn+42riMzU57Du2hr8wxHA/rm1IRSCyM8GcaJlQXGzmW/kJw==}
+  /@ekscss/framework/0.0.39_ekscss@0.0.12:
+    resolution: {integrity: sha512-Hlw1mdM4apVFhb2lGKKVfkegvB7Yo+hL+/+w/aZorBwFOfFwDGqxPo99hKiGkPPjSwSttS8s00G+Au6QDgjisw==}
     peerDependencies:
       ekscss: ^0.0.12
+    peerDependenciesMeta:
+      ekscss:
+        optional: true
     dependencies:
       '@ekscss/plugin-apply': 0.0.8_ekscss@0.0.12
       '@ekscss/plugin-import': 0.0.8_ekscss@0.0.12
