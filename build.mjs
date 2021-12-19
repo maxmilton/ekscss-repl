@@ -17,7 +17,7 @@ import * as terser from 'terser';
 
 const mode = process.env.NODE_ENV;
 const dev = mode === 'development';
-const dir = path.resolve(); // no __dirname in node ESM
+const dir = path.resolve(); // loose alternative to __dirname in node ESM
 const release = gitRef();
 
 /**
@@ -50,7 +50,7 @@ const analyzeMeta = {
  * @param {string} jsPath
  * @param {string} cssPath
  */
-function makeHtml(jsPath, cssPath) {
+function makeHTML(jsPath, cssPath) {
   return `<!doctype html>
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width">
@@ -68,7 +68,7 @@ function makeHtml(jsPath, cssPath) {
 }
 
 /** @type {esbuild.Plugin} */
-const buildHtml = {
+const buildHTML = {
   name: 'build-html',
   setup(build) {
     const distPath = path.join(dir, 'dist');
@@ -78,7 +78,7 @@ const buildHtml = {
         const outJS = findOutputFile(result.outputFiles, '.js');
         const outCSS = findOutputFile(result.outputFiles, '.css');
 
-        const html = makeHtml(
+        const html = makeHTML(
           path.relative(distPath, outJS.file.path),
           path.relative(distPath, outCSS.file.path),
         );
@@ -93,7 +93,7 @@ const buildHtml = {
       } else {
         await fs.writeFile(
           path.join(distPath, 'index.html'),
-          makeHtml('app.js', 'app.css'),
+          makeHTML('app.js', 'app.css'),
           'utf8',
         );
       }
@@ -102,7 +102,7 @@ const buildHtml = {
 };
 
 /** @type {esbuild.Plugin} */
-const minifyCss = {
+const minifyCSS = {
   name: 'minify-css',
   setup(build) {
     if (build.initialOptions.write !== false) return;
@@ -133,7 +133,7 @@ const minifyCss = {
 };
 
 /** @type {esbuild.Plugin} */
-const minifyJs = {
+const minifyJS = {
   name: 'minify-js',
   setup(build) {
     if (build.initialOptions.write !== false) return;
@@ -194,9 +194,9 @@ await esbuild.build({
   plugins: [
     xcss(),
     minifyTemplates({ taggedOnly: true }),
-    buildHtml,
-    minifyCss,
-    minifyJs,
+    buildHTML,
+    minifyCSS,
+    minifyJS,
     writeFiles(),
     analyzeMeta,
   ],
