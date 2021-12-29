@@ -29,7 +29,7 @@ specifiers:
   prettier-plugin-pkg: 0.11.1
   prettier-plugin-sh: 0.8.1
   purgecss: 4.1.3
-  sirv: 1.0.19
+  sirv: 2.0.0
   sirv-cli: 1.0.14
   stage1: 0.3.0
   stylelint: 14.2.0
@@ -71,7 +71,7 @@ devDependencies:
   prettier-plugin-pkg: 0.11.1_prettier@2.5.1
   prettier-plugin-sh: 0.8.1_prettier@2.5.1
   purgecss: 4.1.3
-  sirv: 1.0.19
+  sirv: 2.0.0
   sirv-cli: 1.0.14
   stylelint: 14.2.0
   stylelint-config-standard: 24.0.0_stylelint@14.2.0
@@ -3180,6 +3180,15 @@ packages:
       '@polka/url': 1.0.0-next.21
       mrmime: 1.0.0
       totalist: 1.1.0
+    dev: true
+
+  /sirv/2.0.0:
+    resolution: {integrity: sha512-TT+4+zSM9LR8soWT5/4gOYHfB5a5XEOSV2LtmBRN5MUxi8kh7BSRGuoRYjeBaqhR4w+yx+k6t0OibDNgoLfF7w==}
+    engines: {node: '>= 10'}
+    dependencies:
+      '@polka/url': 1.0.0-next.21
+      mrmime: 1.0.0
+      totalist: 2.0.0
     dev: true
 
   /slash/3.0.0:
