@@ -64,11 +64,11 @@ test('renders entire REPL app', () => {
   assert.is(firstNode.id, 'alert', 'first element id=alert');
   assert.instance(firstNode, window.HTMLDivElement);
   assert.is((firstNode.nextSibling as HTMLDivElement).id, 'app');
-  assert.ok(document.getElementById('nav'));
-  assert.ok(document.getElementById('in'));
-  assert.ok(document.getElementById('out'));
-  assert.ok(document.getElementById('con'));
-  assert.ok(document.getElementById('foot'));
+  assert.ok(document.querySelector('#nav'));
+  assert.ok(document.querySelector('#in'));
+  assert.ok(document.querySelector('#out'));
+  assert.ok(document.querySelector('#con'));
+  assert.ok(document.querySelector('#foot'));
 });
 
 test.run();
