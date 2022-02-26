@@ -24,7 +24,7 @@ jobs:
           key: firebase-${{ github.run_id }}
           restore-keys: |
             firebase-
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
           node-version: 16
       - run: npm install --global pnpm
