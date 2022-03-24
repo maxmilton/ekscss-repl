@@ -31,7 +31,7 @@
     "@typescript-eslint/eslint-plugin": "5.16.0",
     "@typescript-eslint/parser": "5.16.0",
     "c8": "7.11.0",
-    "csso": "5.0.2",
+    "csso": "5.0.3",
     "esbuild": "0.14.27",
     "esbuild-minify-templates": "0.7.3",
     "esbuild-plugin-ekscss": "0.0.10",
