@@ -1,5 +1,6 @@
-import { html, S1Node } from 'stage1';
 import './Editor.xcss';
+
+import { html, S1Node } from 'stage1';
 
 export type EditorComponent = S1Node &
 HTMLOListElement & {

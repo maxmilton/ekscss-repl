@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import './Console.xcss';
+
 import {
   append, create, html, S1Node,
 } from 'stage1';
 import { refs } from '../service';
-import './Console.xcss';
 
 export type ConsoleComponent = S1Node &
 HTMLDivElement & {

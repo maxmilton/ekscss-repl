@@ -1,6 +1,7 @@
+import './Nav.xcss';
+
 import { html, S1Node } from 'stage1';
 import { refs, run } from '../service';
-import './Nav.xcss';
 
 type NavComponent = S1Node & HTMLDivElement;
 

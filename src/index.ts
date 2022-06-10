@@ -1,3 +1,5 @@
+import './css/index.xcss';
+
 import {
   append, create, html, setupSyntheticEvent,
 } from 'stage1';
@@ -6,7 +8,6 @@ import { Footer } from './components/Footer';
 import { Input } from './components/Input';
 import { Nav } from './components/Nav';
 import { Output } from './components/Output';
-import './css/index.xcss';
 import { run } from './service';
 
 declare global {
