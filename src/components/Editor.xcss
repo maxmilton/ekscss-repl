@@ -3,6 +3,7 @@
   overflow-x: auto;
   height: 100%;
   padding-left: 0;
+  font-size: 17px;
   text-indent: 1em;
   white-space: pre;
   contain: layout paint style;
