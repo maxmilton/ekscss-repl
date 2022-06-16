@@ -4,7 +4,7 @@ let ast: Element[];
 
 onAfterBuild(() => {
   // eslint-disable-next-line no-console
-  console.log('AST', ast);
+  console.log('AST:', ast);
 });
 
 /**
