@@ -200,7 +200,6 @@ await esbuild.build({
     writeFiles(),
     analyzeMeta,
   ],
-  banner: { js: '"use strict";' },
   bundle: true,
   minify: !dev,
   sourcemap: true,
