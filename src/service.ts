@@ -30,8 +30,14 @@ export function run(): void {
       to: '',
       map: false,
       // TODO: Allow setting globals via a config
+      //  ↳ Maybe use a tab based UI, with the first tab being "Options" which
+      //    include plugins, globals, etc. and the other tabs being input files
       globals: {},
-      // TODO: Allow adding plugins via config
+      // TODO: Allow adding plugins via config... at least allow enabling the
+      // availiable "official" plugins
+      //  ↳ Toggleable plugins might be a nice way to disable the AST plugin
+      //  ↳ v1 of this cvould be just the toggable official plugins and a future
+      //    v2 could be user loadable plugins via a CDN URL
       // TODO: AST plugin should be disabled by default + include a note to see
       // the output in the browser devtools console
       plugins: [astPlugin],
