@@ -3,6 +3,7 @@ import './css/index.xcss';
 import {
   append, create, html, setupSyntheticEvent,
 } from 'stage1';
+import type * as trackx from 'trackx';
 import { Console } from './components/Console';
 import { Footer } from './components/Footer';
 import { Input } from './components/Input';
@@ -14,6 +15,20 @@ declare global {
   interface HTMLElement {
     /** `stage1` synthetic click event handler. */
     __click?(event: MouseEvent): void | Promise<void>;
+  }
+
+  interface Window {
+    // Added by trackx CDN script in index.html
+    trackx?: typeof trackx;
+  }
+}
+
+if (window.trackx) {
+  window.trackx.meta.release = process.env.APP_RELEASE;
+  window.trackx.meta.ekscss = process.env.EKSCSS_VERSION;
+
+  if (process.env.NODE_ENV !== 'production') {
+    window.trackx.meta.NODE_ENV = process.env.NODE_ENV || 'NULL';
   }
 }
 
