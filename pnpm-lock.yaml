@@ -25,7 +25,7 @@ specifiers:
   get-port: 6.1.2
   git-ref: 0.3.1
   jsdom: 20.0.0
-  kleur: 4.1.4
+  kleur: 4.1.5
   pirates: 4.0.5
   playwright-chromium: 1.22.2
   prettier: 2.7.1
@@ -68,7 +68,7 @@ devDependencies:
   get-port: 6.1.2
   git-ref: 0.3.1
   jsdom: 20.0.0
-  kleur: 4.1.4
+  kleur: 4.1.5
   pirates: 4.0.5
   playwright-chromium: 1.22.2
   prettier: 2.7.1
@@ -2205,8 +2205,8 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /kleur/4.1.4:
-    resolution: {integrity: sha512-8QADVssbrFjivHWQU7KkMgptGTl6WAcSdlbBPY4uNF+mWr6DGcKrvY2w4FQJoXch7+fKMjj0dRrL75vk3k23OA==}
+  /kleur/4.1.5:
+    resolution: {integrity: sha512-o+NO+8WrRiQEE4/7nwRJhN1HWpVmJm511pBHUxPLtp0BUISzlBplORYSmTclCnJvQq2tKu/sgl3xVpkc7ZWuQQ==}
     engines: {node: '>=6'}
     dev: true
 
@@ -2954,7 +2954,7 @@ packages:
     dependencies:
       console-clear: 1.1.1
       get-port: 3.2.0
-      kleur: 4.1.4
+      kleur: 4.1.5
       local-access: 1.1.0
       sade: 1.8.1
       semiver: 1.1.0
@@ -3386,7 +3386,7 @@ packages:
     dependencies:
       dequal: 2.0.2
       diff: 5.1.0
-      kleur: 4.1.4
+      kleur: 4.1.5
       sade: 1.8.1
     dev: true
 
