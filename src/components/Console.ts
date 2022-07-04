@@ -32,14 +32,14 @@ export function Console(): ConsoleComponent {
   const root = view as ConsoleComponent;
   const { con } = view.collect<RefNodes>(root);
 
-  const print = (method: ConsoleMethodName, color = '') => (...args: any[]) => {
+  const print = (method: ConsoleMethodName, color = '') => (...args: unknown[]) => {
     const line = create('div');
     line.className = color;
     line.textContent = args.toString();
     append(line, con);
     con.scrollTo(0, con.scrollHeight);
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, no-console
+    // eslint-disable-next-line no-console
     console[method](...args);
   };
 
