@@ -26,7 +26,9 @@ const release = gitRef();
  * @returns {{ file: esbuild.OutputFile; index: number; }}
  */
 function findOutputFile(outputFiles, ext) {
-  const index = outputFiles.findIndex((outputFile) => outputFile.path.endsWith(ext));
+  const index = outputFiles.findIndex((outputFile) =>
+    outputFile.path.endsWith(ext),
+  );
   return { file: outputFiles[index], index };
 }
 
@@ -202,6 +204,7 @@ await esbuild.build({
   ],
   bundle: true,
   minify: !dev,
+  mangleProps: /_refs|collect/,
   sourcemap: true,
   watch: dev,
   write: dev,
