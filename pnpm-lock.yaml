@@ -1,8 +1,5 @@
 lockfileVersion: 5.4
 
-overrides:
-  source-map: ~0.8.0-beta.0
-
 specifiers:
   '@ekscss/framework': 0.0.41
   '@maxmilton/stylelint-config': 0.0.10
@@ -1355,7 +1352,7 @@ packages:
       esutils: 2.0.3
       optionator: 0.8.3
     optionalDependencies:
-      source-map: 0.8.0-beta.0
+      source-map: 0.6.1
     dev: true
 
   /eslint-config-airbnb-base/15.0.0_jatgrcxl4x7ywe7ak6cnjca2ae:
@@ -3077,7 +3074,12 @@ packages:
     resolution: {integrity: sha512-uBHU3L3czsIyYXKX88fdrGovxdSCoTGDRZ6SYXtSRxLZUzHg5P/66Ht6uoUlHu9EZod+inXhKo3qQgwXUT/y1w==}
     dependencies:
       buffer-from: 1.1.2
-      source-map: 0.8.0-beta.0
+      source-map: 0.6.1
+    dev: true
+
+  /source-map/0.6.1:
+    resolution: {integrity: sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==}
+    engines: {node: '>=0.10.0'}
     dev: true
 
   /source-map/0.8.0-beta.0:
