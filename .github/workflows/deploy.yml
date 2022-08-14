@@ -1,23 +1,20 @@
 name: deploy
 on:
   workflow_run:
-    workflows:
-      - ci
-    types:
-      - completed
-    branches:
-      - master
+    workflows: [ci]
+    types: [completed]
+    branches: [master]
 concurrency:
   group: deploy
   cancel-in-progress: true
 jobs:
   deploy:
-    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event_name != 'pull_request' }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event_name == 'push' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 0
+          fetch-depth: 0 # all history; so we get the last tagged git commit
       - uses: actions/cache@v3
         with:
           path: .firebase
