@@ -54,7 +54,7 @@
     "sirv": "2.0.2",
     "sirv-cli": "2.0.2",
     "stylelint": "14.9.1",
-    "stylelint-config-standard": "26.0.0",
+    "stylelint-config-standard": "27.0.0",
     "terser": "5.14.2",
     "trackx": "0.5.0",
     "tsm": "2.2.2",
