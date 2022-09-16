@@ -1,6 +1,5 @@
-/* eslint-disable import/no-extraneous-dependencies, no-param-reassign, no-console */
+/* eslint-disable import/no-extraneous-dependencies, no-param-reassign, no-console, no-bitwise */
 
-import * as csso from 'csso';
 import esbuild from 'esbuild';
 import {
   decodeUTF8,
@@ -11,6 +10,7 @@ import {
 import { xcss } from 'esbuild-plugin-ekscss';
 import fs from 'fs/promises';
 import { gitRef } from 'git-ref';
+import * as lightningcss from 'lightningcss';
 import path from 'path';
 import { PurgeCSS } from 'purgecss';
 import * as terser from 'terser';
@@ -112,21 +112,38 @@ const minifyCSS = {
         const outHTML = findOutputFile(result.outputFiles, '.html');
         const outJS = findOutputFile(result.outputFiles, '.js');
         const outCSS = findOutputFile(result.outputFiles, '.css');
+        const outCSSMap = findOutputFile(result.outputFiles, '.css.map');
 
-        const purgedcss = await new PurgeCSS().purge({
+        const purged = await new PurgeCSS().purge({
           content: [
             { extension: '.html', raw: decodeUTF8(outHTML.file.contents) },
             { extension: '.js', raw: decodeUTF8(outJS.file.contents) },
           ],
           css: [{ raw: decodeUTF8(outCSS.file.contents) }],
+          sourceMap: outCSSMap.index !== -1,
           safelist: ['html', 'body'],
         });
-        const { css } = csso.minify(purgedcss[0].css, {
-          restructure: true,
-          forceMediaMerge: true, // unsafe!
+        const minified = lightningcss.transform({
+          filename: outCSS.file.path,
+          code: Buffer.from(purged[0].css),
+          minify: true,
+          sourceMap: outCSSMap.index !== -1,
+          targets: {
+            chrome: 60 << 16,
+            edge: 79 << 16,
+            firefox: 55 << 16,
+            safari: (11 << 16) | (1 << 8),
+          },
         });
 
-        result.outputFiles[outCSS.index].contents = encodeUTF8(css);
+        if (outCSSMap.index !== -1 && minified.map) {
+          result.outputFiles[outCSSMap.index].contents = encodeUTF8(
+            minified.map.toString(),
+          );
+        }
+        result.outputFiles[outCSS.index].contents = encodeUTF8(
+          minified.code.toString(),
+        );
       }
     });
   },
@@ -147,8 +164,8 @@ const minifyJS = {
         const { code = '', map = '' } = await terser.minify(
           decodeUTF8(outJS.file.contents),
           {
-            ecma: 2020,
             compress: {
+              ecma: 2018,
               comparisons: false,
               passes: 2,
               inline: 2,
@@ -156,6 +173,7 @@ const minifyJS = {
               negate_iife: false,
             },
             format: {
+              ecma: 2018,
               comments: false,
               ascii_only: true,
               wrap_iife: true,
