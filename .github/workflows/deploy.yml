@@ -33,7 +33,7 @@ jobs:
         run: |
           curl -Lo ./firebase_bin https://firebase.tools/bin/linux/latest
           chmod +x ./firebase_bin
-          ./firebase_bin deploy
+          ./firebase_bin deploy --only hosting
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
       # - name: Purge CDN
