@@ -137,11 +137,12 @@ export function mocksSetup(): void {
     const node = window.getSelection()?.anchorNode;
 
     switch (commandId) {
-      case 'defaultParagraphSeparator':
+      case 'defaultParagraphSeparator': {
         // TODO: Implement something useful here or add `playwright-chromium` for UI tests
         break;
+      }
 
-      case 'insertText':
+      case 'insertText': {
         if (!node) throw new Error('No node selected for insertText');
         if (!value) throw new Error('insertText missing value');
 
@@ -152,11 +153,13 @@ export function mocksSetup(): void {
           node.parentNode!.textContent += value;
         }
         break;
+      }
 
-      default:
+      default: {
         throw new ReferenceError(
           `document.execCommand mock does not support ${commandId}`,
         );
+      }
     }
 
     return true;
