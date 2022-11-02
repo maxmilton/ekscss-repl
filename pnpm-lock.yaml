@@ -32,7 +32,7 @@ specifiers:
   purgecss: 5.0.0
   sirv: 2.0.2
   sirv-cli: 2.0.2
-  stage1: 0.4.1
+  stage1: 0.6.2
   stylelint: 14.14.0
   stylelint-config-standard: 29.0.0
   terser: 5.15.1
@@ -44,7 +44,7 @@ specifiers:
 dependencies:
   '@ekscss/framework': 0.0.42_ekscss@0.0.13
   ekscss: 0.0.13
-  stage1: 0.4.1
+  stage1: 0.6.2
 
 devDependencies:
   '@maxmilton/stylelint-config': 0.0.10_stylelint@14.14.0
@@ -3393,8 +3393,8 @@ packages:
     resolution: {integrity: sha512-rr+VVSXtRhO4OHbXUiAF7xW3Bo9DuuF6C5jH+q/x15j2jniycgKbxU09Hr0WqlSLUs4i4ltHGXqTe7VHclYWyA==}
     dev: true
 
-  /stage1/0.4.1:
-    resolution: {integrity: sha512-7yYnPMjJRv/qTlTjnl0jOogGiZir6Uv2sdh47UNmxF6h2Ej6p7Sw6cYjPdIVV1iQ0g7CczYCXNzRm9nrtuM/bQ==}
+  /stage1/0.6.2:
+    resolution: {integrity: sha512-RBNR9kL5P8+Wam2+LpLSL4rliOaO8/UPPbhakskubz96ULWDEnEuOfeXnlOUzse4+ZLQgi8PTH/MY5Y7x1KvgA==}
     dev: false
 
   /string-width/4.2.3:
