@@ -53,7 +53,7 @@
     "purgecss": "5.0.0",
     "sirv": "2.0.2",
     "sirv-cli": "2.0.2",
-    "stylelint": "14.14.0",
+    "stylelint": "14.14.1",
     "stylelint-config-standard": "29.0.0",
     "terser": "5.15.1",
     "trackx": "0.6.0",
