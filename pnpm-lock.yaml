@@ -35,7 +35,7 @@ specifiers:
   stage1: 0.6.2
   stylelint: 14.15.0
   stylelint-config-standard: 29.0.0
-  terser: 5.15.1
+  terser: 5.16.1
   trackx: 0.6.0
   tsm: 2.3.0
   typescript: 4.9.3
@@ -78,7 +78,7 @@ devDependencies:
   sirv-cli: 2.0.2
   stylelint: 14.15.0
   stylelint-config-standard: 29.0.0_stylelint@14.15.0
-  terser: 5.15.1
+  terser: 5.16.1
   trackx: 0.6.0
   tsm: 2.3.0
   typescript: 4.9.3
@@ -3377,8 +3377,8 @@ packages:
       strip-ansi: 6.0.1
     dev: true
 
-  /terser/5.15.1:
-    resolution: {integrity: sha512-K1faMUvpm/FBxjBXud0LWVAGxmvoPbZbfTCYbSgaaYQaIXI3/TdI7a7ZGA73Zrou6Q8Zmz3oeUTsp/dj+ag2Xw==}
+  /terser/5.16.1:
+    resolution: {integrity: sha512-xvQfyfA1ayT0qdK47zskQgRZeWLoOQ8JQ6mIgRGVNwZKdQMU+5FkCBjmv4QjcrTzyZquRw2FVtlJSRUmMKQslw==}
     engines: {node: '>=10'}
     hasBin: true
     dependencies:
