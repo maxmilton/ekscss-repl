@@ -63,10 +63,7 @@ export function run(): void {
     }
   }
 
-  if (!compiled.css) {
-    refs.console.warn('Compile result empty');
-    refs.output.setContent('');
-  } else {
+  if (compiled.css) {
     // highlight potential code issues
     const cssHighlighted = compiled.css.replace(
       /null|undefined|UNDEFINED|INVALID|NaN|#apply:/g,
@@ -76,5 +73,8 @@ export function run(): void {
     // TODO: Editor#setContent uses set innerHTML which could be a security
     // issue; consider a refactor to use innerText and DOM methods
     refs.output.setContent(cssHighlighted);
+  } else {
+    refs.console.warn('Compile result empty');
+    refs.output.setContent('');
   }
 }
