@@ -47,7 +47,7 @@
     "lightningcss": "1.18.0",
     "pirates": "4.0.5",
     "playwright-chromium": "1.29.2",
-    "prettier": "2.8.2",
+    "prettier": "2.8.3",
     "prettier-plugin-pkg": "0.17.1",
     "prettier-plugin-sh": "0.12.8",
     "purgecss": "5.0.0",
