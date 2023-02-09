@@ -1,8 +1,7 @@
-[![Build status](https://img.shields.io/github/workflow/status/maxmilton/ekscss-repl/ci)](https://github.com/maxmilton/ekscss-repl/actions)
+[![Build status](https://img.shields.io/github/actions/workflow/status/maxmilton/ekscss-repl/ci.yml?branch=master)](https://github.com/maxmilton/ekscss-repl/actions)
 [![Coverage status](https://img.shields.io/codeclimate/coverage/MaxMilton/ekscss-repl)](https://codeclimate.com/github/MaxMilton/ekscss-repl)
 [![package.json version](https://img.shields.io/github/package-json/v/maxmilton/ekscss-repl)](https://github.com/maxmilton/ekscss-repl/blob/master/package.json)
 [![Licence](https://img.shields.io/github/license/maxmilton/ekscss-repl.svg)](https://github.com/maxmilton/ekscss-repl/blob/master/LICENSE)
-![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
 
 # ekscss REPL
 
