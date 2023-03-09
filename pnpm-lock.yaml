@@ -8,7 +8,7 @@ specifiers:
   '@types/node': 18.13.0
   '@typescript-eslint/eslint-plugin': 5.53.0
   '@typescript-eslint/parser': 5.53.0
-  c8: 7.12.0
+  c8: 7.13.0
   ekscss: 0.0.13
   esbuild: 0.16.17
   esbuild-minify-templates: 0.10.0
@@ -53,7 +53,7 @@ devDependencies:
   '@types/node': 18.13.0
   '@typescript-eslint/eslint-plugin': 5.53.0_cjo54hduev4bqhpjw5znwiokqu
   '@typescript-eslint/parser': 5.53.0_ycpbpc6yetojsgtrx3mwntkhsu
-  c8: 7.12.0
+  c8: 7.13.0
   esbuild: 0.16.17
   esbuild-minify-templates: 0.10.0_esbuild@0.16.17
   esbuild-plugin-ekscss: 0.0.13_47usua4ohzu6qukuz4t67u2vde
@@ -944,8 +944,8 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  /c8/7.12.0:
-    resolution: {integrity: sha512-CtgQrHOkyxr5koX1wEUmN/5cfDa2ckbHRA4Gy5LAL0zaCFtVWJS5++n+w4/sr2GWGerBxgTjpKeDclk/Qk6W/A==}
+  /c8/7.13.0:
+    resolution: {integrity: sha512-/NL4hQTv1gBL6J6ei80zu3IiTrmePDKXKXOTLpHvcIWZTVYQlDhVWjjWvkhICylE8EwwnMVzDZugCvdx0/DIIA==}
     engines: {node: '>=10.12.0'}
     hasBin: true
     dependencies:
