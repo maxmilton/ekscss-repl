@@ -194,7 +194,8 @@ const minifyJS = {
   },
 };
 
-await esbuild.build({
+/** @type {esbuild.BuildOptions} */
+const esbuildConfig = {
   entryPoints: ['src/index.ts'],
   outfile: 'dist/app.js',
   entryNames: dev ? '[name]' : '[name]-[hash]',
@@ -222,8 +223,14 @@ await esbuild.build({
   minify: !dev,
   mangleProps: /_refs|collect/,
   sourcemap: true,
-  watch: dev,
   write: dev,
   metafile: !dev && process.stdout.isTTY,
   logLevel: 'debug',
-});
+};
+
+if (dev) {
+  const context = await esbuild.context(esbuildConfig);
+  await context.watch();
+} else {
+  await esbuild.build(esbuildConfig);
+}
