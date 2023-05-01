@@ -51,7 +51,7 @@
     "prettier-plugin-pkg": "0.17.1",
     "prettier-plugin-sh": "0.12.8",
     "purgecss": "5.0.0",
-    "sirv": "2.0.2",
+    "sirv": "2.0.3",
     "sirv-cli": "2.0.2",
     "stylelint": "15.6.0",
     "stylelint-config-standard": "33.0.0",
