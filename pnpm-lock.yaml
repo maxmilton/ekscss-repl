@@ -68,8 +68,8 @@ devDependencies:
     specifier: 6.1.2
     version: 6.1.2
   git-ref:
-    specifier: 0.3.1
-    version: 0.3.1
+    specifier: 0.4.0
+    version: 0.4.0
   jsdom:
     specifier: 22.1.0
     version: 22.1.0
@@ -2065,8 +2065,8 @@ packages:
       get-intrinsic: 1.2.0
     dev: true
 
-  /git-ref@0.3.1:
-    resolution: {integrity: sha512-7H67HP83c8F/j9GcBsL9yT0FwOWpAVHTZ/TRj89PzTQbSmmsdgM+3yn+Id+ii0RmG7W4IG0f/pNb1bGGj/hgUw==}
+  /git-ref@0.4.0:
+    resolution: {integrity: sha512-Kwa828HJQbeq6lxqA4dEran8GimWU2MF6yak4M/Q5KO85yBre08g7GmnqrtGN43nNwfyCVhvzB3y/epZlLu5Mw==}
     dev: true
 
   /glob-parent@5.1.2:
