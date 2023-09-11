@@ -8,6 +8,7 @@ import { Footer } from './components/Footer';
 import { Input } from './components/Input';
 import { Nav } from './components/Nav';
 import { Output } from './components/Output';
+import { removeNbsp } from './macros' assert { type: 'macro' };
 import { run } from './service';
 
 declare global {
@@ -36,11 +37,13 @@ setupSyntheticEvent('click');
 // TODO: Remove temporary warning (and its associated styles)
 append(
   h(
-    compile(`
-      <div id=alert>
-        <strong>Warning:</strong> This REPL app is <abbr title="Work In Progress">WIP</abbr>, please <a href=https://github.com/maxmilton/ekscss-repl/issues rel=noreferrer>report issues</a>!
-      </div>
-  `).html,
+    removeNbsp(
+      compile(`
+        <div id=alert>
+          <strong>Warning:</strong>&nbsp;This REPL app is a&nbsp;<abbr title="Work In Progress">WIP</abbr>, please&nbsp;<a href=https://github.com/maxmilton/ekscss-repl/issues rel=noreferrer>report issues</a>!
+        </div>
+      `).html,
+    ),
   ),
   document.body,
 );
