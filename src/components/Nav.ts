@@ -1,43 +1,45 @@
 import './Nav.xcss';
 
-import { html, S1Node } from 'stage1';
-import { refs, run } from '../service';
+import { compile } from 'stage1/macro' assert { type: 'macro' };
+import { collect, h } from 'stage1/runtime';
+import { globalRefs, run } from '../service';
 
-type NavComponent = S1Node & HTMLDivElement;
+type NavComponent = HTMLDivElement;
 
-type RefNodes = {
+type Refs = {
   auto: HTMLInputElement;
   compile: HTMLButtonElement;
   clear: HTMLButtonElement;
 };
 
-const view = html`
+const meta = compile(`
   <div id=nav class="dfc pv1 ph3">
     <h1 id=logo class=mv0>ekscss REPL</h1>
 
     <a href=https://ekscss.js.org class=pl4 target=_blank rel=noreferrer>Docs</a>
 
     <div class="df ml-auto">
-      <input id=auto type=checkbox class=checkbox checked #auto>
+      <input @auto id=auto type=checkbox class=checkbox checked>
       <label for=auto class=label>Auto compile on input</label>
     </div>
 
-    <button class="button button-primary mh3" #compile>Compile</button>
-    <button class=button #clear>Clear Output</button>
+    <button @compile class="button button-primary mh3">Compile</button>
+    <button @clear class=button>Clear Output</button>
   </div>
-`;
+`);
+const view = h<NavComponent>(meta.html);
 
 export function Nav(): NavComponent {
-  const root = view as NavComponent;
-  const { auto, compile, clear } = view.collect<RefNodes>(root);
+  const root = view;
+  const refs = collect<Refs>(root, meta.k, meta.d);
 
-  refs.auto = auto;
+  globalRefs.auto = refs.auto;
 
-  compile.__click = run;
+  refs.compile.__click = run;
 
-  clear.__click = () => {
-    refs.output.setContent('');
-    refs.console.clear();
+  refs.clear.__click = () => {
+    globalRefs.output.setContent('');
+    globalRefs.console.clear();
   };
 
   return root;

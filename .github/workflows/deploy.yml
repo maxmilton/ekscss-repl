@@ -11,24 +11,22 @@ jobs:
   deploy:
     if: ${{ github.event.workflow_run.conclusion == 'success' && github.event_name != 'pull_request' }}
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # all history; so we get the last tagged git commit
+          fetch-depth: 0 # all history to get the last tagged git commit
       - uses: actions/cache@v3
         with:
           path: .firebase
           key: firebase-${{ github.run_id }}
           restore-keys: |
             firebase-
-      - uses: actions/setup-node@v3
+      - uses: oven-sh/setup-bun@v1
         with:
-          node-version: 18
-      - run: npm install --global pnpm
-      - run: pnpm install --frozen-lockfile
-        env:
-          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
-      - run: pnpm run build
+          bun-version: latest
+      - run: bun install --frozen-lockfile
+      - run: bun run build
       - name: Deploy to firebase
         run: |
           curl -Lo ./firebase_bin https://firebase.tools/bin/linux/latest

@@ -3,8 +3,7 @@ const DEFAULT_DEBOUNCE_DELAY_MS = 260;
 /**
  * Delay running a function until X ms have passed since its last call.
  */
-export function debounce<T extends (
-  ...args: unknown[]) => unknown>(
+export function debounce<T extends (...args: unknown[]) => unknown>(
   fn: T,
   delay = DEFAULT_DEBOUNCE_DELAY_MS,
 ): T {

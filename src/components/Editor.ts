@@ -1,26 +1,27 @@
 import './Editor.xcss';
 
-import { html, S1Node } from 'stage1';
+import { compile } from 'stage1/macro' assert { type: 'macro' };
+import { clone, h } from 'stage1/runtime';
 
-export type EditorComponent = S1Node &
-HTMLOListElement & {
+export type EditorComponent = HTMLOListElement & {
   /** `autofocus` global attribute for `contenteditable` element. */
   autofocus?: boolean;
   setContent(code: string): void;
   getContent(): string;
 };
 
-const view = html`
+const meta = compile(`
   <ol
-    contenteditable="true"
+    contenteditable=true
     class="editor w100 mt0 code"
-    rows="10"
-    spellcheck="false"
+    rows=10
+    spellcheck=false
   ></ol>
-`;
+`);
+const view = h<EditorComponent>(meta.html);
 
 export function Editor(): EditorComponent {
-  const root = view.cloneNode(true) as EditorComponent;
+  const root = clone(view);
 
   document.execCommand('defaultParagraphSeparator', false, 'li');
 
