@@ -1,0 +1,3 @@
+// Bun Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rendered DOM matches snapshot 1`] = `"<div id="con"><h2>Console Output</h2><div class="console code-block code"></div></div>"`;

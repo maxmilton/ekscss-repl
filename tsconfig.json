@@ -2,24 +2,35 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
-    "moduleResolution": "node",
-    "esModuleInterop": true,
-    "isolatedModules": true,
+    "moduleResolution": "bundler",
+    "esModuleInterop": false,
+    "resolveJsonModule": true,
     "skipLibCheck": true,
-    "allowJs": true,
-    "checkJs": true,
-    "noEmit": true,
+    "allowJs": false,
 
     "strict": true,
     "allowUnreachableCode": false,
     "exactOptionalPropertyTypes": true,
     "forceConsistentCasingInFileNames": true,
-    "importsNotUsedAsValues": "error",
-    "noFallthroughCasesInSwitch": true,
+    "noFallthroughCasesInSwitch": false, // covered by eslint
     "noImplicitOverride": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "useDefineForClassFields": true
+    "noUnusedLocals": false, // covered by eslint
+    "noUnusedParameters": false, // covered by eslint
+    "verbatimModuleSyntax": true,
+
+    "types": [
+      "bun-types",
+      "./node_modules/typescript/lib/lib.esnext.full.d.ts" // workaround for bun-types breaking dom types
+    ]
   },
-  "exclude": ["coverage", "dist", "node_modules", "test", "xcss.config.js"]
+  "include": [
+    "src",
+    "test",
+    "build.ts",
+    "http.ts",
+    "manifest.config.ts",
+    "modules.d.ts",
+    "playwright.config.ts"
+  ],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }

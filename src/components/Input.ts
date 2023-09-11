@@ -1,18 +1,20 @@
-import { append, html, S1Node } from 'stage1';
-import { refs, run } from '../service';
+import { compile } from 'stage1/macro' assert { type: 'macro' };
+import { append, h } from 'stage1/runtime';
+import { globalRefs, run } from '../service';
 import { debounce } from '../utils';
 import { Editor } from './Editor';
 
-type InputComponent = S1Node & HTMLDivElement;
+type InputComponent = HTMLDivElement;
 
-const view = html`
-  <div id="in">
+const meta = compile(`
+  <div id=in>
     <h2>Source Code</h2>
   </div>
-`;
+`);
+const view = h<InputComponent>(meta.html);
 
 export function Input(): InputComponent {
-  const root = view as InputComponent;
+  const root = view;
   const editor = Editor();
   editor.autofocus = true;
   editor.setContent(`/**
@@ -37,10 +39,10 @@ body {
 `);
 
   editor.oninput = debounce(() => {
-    if (refs.auto.checked) run();
+    if (globalRefs.auto.checked) run();
   });
 
-  append((refs.input = editor), root);
+  append((globalRefs.input = editor), root);
 
   return root;
 }

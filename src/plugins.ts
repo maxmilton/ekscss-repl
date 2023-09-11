@@ -1,4 +1,8 @@
-import { Element, Middleware, onAfterBuild } from 'ekscss';
+import {
+  onAfterBuild,
+  type Element,
+  type Middleware,
+} from 'ekscss/dist/browser';
 
 let ast: Element[];
 

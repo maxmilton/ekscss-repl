@@ -13,7 +13,7 @@ Try it: <https://ekscss-repl.web.app>
 
 - [ekscss](https://github.com/maxmilton/ekscss) style preprocessor
 - [stage1](https://github.com/maxmilton/stage1) JavaScript framework
-- [esbuild](https://esbuild.github.io/) JavaScript bundler
+- [bun](https://github.com/oven-sh/bun) JavaScript bundler and runtime
 
 ## Browser support
 
@@ -31,4 +31,4 @@ The [repeat button icon](https://github.com/twitter/twemoji/blob/master/assets/s
 
 ---
 
-© 2022 [Max Milton](https://maxmilton.com)
+© 2023 [Max Milton](https://maxmilton.com)
