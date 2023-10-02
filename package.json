@@ -42,7 +42,7 @@
     "eslint-plugin-security": "1.7.1",
     "eslint-plugin-unicorn": "48.0.1",
     "happy-dom": "11.2.0",
-    "lightningcss": "1.21.8",
+    "lightningcss": "1.22.0",
     "prettier": "3.0.3",
     "prettier-plugin-pkg": "0.18.0",
     "purgecss": "5.0.0",
