@@ -17,8 +17,7 @@
     'out'
     'con'
     'foot';
-  row-gap: 1em;
-  column-gap: 1em;
+  gap: 1em;
   height: 100%;
 
   @media ${x.media.l} {

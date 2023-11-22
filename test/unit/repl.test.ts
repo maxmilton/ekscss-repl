@@ -14,9 +14,7 @@ test('finds app JS filename', () => {
 
 test('renders entire REPL app', async () => {
   const checkConsoleCalls = consoleSpy();
-  const consoleLogSpy = spyOn(console, 'log')
-    // @ts-expect-error - noop mock
-    .mockImplementation(() => {});
+  const consoleLogSpy = spyOn(console, 'log').mockImplementation(() => {});
 
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   await import(`../../dist/${jsFilename!}`);
