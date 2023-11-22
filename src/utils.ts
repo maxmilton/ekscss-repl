@@ -1,3 +1,6 @@
+declare let setTimeout: typeof window.setTimeout;
+declare let clearTimeout: typeof window.clearTimeout;
+
 const DEFAULT_DEBOUNCE_DELAY_MS = 260;
 
 /**
@@ -7,7 +10,7 @@ export function debounce<T extends (...args: unknown[]) => unknown>(
   fn: T,
   delay = DEFAULT_DEBOUNCE_DELAY_MS,
 ): T {
-  let timer: NodeJS.Timeout;
+  let timer: number;
 
   // @ts-expect-error - Transparent wrapper will not change input function type
   // eslint-disable-next-line func-names
