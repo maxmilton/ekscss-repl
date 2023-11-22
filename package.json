@@ -27,7 +27,7 @@
   "devDependencies": {
     "@ekscss/framework": "0.0.48",
     "@maxmilton/stylelint-config": "0.0.13",
-    "@playwright/test": "1.39.0",
+    "@playwright/test": "1.40.0",
     "@types/csso": "5.0.3",
     "@typescript-eslint/eslint-plugin": "6.12.0",
     "@typescript-eslint/parser": "6.12.0",
