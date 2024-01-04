@@ -63,7 +63,7 @@ const out = await Bun.build({
   entrypoints: ['src/index.ts'],
   outdir: 'dist',
   target: 'browser',
-  // FIXME: Use iife once bun supports it.
+  // FIXME: Consider using iife once bun supports it.
   // format: 'iife',
   define: {
     'process.env.APP_RELEASE': JSON.stringify(release),
@@ -126,6 +126,7 @@ async function minifyJS(artifact: Blob & { path: string }) {
       reduce_funcs: false,
       // XXX: Comment out to keep performance markers for debugging
       pure_funcs: ['performance.mark', 'performance.measure'],
+      passes: 2,
     },
     mangle: {
       properties: {
@@ -155,7 +156,8 @@ async function buildHTML() {
     <noscript>You need to enable JavaScript to run this app.</noscript>
   `
     .trim()
-    .replaceAll(/\n\s+/g, '\n'); // remove leading whitespace
+    .replace(/\n\s+/g, '\n'); // remove leading whitespace
+
   await Bun.write('dist/index.html', html);
 }
 
