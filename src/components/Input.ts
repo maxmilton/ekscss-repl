@@ -1,5 +1,5 @@
+import { append, h } from 'stage1';
 import { compile } from 'stage1/macro' assert { type: 'macro' };
-import { append, h } from 'stage1/runtime';
 import { globalRefs, run } from '../service';
 import { debounce } from '../utils';
 import { Editor } from './Editor';

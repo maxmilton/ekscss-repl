@@ -2,8 +2,8 @@
 
 import './Console.xcss';
 
+import { append, collect, create, h } from 'stage1';
 import { compile } from 'stage1/macro' assert { type: 'macro' };
-import { append, collect, create, h } from 'stage1/runtime';
 import { globalRefs } from '../service';
 
 export type ConsoleComponent = HTMLDivElement & {

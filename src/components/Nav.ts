@@ -1,7 +1,7 @@
 import './Nav.xcss';
 
+import { collect, h } from 'stage1';
 import { compile } from 'stage1/macro' assert { type: 'macro' };
-import { collect, h } from 'stage1/runtime';
 import { globalRefs, run } from '../service';
 
 type NavComponent = HTMLDivElement;

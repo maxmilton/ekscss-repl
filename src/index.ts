@@ -1,14 +1,13 @@
 import './css/index.xcss';
 
+import { append, create, h, setupSyntheticEvent } from 'stage1';
 import { compile } from 'stage1/macro' assert { type: 'macro' };
-import { append, create, h, setupSyntheticEvent } from 'stage1/runtime';
-import type * as trackx from 'trackx';
+import type * as _trackx from 'trackx';
 import { Console } from './components/Console';
 import { Footer } from './components/Footer';
 import { Input } from './components/Input';
 import { Nav } from './components/Nav';
 import { Output } from './components/Output';
-import { removeNbsp } from './macros' assert { type: 'macro' };
 import { run } from './service';
 
 declare global {
@@ -19,16 +18,18 @@ declare global {
 
   interface Window {
     // Added by trackx CDN script in index.html
-    trackx?: typeof trackx;
+    trackx?: typeof _trackx;
   }
+
+  let trackx: typeof _trackx;
 }
 
 if (window.trackx) {
-  window.trackx.meta.release = process.env.APP_RELEASE;
-  window.trackx.meta.ekscss = process.env.EKSCSS_VERSION;
+  trackx.meta.release = process.env.APP_RELEASE;
+  trackx.meta.ekscss = process.env.EKSCSS_VERSION;
 
   if (process.env.NODE_ENV !== 'production') {
-    window.trackx.meta.NODE_ENV = process.env.NODE_ENV ?? 'NULL';
+    trackx.meta.NODE_ENV = process.env.NODE_ENV ?? 'NULL';
   }
 }
 
@@ -37,13 +38,14 @@ setupSyntheticEvent('click');
 // TODO: Remove temporary warning (and its associated styles)
 append(
   h(
-    removeNbsp(
-      compile(`
+    compile(
+      `
         <div id=alert>
-          <strong>Warning:</strong>&nbsp;This REPL app is a&nbsp;<abbr title="Work In Progress">WIP</abbr>, please&nbsp;<a href=https://github.com/maxmilton/ekscss-repl/issues rel=noreferrer>report issues</a>!
+          <strong>Warning:</strong> This REPL app is a <abbr title="Work In Progress">WIP</abbr>, please <a href=https://github.com/maxmilton/ekscss-repl/issues rel=noreferrer>report issues</a>!
         </div>
-      `).html,
-    ),
+      `,
+      { keepSpaces: true },
+    ).html,
   ),
   document.body,
 );

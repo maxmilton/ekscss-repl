@@ -1,7 +1,7 @@
 import './Editor.xcss';
 
+import { clone, h } from 'stage1';
 import { compile } from 'stage1/macro' assert { type: 'macro' };
-import { clone, h } from 'stage1/runtime';
 
 export type EditorComponent = HTMLOListElement & {
   /** `autofocus` global attribute for `contenteditable` element. */
