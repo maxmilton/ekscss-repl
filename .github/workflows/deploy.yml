@@ -4,6 +4,7 @@ on:
     workflows: [ci]
     types: [completed]
     branches: [master]
+  workflow_dispatch: {}
 concurrency:
   group: deploy
   cancel-in-progress: true
