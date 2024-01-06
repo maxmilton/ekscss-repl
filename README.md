@@ -31,4 +31,4 @@ The [repeat button icon](https://github.com/twitter/twemoji/blob/master/assets/s
 
 ---
 
-© 2023 [Max Milton](https://maxmilton.com)
+© 2024 [Max Milton](https://maxmilton.com)
