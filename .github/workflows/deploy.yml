@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0 # all history to get the last tagged git commit
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         with:
           path: .firebase
           key: firebase-${{ github.run_id }}
