@@ -55,20 +55,18 @@ export function cleanup(): void {
   }
 }
 
-const consoleMethods = Object.getOwnPropertyNames(
-  window.console,
-) as (keyof Console)[];
+const methods = Object.getOwnPropertyNames(performance) as (keyof Performance)[];
 
-export function consoleSpy(): () => void {
+export function performanceSpy(): () => void {
   const spies: Mock<() => void>[] = [];
 
-  for (const method of consoleMethods) {
-    spies.push(spyOn(window.console, method));
+  for (const method of methods) {
+    spies.push(spyOn(performance, method));
   }
 
-  return () => {
+  return /** check */ () => {
     for (const spy of spies) {
-      expect(spy).toHaveBeenCalledTimes(0);
+      expect(spy).not.toHaveBeenCalled();
       spy.mockRestore();
     }
   };

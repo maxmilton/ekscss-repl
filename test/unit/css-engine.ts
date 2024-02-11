@@ -12,17 +12,14 @@ export const SKIP = Symbol('SKIP');
 
 /**
  * Clones the element, stripping out references to other elements (e.g.,
- * "parent") for cleaner logging. Intended for debugging only.
+ * "parent") for cleaner logging. **Intended for debugging only.**
  */
-export const cleanElement = <T extends Element>(element: T): T => ({
-  ...element,
-  root: undefined,
-  parent: undefined,
-  children: Array.isArray(element.children)
-    ? element.children.length
-    : element.children,
-  siblings: undefined,
-});
+export const cleanElement = <T extends Element & { siblings?: Element[] }>(element: T): T => {
+  const { root, parent, children, siblings, ...rest } = element;
+  // @ts-expect-error - TODO: Fix "children" prop type
+  rest.children = Array.isArray(children) ? children.length : children;
+  return rest as T;
+};
 
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 type VisitorFunction = (element: Element) => typeof SKIP | void;

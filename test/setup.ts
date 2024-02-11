@@ -1,3 +1,4 @@
+import { expect } from 'bun:test';
 import { GlobalWindow, type Window } from 'happy-dom';
 
 /* eslint-disable no-var, vars-on-top */
@@ -9,6 +10,25 @@ declare global {
   var happyDOM: Window['happyDOM'];
 }
 /* eslint-enable */
+
+declare module 'bun:test' {
+  interface Matchers {
+    /** Asserts that a value is a plain `object`. */
+    toBePlainObject(): void;
+  }
+}
+
+expect.extend({
+  // XXX: Bun's `toBeObject` matcher is the equivalent of `typeof x === 'object'`.
+  toBePlainObject(received: unknown) {
+    return Object.prototype.toString.call(received) === '[object Object]'
+      ? { pass: true }
+      : {
+          pass: false,
+          message: () => `expected ${String(received)} to be a plain object`,
+        };
+  },
+});
 
 // Make imported .xcss files return empty to prevent test errors (unit tests
 // can't assert styles properly anyway; better to create e2e tests!)
@@ -22,20 +42,23 @@ Bun.plugin({
   },
 });
 
+const originalConsole = global.console;
 const noop = () => {};
 
 function setupDOM() {
   const dom = new GlobalWindow();
   global.happyDOM = dom.happyDOM;
+  global.console2 = originalConsole;
   // @ts-expect-error - happy-dom only implements a subset of the DOM API
   global.window = dom.window.document.defaultView;
   global.document = global.window.document;
   global.console = window.console;
+  global.fetch = window.fetch;
   global.setTimeout = window.setTimeout;
   global.clearTimeout = window.clearTimeout;
-  global.DocumentFragment = window.DocumentFragment;
   global.Text = window.Text;
-  global.fetch = window.fetch;
+  global.DocumentFragment = window.DocumentFragment;
+  global.MutationObserver = window.MutationObserver;
 }
 
 function setupMocks(): void {
@@ -76,9 +99,15 @@ function setupMocks(): void {
   };
 }
 
-export function reset(): void {
+export async function reset(): Promise<void> {
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  if (global.happyDOM) {
+    await happyDOM.abort();
+    window.close();
+  }
+
   setupDOM();
   setupMocks();
 }
 
-reset();
+await reset();
