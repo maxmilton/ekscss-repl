@@ -1,9 +1,9 @@
 {
   "css.validate": false,
   "editor.codeActionsOnSave": {
-    "source.fixAll": "explicit"
+    "source.fixAll": "explicit",
+    "source.fixAll.eslint": "never"
   },
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnPaste": false,
   "editor.formatOnSave": true,
   "editor.formatOnType": false,
@@ -13,14 +13,19 @@
   },
   "git.branchProtection": ["master"],
   "js/ts.implicitProjectConfig.checkJs": true,
-  "prettier.ignorePath": ".gitignore",
+  "prettier.enable": false, // use biome instead
   "scss.validate": false,
   "stylelint.validate": ["css", "scss"],
   "typescript.tsdk": "node_modules/typescript/lib",
+
+  "[css][html][json][jsonc][markdown][scss]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
   "[javascript][typescript]": {
     "editor.codeActionsOnSave": {
       "source.sortImports": "explicit",
       "source.fixAll": "explicit"
-    }
+    },
+    "editor.defaultFormatter": "biomejs.biome"
   }
 }

@@ -20,18 +20,14 @@ module.exports = {
     'plugin:@typescript-eslint/strict-type-checked',
     'plugin:@typescript-eslint/stylistic-type-checked',
     'plugin:unicorn/recommended',
-    'prettier',
     'plugin:security/recommended-legacy',
   ],
-  plugins: ['prettier'],
   rules: {
     '@typescript-eslint/explicit-module-boundary-types': ERROR,
     '@typescript-eslint/no-non-null-assertion': WARN,
-    'import/order': OFF, // broken with prettier
     'import/prefer-default-export': OFF,
     'no-restricted-syntax': OFF,
     'no-void': OFF,
-    'prettier/prettier': WARN,
     'unicorn/filename-case': OFF,
     'unicorn/no-abusive-eslint-disable': WARN,
     'unicorn/no-null': OFF,
@@ -42,6 +38,15 @@ module.exports = {
     'unicorn/prevent-abbreviations': OFF,
     // byte savings (esbuild minify doesn't currently automatically remove)
     'unicorn/switch-case-braces': [ERROR, 'avoid'],
+
+    /* Covered by biome formatter */
+    '@typescript-eslint/indent': OFF,
+    'function-paren-newline': OFF,
+    'implicit-arrow-linebreak': OFF,
+    'max-len': OFF,
+    'object-curly-newline': OFF,
+    'operator-linebreak': OFF,
+    'unicorn/no-nested-ternary': OFF,
 
     /* stage1 */
     '@typescript-eslint/consistent-type-definitions': OFF, // FIXME: Issue with stage1 collect Refs
