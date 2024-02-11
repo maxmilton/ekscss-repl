@@ -10,7 +10,7 @@ export interface RenderResult {
    *
    * @param element - An element to inspect. Default is the mounted container.
    */
-  debug(element?: Element): Promise<void>;
+  debug(element?: Element): void;
   unmount(): void;
 }
 
@@ -26,10 +26,13 @@ export function render(component: Node): RenderResult {
 
   return {
     container,
-    async debug(el = container) {
-      const { format } = await import('prettier');
-      // eslint-disable-next-line no-console
-      console.log(`DEBUG:\n${await format(el.innerHTML, { parser: 'html' })}`);
+    debug(el = container) {
+      // const { format } = await import('prettier');
+      // const html = await format(el.innerHTML, { parser: 'html' });
+      // console2.log(`DEBUG:\n${html}`);
+
+      // FIXME: Replace with biome once it has a HTML parser
+      console2.log(`DEBUG:\n${el.innerHTML}`);
     },
     unmount() {
       // eslint-disable-next-line unicorn/prefer-dom-node-remove
@@ -40,9 +43,7 @@ export function render(component: Node): RenderResult {
 
 export function cleanup(): void {
   if (mountedContainers.size === 0) {
-    throw new Error(
-      'No mounted components exist, did you forget to call render()?',
-    );
+    throw new Error('No mounted components exist, did you forget to call render()?');
   }
 
   for (const container of mountedContainers) {

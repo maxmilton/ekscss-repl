@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # all history to get the last tagged git commit
+          fetch-depth: 0 # full history to get the last tagged git commit
       - uses: actions/cache@v4
         with:
           path: .firebase

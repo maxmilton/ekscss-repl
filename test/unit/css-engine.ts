@@ -72,10 +72,7 @@ function load(root: Element[]): void {
 /**
  * Returns a list of elements matching the given CSS selector.
  */
-export function lookup(
-  root: Element[],
-  cssSelector: string,
-): Element[] | undefined {
+export function lookup(root: Element[], cssSelector: string): Element[] | undefined {
   if (!cache.has(root)) load(root);
 
   // parse the selector to ensure it's valid and normalized

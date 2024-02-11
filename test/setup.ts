@@ -1,12 +1,14 @@
 import { GlobalWindow, type Window } from 'happy-dom';
 
+/* eslint-disable no-var, vars-on-top */
 declare global {
-  // eslint-disable-next-line no-var, vars-on-top
+  /** Real bun console. `console` is mapped to happy-dom's virtual console. */
+  // biome-ignore lint/style/noVar: define global
+  var console2: Console;
+  // biome-ignore lint/style/noVar: define global
   var happyDOM: Window['happyDOM'];
 }
-
-// Increase stack limit from 10 (v8 default)
-global.Error.stackTraceLimit = 50;
+/* eslint-enable */
 
 // Make imported .xcss files return empty to prevent test errors (unit tests
 // can't assert styles properly anyway; better to create e2e tests!)
@@ -47,11 +49,7 @@ function setupMocks(): void {
 
   // happy-dom doesn't support `document.execCommand` so we need to mock it
   // REF: https://github.com/jsdom/jsdom/issues/1742#issuecomment-622335665
-  document.execCommand = (
-    commandId: string,
-    _showUI?: boolean,
-    value?: string,
-  ) => {
+  document.execCommand = (commandId: string, _showUI?: boolean, value?: string) => {
     const node = window.getSelection()?.anchorNode;
 
     switch (commandId) {
@@ -71,9 +69,7 @@ function setupMocks(): void {
         break;
 
       default:
-        throw new ReferenceError(
-          `document.execCommand mock does not support ${commandId}`,
-        );
+        throw new ReferenceError(`document.execCommand mock does not support ${commandId}`);
     }
 
     return true;
