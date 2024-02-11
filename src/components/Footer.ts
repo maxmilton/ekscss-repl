@@ -27,9 +27,7 @@ const meta = compile(
   ),
   { keepSpaces: true },
 );
-const view = h<FooterComponent>(meta.html);
 
 export function Footer(): FooterComponent {
-  const root = view;
-  return root;
+  return h<FooterComponent>(meta.html);
 }
