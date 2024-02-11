@@ -33,10 +33,10 @@ export function Console(): ConsoleComponent {
   const output = refs.o;
 
   const print =
-    (method: ConsoleMethodName, color = '') =>
+    (method: ConsoleMethodName, color?: string) =>
     (...args: unknown[]) => {
       const line = create('div');
-      line.className = color;
+      if (color) line.className = color;
       line.textContent = args.toString();
       append(line, output);
       output.scrollTo(0, output.scrollHeight);
