@@ -46,7 +46,7 @@
     "purgecss": "5.0.0",
     "stylelint": "16.2.1",
     "stylelint-config-standard": "36.0.0",
-    "terser": "5.27.0",
+    "terser": "5.29.2",
     "trackx": "0.6.1",
     "typescript": "5.3.3"
   }
