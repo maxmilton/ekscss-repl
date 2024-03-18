@@ -52,6 +52,6 @@
   },
   "overrides": {
     "bun-types": "canary",
-    "lightningcss": "1.23.0"
+    "lightningcss": "1.24.1"
   }
 }
