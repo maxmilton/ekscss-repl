@@ -5,8 +5,9 @@
     "clientKind": "git",
     "useIgnoreFile": true
   },
-  "linter": { "enabled": false },
-  "organizeImports": { "enabled": false },
+  "organizeImports": {
+    "enabled": false
+  },
   "formatter": {
     "formatWithErrors": true,
     "indentStyle": "space",
@@ -21,9 +22,48 @@
       "quoteStyle": "single"
     }
   },
+  "linter": {
+    "rules": {
+      "recommended": true,
+      "complexity": {
+        "noForEach": "off",
+        "noUselessThisAlias": "off",
+        "useSimplifiedLogicExpression": "warn"
+      },
+      "style": {
+        "noNamespace": "error",
+        "noNegationElse": "error",
+        "noNonNullAssertion": "off",
+        "noParameterProperties": "error",
+        "noRestrictedGlobals": "error",
+        "noShoutyConstants": "error",
+        "useCollapsedElseIf": "error",
+        "useEnumInitializers": "off",
+        "useNamingConvention": {
+          "level": "error",
+          "options": { "strictCase": false }
+        },
+        "useShorthandArrayType": "error",
+        "useShorthandAssign": "error",
+        "useTemplate": "off"
+      },
+      "suspicious": {
+        "noApproximativeNumericConstant": "error",
+        "noAssignInExpressions": "off",
+        "noConfusingVoidType": "off",
+        "noConsoleLog": "warn",
+        "noConstEnum": "off",
+        "noExplicitAny": "off",
+        "noMisrefactoredShorthandAssign": "error"
+      },
+      "nursery": {
+        "noFocusedTests": "error"
+      }
+    }
+  },
   "overrides": [
     {
-      "include": [".vscode/**"],
+      "include": [".vscode/**", "tsconfig.json", "tsconfig.node.json"],
       "json": {
         "parser": {
           "allowComments": true,
@@ -35,6 +75,19 @@
       "include": ["**/*.spec.ts", "**/*.test.ts", "test/**/*.ts"],
       "formatter": {
         "lineWidth": 100
+      }
+    },
+    {
+      "include": ["build.ts", "http.ts"],
+      "linter": {
+        "rules": {
+          "style": {
+            "useNamingConvention": "off"
+          },
+          "suspicious": {
+            "noConsoleLog": "off"
+          }
+        }
       }
     }
   ]
