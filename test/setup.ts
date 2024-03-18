@@ -1,15 +1,13 @@
 import { expect } from 'bun:test';
 import { GlobalWindow, type Window } from 'happy-dom';
 
-/* eslint-disable no-var, vars-on-top */
 declare global {
   /** Real bun console. `console` is mapped to happy-dom's virtual console. */
-  // biome-ignore lint/style/noVar: define global
+  // eslint-disable-next-line no-var, vars-on-top
   var console2: Console;
-  // biome-ignore lint/style/noVar: define global
+  // eslint-disable-next-line no-var, vars-on-top
   var happyDOM: Window['happyDOM'];
 }
-/* eslint-enable */
 
 declare module 'bun:test' {
   interface Matchers {
@@ -77,22 +75,23 @@ function setupMocks(): void {
 
     switch (commandId) {
       case 'defaultParagraphSeparator':
-        // TODO: Implement something useful here
+        // TODO: Implement something useful here?
         break;
 
       case 'insertText':
         if (!node) throw new Error('No node selected for insertText');
         if (!value) throw new Error('insertText missing value');
 
-        if (node.textContent) {
-          node.textContent += value;
-        } else {
-          node.nodeValue += value; // TEXT_NODE
-        }
+        // if (node.textContent) {
+        //   node.textContent += value;
+        // } else {
+        //   node.nodeValue += value; // TEXT_NODE
+        // }
+        node.textContent! += value;
         break;
 
       default:
-        throw new ReferenceError(`document.execCommand mock does not support ${commandId}`);
+        throw new ReferenceError(`document.execCommand mock does not support "${commandId}"`);
     }
 
     return true;

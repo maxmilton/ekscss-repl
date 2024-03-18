@@ -8,7 +8,7 @@ afterEach(reset);
 // Build adds a hash to the filename so we need to find the file path.
 const html = await Bun.file('dist/index.html').text();
 const jsFilename = /index.*\.js/.exec(html)?.[0];
-const MODULE_PATH = import.meta.resolveSync(`../../dist/${jsFilename}`);
+const MODULE_PATH = import.meta.resolveSync(`../../dist/${jsFilename!}`);
 
 async function load() {
   // Workaround for hack in src/BookmarkBar.ts that waits for styles to be loaded.

@@ -9,16 +9,15 @@ const DEFAULT_DEBOUNCE_DELAY_MS = 260;
 export function debounce<T extends (...args: unknown[]) => unknown>(
   fn: T,
   delay = DEFAULT_DEBOUNCE_DELAY_MS,
-): T {
-  let timer: number;
+): (...args: Parameters<T>) => void {
+  let timer: number | undefined;
 
-  // @ts-expect-error - Transparent wrapper will not change input function type
   // eslint-disable-next-line func-names
-  return function (this: unknown, ...args) {
+  return function (this: ThisParameterType<T>, ...args: Parameters<T>) {
     // eslint-disable-next-line @typescript-eslint/no-this-alias, unicorn/no-this-assignment
     const context = this;
 
-    clearTimeout(timer);
+    if (timer) clearTimeout(timer);
 
     timer = setTimeout(() => {
       fn.apply(context, args);
