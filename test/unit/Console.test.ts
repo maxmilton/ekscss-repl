@@ -5,6 +5,7 @@ import { cleanup, render } from './utils';
 afterEach(cleanup);
 
 test('rendered DOM contains expected elements', () => {
+  expect.assertions(3);
   const rendered = render(Console());
   expect(rendered.container.firstChild?.nodeName).toBe('DIV');
   expect(rendered.container.querySelector('h2')?.textContent).toBe('Console Output');
@@ -14,6 +15,7 @@ test('rendered DOM contains expected elements', () => {
 });
 
 test('rendered DOM matches snapshot', () => {
+  expect.assertions(1);
   const rendered = render(Console());
   expect(rendered.container.innerHTML).toMatchSnapshot();
 });

@@ -11,19 +11,18 @@ const jsFilename = /index.*\.js/.exec(html)?.[0];
 const MODULE_PATH = import.meta.resolveSync(`../../dist/${jsFilename!}`);
 
 async function load() {
-  // Workaround for hack in src/BookmarkBar.ts that waits for styles to be loaded.
-  document.head.appendChild(document.createElement('style'));
-
   Loader.registry.delete(MODULE_PATH);
   await import(MODULE_PATH);
   await happyDOM.waitUntilComplete();
 }
 
 test('finds app JS filename', () => {
+  expect.assertions(1);
   expect(jsFilename).toBeTruthy();
 });
 
 test('renders entire REPL app', async () => {
+  expect.assertions(10);
   await load();
   expect(document.body.innerHTML.length).toBeGreaterThan(1000);
   const firstNode = document.body.firstChild as HTMLDivElement;
@@ -41,6 +40,7 @@ test('renders entire REPL app', async () => {
 });
 
 test('does not call any console methods (except 2 known calls)', async () => {
+  expect.assertions(7);
   await load();
   const logs = happyDOM.virtualConsolePrinter.read();
   expect(logs).toBeArrayOfSize(2); // 1. AST, 2. Compile time
@@ -55,7 +55,8 @@ test('does not call any console methods (except 2 known calls)', async () => {
   expect(logs[1].message).toEqual([expect.stringMatching(/^Compile time: \d+\.\d\dms$/)]);
 });
 
-test.only('does not call any performance methods (except performance.now for timing)', async () => {
+test('does not call any performance methods (except performance.now for timing)', async () => {
+  expect.assertions(1);
   const performanceNowSpy = spyOn(global.performance, 'now');
   const check = performanceSpy();
   await load();
@@ -67,6 +68,7 @@ test.only('does not call any performance methods (except performance.now for tim
 });
 
 test('does not call fetch()', async () => {
+  expect.assertions(1);
   const spy = spyOn(global, 'fetch');
   await load();
   expect(spy).not.toHaveBeenCalled();
