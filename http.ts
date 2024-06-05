@@ -1,6 +1,6 @@
 /* eslint-disable no-console, prefer-template */
 
-Bun.serve({
+const server = Bun.serve({
   fetch(req) {
     const url = new URL(req.url);
     const path = url.pathname;
@@ -10,3 +10,5 @@ Bun.serve({
     );
   },
 });
+
+console.info('Server listening on ' + String(server.url));
