@@ -52,6 +52,6 @@
   },
   "overrides": {
     "eslint": "8.x.x",
-    "lightningcss": "1.23.0"
+    "lightningcss": "1.25.1"
   }
 }
