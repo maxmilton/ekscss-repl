@@ -51,7 +51,7 @@
     "typescript": "5.4.5"
   },
   "overrides": {
-    "eslint": "8.x.x",
+    "eslint": "9.x",
     "lightningcss": "1.23.0"
   }
 }
