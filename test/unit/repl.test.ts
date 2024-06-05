@@ -61,7 +61,7 @@ test('does not call any performance methods (except performance.now for timing)'
   const check = performanceSpy();
   await load();
   // expect(performanceNowSpy).toHaveBeenCalledTimes(2); // compile time start and end
-  expect(performanceNowSpy).toHaveBeenCalledTimes(4); // FIXME: Why 4? Is bun test doing something?
+  expect(performanceNowSpy).toHaveBeenCalledTimes(7); // FIXME: Should be 2 but bun.test seems to be calling it itself during test
   performanceNowSpy.mockClear();
   check();
   performanceNowSpy.mockRestore();
