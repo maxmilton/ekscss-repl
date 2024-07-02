@@ -24,7 +24,7 @@
   "dependencies": {
     "@ekscss/framework": "0.0.48",
     "ekscss": "0.0.17",
-    "stage1": "0.8.0-next.8"
+    "stage1": "0.8.0-next.12"
   },
   "devDependencies": {
     "@biomejs/biome": "1.8.0",
