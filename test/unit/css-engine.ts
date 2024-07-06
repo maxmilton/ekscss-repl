@@ -2,11 +2,14 @@
  * @overview CSS engine and utilities for writing CSS tests.
  */
 
-/* eslint-disable @typescript-eslint/prefer-string-starts-ends-with, import/no-extraneous-dependencies, prefer-template */
+/* eslint-disable @typescript-eslint/prefer-string-starts-ends-with, prefer-template */
 
-import { DECLARATION, MEDIA, RULESET, compile, type Element } from 'stylis';
+import { DECLARATION, type Element, LAYER, MEDIA, RULESET, SCOPE, SUPPORTS, compile } from 'stylis';
 
 export * from 'stylis';
+
+export const CONTAINER = '@container';
+export const STARTING_STYLE = '@starting-style';
 
 export const SKIP = Symbol('SKIP');
 
@@ -46,22 +49,36 @@ const cache = new WeakMap<Element[], Map<string, Element[]>>();
 
 function load(root: Element[]): void {
   const map = new Map<string, Element[]>();
+  let tmp: Element[] | undefined;
   cache.set(root, map);
 
   walk(root, (element) => {
     if (element.type[0] === '@') {
-      return element.type === MEDIA ? undefined : SKIP;
+      switch (element.type) {
+        case CONTAINER:
+        case LAYER:
+        case MEDIA:
+        case SCOPE:
+        case STARTING_STYLE:
+        case SUPPORTS:
+          return;
+        default:
+          // eslint-disable-next-line consistent-return
+          return SKIP;
+      }
     }
 
     if (element.type === RULESET) {
       for (const selector of element.props) {
-        if (map.has(selector)) {
-          map.get(selector)!.push(element);
+        // eslint-disable-next-line no-cond-assign
+        if ((tmp = map.get(selector))) {
+          tmp.push(element);
         } else {
           map.set(selector, [element]);
         }
       }
     }
+    // eslint-disable-next-line consistent-return
     return SKIP;
   });
 }
@@ -97,9 +114,9 @@ export function lookup(root: Element[], cssSelector: string): Element[] | undefi
  * NOTE: `@media`, `@layer`, `@supports`, etc. rules are currently not handled.
  * All declarations will be merged regardless of their parent rules.
  *
- * FIXME: Evalute at-rules and handle them appropriately. This adds a lot of
- * complexity, so consider using happy-dom if they have support for it.
  */
+// FIXME: Evaluate at-rules and handle them appropriately. This adds a lot of
+// complexity, so consider using happy-dom if they have support for it.
 export function reduce(elements: Element[]): Record<string, string> {
   const decls: Record<string, string> = {};
 

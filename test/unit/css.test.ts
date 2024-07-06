@@ -1,6 +1,7 @@
 import { describe, expect, test } from 'bun:test';
 import xcssConfig from '../../xcss.config';
 import { DECLARATION, MEDIA, compile, lookup, reduce, walk } from './css-engine';
+import { indexCss } from './index.test';
 
 describe('xcss config', () => {
   test('contains only expected plugins', () => {
@@ -14,7 +15,7 @@ describe('xcss config', () => {
   });
 });
 
-const css = await Bun.file('dist/index.css').text();
+const css = await Bun.file(`dist/${indexCss}`).text();
 const ast = compile(css);
 
 test('compiled AST is not empty', () => {

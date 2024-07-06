@@ -1,4 +1,4 @@
-import { expect, test, type ConsoleMessage } from '@playwright/test';
+import { type ConsoleMessage, expect, test } from '@playwright/test';
 
 // TODO: Write tests to verify each feature of the app works:
 //  - source code in vs output
