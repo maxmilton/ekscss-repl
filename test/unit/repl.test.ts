@@ -56,15 +56,20 @@ test('does not call any console methods (except 2 known calls)', async () => {
 });
 
 test('does not call any performance methods (except performance.now for timing)', async () => {
-  expect.assertions(1);
-  const performanceNowSpy = spyOn(global.performance, 'now');
+  // TODO: Use this implementation if happy-dom removes internal performance.now calls.
+  // expect.assertions(1);
+  // const performanceNowSpy = spyOn(global.performance, 'now');
+  // const check = performanceSpy();
+  // await load();
+  // expect(performanceNowSpy).toHaveBeenCalledTimes(2); // compile time start and end
+  // performanceNowSpy.mockClear();
+  // check();
+  // performanceNowSpy.mockRestore();
+
+  expect.hasAssertions(); // variable number of assertions
   const check = performanceSpy();
   await load();
-  // expect(performanceNowSpy).toHaveBeenCalledTimes(2); // compile time start and end
-  expect(performanceNowSpy).toHaveBeenCalledTimes(7); // FIXME: Should be 2 but bun.test seems to be calling it itself during test
-  performanceNowSpy.mockClear();
-  check();
-  performanceNowSpy.mockRestore();
+  check(2); // compile time start and end
 });
 
 test('does not call fetch()', async () => {
