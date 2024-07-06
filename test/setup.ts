@@ -4,7 +4,7 @@ import { GlobalWindow, type Window } from 'happy-dom';
 declare global {
   /** Real bun console. `console` is mapped to happy-dom's virtual console. */
   // eslint-disable-next-line no-var, vars-on-top
-  var console2: Console;
+  var $console: Console;
   // eslint-disable-next-line no-var, vars-on-top
   var happyDOM: Window['happyDOM'];
 }
@@ -46,7 +46,7 @@ const noop = () => {};
 function setupDOM() {
   const dom = new GlobalWindow();
   global.happyDOM = dom.happyDOM;
-  global.console2 = originalConsole;
+  global.$console = originalConsole;
   // @ts-expect-error - happy-dom only implements a subset of the DOM API
   global.window = dom.window.document.defaultView;
   global.document = global.window.document;

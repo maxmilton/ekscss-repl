@@ -2,7 +2,7 @@
 //  ↳ https://github.com/oven-sh/bun/issues/3641
 //  ↳ https://github.com/oven-sh/bun/issues/3832
 
-console2.warn('Not implemented');
+$console.warn('Not implemented');
 
 // import { afterEach, expect, test } from 'bun:test';
 // import { Footer } from '../../src/components/Footer';
