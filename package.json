@@ -9,17 +9,17 @@
   "scripts": {
     "build": "NODE_ENV=production bun build.ts",
     "dev": "NODE_ENV=development bun build.ts",
-    "lint": "bun run lint:fmt && bun run lint:css && bun run lint:js && bun run lint:ts",
-    "lint:css": "stylelint --ignore-path .gitignore '**/*.{css,xcss}'",
-    "lint:fmt": "biome format .",
-    "lint:js": "eslint --ignore-path .gitignore --ext .ts,.mjs,.js,.cjs .",
+    "lint": "bun lint:fmt && bun lint:css && bun lint:js && bun lint:ts",
+    "lint:css": "stylelint '**/*.{css,xcss}'",
+    "lint:fmt": "biome check --diagnostic-level=warn",
+    "lint:js": "eslint",
     "lint:ts": "tsc --noEmit",
     "prebuild": "rm -rf dist; cp -r static dist",
     "serve": "bun http.ts",
-    "test": "bun test --preload ./test/setup.ts test/unit --coverage",
-    "test:e2e": "TZ=UTC playwright test",
-    "test:e2e:debug": "bun run test:e2e --debug",
-    "test:e2e:ui": "bun run test:e2e --ui"
+    "test": "bun test",
+    "test:e2e": "playwright test",
+    "test:e2e:debug": "bun test:e2e --debug",
+    "test:e2e:ui": "bun test:e2e --ui"
   },
   "patchedDependencies": {
     "happy-dom@14.12.3": "patches/happy-dom@14.12.3.patch"
