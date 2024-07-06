@@ -1,4 +1,4 @@
-import { compile, type XCSSCompileResult } from 'ekscss/dist/browser';
+import { type XCSSCompileResult, compile } from 'ekscss/dist/browser';
 import type { ConsoleComponent } from './components/Console';
 import type { EditorComponent } from './components/Editor';
 import { astPlugin } from './plugins';
@@ -34,7 +34,7 @@ export function run(): void {
       //    include plugins, globals, etc. and the other tabs being input files.
       globals: {},
       // TODO: Allow adding plugins via config... at least allow enabling the
-      // availiable "official" plugins.
+      // available "official" plugins.
       //  ↳ Toggleable plugins might be a nice way to disable the AST plugin
       //  ↳ v1 of this cvould be just the toggable official plugins and a future
       //    v2 could be user loadable plugins via a CDN URL

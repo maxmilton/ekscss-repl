@@ -6,11 +6,11 @@ import { globalRefs, run } from '../service';
 
 type NavComponent = HTMLDivElement;
 
-type Refs = {
+interface Refs {
   auto: HTMLInputElement;
   compile: HTMLButtonElement;
   clear: HTMLButtonElement;
-};
+}
 
 const meta = compile(`
   <div id=nav class="dfc pv1 ph3">

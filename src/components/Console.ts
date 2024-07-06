@@ -13,9 +13,9 @@ export type ConsoleComponent = HTMLDivElement & {
   clear(): void;
 };
 
-type Refs = {
+interface Refs {
   o: HTMLDivElement;
-};
+}
 
 const meta = compile(`
   <div id=con>
@@ -25,15 +25,13 @@ const meta = compile(`
 `);
 const view = h<ConsoleComponent>(meta.html);
 
-type ConsoleMethodName = 'log' | 'warn' | 'error';
-
 export function Console(): ConsoleComponent {
   const root = view;
   const refs = collect<Refs>(root, meta.k, meta.d);
   const output = refs.o;
 
   const print =
-    (method: ConsoleMethodName, color?: string) =>
+    (method: 'log' | 'warn' | 'error', color?: string) =>
     (...args: unknown[]) => {
       const line = create('div');
       if (color) line.className = color;
@@ -41,7 +39,7 @@ export function Console(): ConsoleComponent {
       append(line, output);
       output.scrollTo(0, output.scrollHeight);
 
-      // eslint-disable-next-line no-console
+      // eslint-disable-next-line no-console, security/detect-object-injection
       console[method](...args);
     };
 

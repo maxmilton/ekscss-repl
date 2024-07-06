@@ -13,7 +13,8 @@ import { run } from './service';
 declare global {
   interface HTMLElement {
     /** `stage1` synthetic click event handler. */
-    __click?(event: MouseEvent): void | Promise<void>;
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    __click?(event: MouseEvent): void | false | Promise<void>;
   }
 
   interface Window {
