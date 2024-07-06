@@ -14,7 +14,6 @@
     "lint:fmt": "biome check --diagnostic-level=warn",
     "lint:js": "eslint",
     "lint:ts": "tsc --noEmit",
-    "prebuild": "rm -rf dist; cp -r static dist",
     "serve": "bun http.ts",
     "test": "bun test",
     "test:e2e": "playwright test",

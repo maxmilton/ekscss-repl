@@ -1,6 +1,7 @@
 /* eslint-disable no-bitwise, no-console */
 
-import type { BunPlugin } from 'bun';
+import { basename } from 'node:path';
+import type { BuildArtifact, BunPlugin } from 'bun';
 import * as csso from 'csso';
 import * as xcss from 'ekscss';
 import * as lightningcss from 'lightningcss';
@@ -24,6 +25,7 @@ const release = Bun.spawnSync([
 
 let css = '';
 
+// TODO: Once bun supports css loader, remove this.
 // XXX: Temporary workaround to build CSS until Bun.build supports css loader
 const extractCSS: BunPlugin = {
   name: 'extract-css',
@@ -58,30 +60,8 @@ const extractCSS: BunPlugin = {
   },
 };
 
-console.time('build');
-const out = await Bun.build({
-  entrypoints: ['src/index.ts'],
-  outdir: 'dist',
-  target: 'browser',
-  // FIXME: Consider using iife once bun supports it.
-  // format: 'iife',
-  define: {
-    'process.env.APP_RELEASE': JSON.stringify(release),
-    'process.env.EKSCSS_VERSION': JSON.stringify(pkg.dependencies.ekscss),
-    'process.env.NODE_ENV': JSON.stringify(mode),
-  },
-  loader: {
-    '.svg': 'text',
-  },
-  plugins: [extractCSS],
-  minify: !dev,
-  sourcemap: 'external',
-});
-console.timeEnd('build');
-console.log(out);
-
-async function minifyCSS() {
-  const js = await out.outputs[0].text();
+async function minifyCSS(artifact: BuildArtifact) {
+  const js = await artifact.text();
   const purged = await new PurgeCSS().purge({
     content: [{ extension: '.js', raw: js }],
     css: [{ raw: css }],
@@ -112,14 +92,14 @@ async function minifyCSS() {
   await Bun.write('dist/index.css', minified2.css);
 }
 
-async function minifyJS(artifact: Blob & { path: string }) {
+async function minifyJS(artifact: BuildArtifact) {
   let source = await artifact.text();
 
   // Improve var collapsing; terser doesn't do this so we do it manually
   source = source.replaceAll('const ', 'let ');
 
   const result = await terser.minify(source, {
-    ecma: 2016, // chrome 60 (2017)
+    ecma: 2019, // chrome 74
     module: true,
     compress: {
       // Prevent functions being inlined
@@ -138,7 +118,10 @@ async function minifyJS(artifact: Blob & { path: string }) {
   await Bun.write(artifact.path, result.code!);
 }
 
-async function buildHTML() {
+async function buildHTML(jsPath: string) {
+  const jsFile = basename(jsPath);
+  const cssFile = jsFile.replace(/\.js$/, '.css');
+
   const html = `
     <!doctype html>
     <meta charset=utf-8>
@@ -149,30 +132,62 @@ async function buildHTML() {
     <link href=/favicon.svg rel=icon>
     <link href=/apple-touch-icon.png rel=apple-touch-icon>
     <title>ekscss REPL</title>
-    <link href=/index.css rel=stylesheet>
+    <link href=/${cssFile} rel=stylesheet>
     <script src=https://cdn.jsdelivr.net/npm/trackx@0/default.js crossorigin></script>
     <script>window.trackx&&(trackx.setup("https://api.trackx.app/v1/8c6cfd78d7e"),trackx.ping());</script>
-    <script src=/index.js defer></script>
+    <script src=/${jsFile} defer></script>
     <noscript>You need to enable JavaScript to run this app.</noscript>
   `
     .trim()
     .replace(/\n\s+/g, '\n'); // remove leading whitespace
 
   await Bun.write('dist/index.html', html);
+
+  // TODO: Once bun supports css loader and generates file hash, remove this.
+  // XXX: Temporary workaround to build CSS until Bun.build supports css loader.
+  await Bun.$`mv dist/index.css dist/${cssFile}`;
 }
+
+console.time('prebuild');
+await Bun.$`rm -rf dist`;
+await Bun.$`cp -r static dist`;
+console.timeEnd('prebuild');
+
+console.time('build');
+const out = await Bun.build({
+  entrypoints: ['src/index.ts'],
+  outdir: 'dist',
+  naming: dev ? '[dir]/[name].[ext]' : '[dir]/[name]-[hash].[ext]',
+  target: 'browser',
+  // FIXME: Consider using iife once bun supports it.
+  // format: 'iife',
+  define: {
+    'process.env.APP_RELEASE': JSON.stringify(release),
+    'process.env.EKSCSS_VERSION': JSON.stringify(pkg.dependencies.ekscss),
+    'process.env.NODE_ENV': JSON.stringify(mode),
+  },
+  loader: {
+    '.svg': 'text',
+  },
+  plugins: [extractCSS],
+  minify: !dev,
+  sourcemap: 'external',
+});
+console.timeEnd('build');
+console.log(out);
 
 if (dev) {
   await Bun.write('dist/index.css', css);
 } else {
-  console.time('minifyCSS');
-  await minifyCSS();
-  console.timeEnd('minifyCSS');
+  console.time('minify:css');
+  await minifyCSS(out.outputs[0]);
+  console.timeEnd('minify:css');
 
-  console.time('minifyJS');
+  console.time('minify:js');
   await minifyJS(out.outputs[0]);
-  console.timeEnd('minifyJS');
+  console.timeEnd('minify:js');
 }
 
-console.time('buildHTML');
-await buildHTML();
-console.timeEnd('buildHTML');
+console.time('html');
+await buildHTML(out.outputs[0].path);
+console.timeEnd('html');
