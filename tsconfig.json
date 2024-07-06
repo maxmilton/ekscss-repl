@@ -19,6 +19,14 @@
     "noUnusedParameters": false, // covered by eslint
     "verbatimModuleSyntax": true
   },
-  "include": ["src", "test", "build.ts", "http.ts", "*.config.ts", "*.d.ts"],
+  "include": [
+    "*.config.mjs",
+    "*.config.ts",
+    "*.d.ts",
+    "build.ts",
+    "http.ts",
+    "src",
+    "test"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
