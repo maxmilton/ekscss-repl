@@ -1,13 +1,6 @@
 {
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
-  "vcs": {
-    "enabled": true,
-    "clientKind": "git",
-    "useIgnoreFile": true
-  },
-  "organizeImports": {
-    "enabled": false
-  },
+  "vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true },
   "formatter": {
     "formatWithErrors": true,
     "indentStyle": "space",
@@ -15,6 +8,7 @@
     "lineEnding": "lf",
     "lineWidth": 80
   },
+  "organizeImports": { "enabled": true },
   "javascript": {
     "formatter": {
       "semicolons": "always",
@@ -27,8 +21,11 @@
       "recommended": true,
       "complexity": {
         "noForEach": "off",
-        "noUselessThisAlias": "off",
-        "useSimplifiedLogicExpression": "warn"
+        "useSimplifiedLogicExpression": "info"
+      },
+      "performance": {
+        "noBarrelFile": "info",
+        "noReExportAll": "info"
       },
       "style": {
         "noNamespace": "error",
@@ -45,6 +42,7 @@
         },
         "useShorthandArrayType": "error",
         "useShorthandAssign": "error",
+        "useSingleCaseStatement": "info",
         "useTemplate": "off"
       },
       "suspicious": {
@@ -76,7 +74,7 @@
       }
     },
     {
-      "include": ["build.ts", "http.ts"],
+      "include": ["*.config.ts", "build.ts", "http.ts"],
       "linter": {
         "rules": {
           "style": {
