@@ -19,7 +19,7 @@ jobs:
           bun-version: latest
       - run: bun install --frozen-lockfile
       - run: bun run build
-      - run: bun run test
+      - run: bun run test --coverage-reporter=lcov --coverage-reporter=text
       - name: Report coverage
         if: ${{ github.repository_owner == 'maxmilton' }}
         run: |
