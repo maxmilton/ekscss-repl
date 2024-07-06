@@ -14,13 +14,10 @@ export function debounce<T extends (...args: unknown[]) => unknown>(
 
   // eslint-disable-next-line func-names
   return function (this: ThisParameterType<T>, ...args: Parameters<T>) {
-    // eslint-disable-next-line @typescript-eslint/no-this-alias, unicorn/no-this-assignment
-    const context = this;
-
     if (timer) clearTimeout(timer);
 
     timer = setTimeout(() => {
-      fn.apply(context, args);
+      fn.apply(this, args);
     }, delay);
   };
 }
