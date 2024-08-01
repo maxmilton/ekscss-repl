@@ -29,7 +29,7 @@
   "dependencies": {
     "@ekscss/framework": "0.0.50",
     "ekscss": "0.0.18",
-    "stage1": "0.8.0-next.12"
+    "stage1": "0.8.0-next.13"
   },
   "devDependencies": {
     "@biomejs/biome": "1.8.3",
