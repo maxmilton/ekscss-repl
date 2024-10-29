@@ -58,6 +58,6 @@
     "terser": "5.31.2",
     "trackx": "0.6.1",
     "typescript": "5.5.3",
-    "typescript-eslint": "7.16.1"
+    "typescript-eslint": "8.12.2"
   }
 }
