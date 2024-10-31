@@ -5,8 +5,8 @@
 $console.warn('Not implemented');
 
 // import { afterEach, expect, test } from 'bun:test';
+// import { cleanup, render } from '@maxmilton/test-utils/dom';
 // import { Footer } from '../../src/components/Footer';
-// import { cleanup, render } from './utils';
 
 // afterEach(cleanup);
 
