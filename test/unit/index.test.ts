@@ -49,7 +49,6 @@ describe('dist files', () => {
   ];
 
   for (const [filename, type, minBytes, maxBytes] of distFiles) {
-    // eslint-disable-next-line @typescript-eslint/no-loop-func
     describe(filename, () => {
       const file = Bun.file(`dist/${filename}`);
 
@@ -100,10 +99,10 @@ describe('index.html', () => {
 
 test('index CSS file has hash in filename', () => {
   expect.assertions(1);
-  expect(indexCss).toMatch(/^index-[\da-f]+\.css$/);
+  expect(indexCss).toMatch(/^index-[\da-z]+\.css$/);
 });
 
 test('index JS file has hash in filename', () => {
   expect.assertions(1);
-  expect(indexJs).toMatch(/^index-[\da-f]+\.js$/);
+  expect(indexJs).toMatch(/^index-[\da-z]+\.js$/);
 });

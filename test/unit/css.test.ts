@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'bun:test';
+import { DECLARATION, MEDIA, compile, lookup, reduce, walk } from '@maxmilton/test-utils/css';
 import xcssConfig from '../../xcss.config';
-import { DECLARATION, MEDIA, compile, lookup, reduce, walk } from './css-engine';
 import { indexCss } from './index.test';
 
 describe('xcss config', () => {
