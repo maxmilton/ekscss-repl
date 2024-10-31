@@ -8,7 +8,7 @@ afterEach(reset);
 // Build adds a hash to the filename so we need to find the file path.
 const html = await Bun.file('dist/index.html').text();
 const jsFilename = /index.*\.js/.exec(html)?.[0];
-const MODULE_PATH = import.meta.resolveSync(`../../dist/${jsFilename!}`);
+const MODULE_PATH = Bun.resolveSync(`../../dist/${jsFilename!}`, import.meta.dir);
 
 async function load() {
   Loader.registry.delete(MODULE_PATH);

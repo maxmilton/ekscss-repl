@@ -70,7 +70,7 @@ async function minifyCSS(artifact: BuildArtifact) {
   });
   const minified = lightningcss.transform({
     filename: 'index.css',
-    code: Buffer.from(purged[0].css),
+    code: new TextEncoder().encode(purged[0].css),
     minify: true,
     targets: {
       chrome: 80 << 16,

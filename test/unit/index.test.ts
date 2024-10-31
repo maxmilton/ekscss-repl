@@ -6,7 +6,7 @@ import { readdir } from 'node:fs/promises';
 const distPath = `${import.meta.dir}/../../dist`;
 const indexFiles = new Bun.Glob('index*.{css,js}').scan({ cwd: distPath });
 // biome-ignore lint/suspicious/noExportsInTest: Used in other tests
-export let indexCss: string; // eslint-disable-line import/no-mutable-exports
+export let indexCss: string;
 let indexJs: string;
 
 for await (const file of indexFiles) {
