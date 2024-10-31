@@ -23,12 +23,14 @@ const view = h<EditorComponent>(meta.html);
 export function Editor(): EditorComponent {
   const root = clone(view);
 
+  // eslint-disable-next-line @typescript-eslint/no-deprecated
   document.execCommand('defaultParagraphSeparator', false, 'li');
 
   // convert rich content to plain text when pasting
   root.onpaste = (event) => {
     event.preventDefault();
     const text = event.clipboardData?.getData('text/plain');
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
     document.execCommand('insertText', false, text);
   };
 

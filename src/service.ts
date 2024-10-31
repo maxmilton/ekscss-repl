@@ -52,6 +52,7 @@ export function run(): void {
   }
 
   for (const warning of compiled.warnings) {
+    // eslint-disable-next-line @typescript-eslint/no-base-to-string
     globalRefs.console.warn(`Warning: ${String(warning.message || warning)}`);
 
     if (warning.file) {
