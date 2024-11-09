@@ -16,6 +16,31 @@ async function load() {
   await happyDOM.waitUntilComplete();
 }
 
+const originalNow = performance.now.bind(performance);
+
+function nowSpy() {
+  let happydomInternalNowCalls = 0;
+
+  function now() {
+    // biome-ignore lint/suspicious/useErrorMessage: only used to get stack
+    const callerLocation = new Error().stack!.split('\n')[3]; // eslint-disable-line unicorn/error-message
+    if (callerLocation.includes('/node_modules/happy-dom/lib/')) {
+      happydomInternalNowCalls++;
+    }
+    return originalNow();
+  }
+
+  const spy = spyOn(performance, 'now').mockImplementation(now);
+
+  return /** check */ (calledTimes: number) => {
+    // HACK: Workaround for happy-dom calling performance.now internally.
+    //  ↳ https://github.com/search?q=repo%3Acapricorn86%2Fhappy-dom%20performance.now&type=code
+    // biome-ignore lint/suspicious/noMisplacedAssertion: only used within tests
+    expect(spy).toHaveBeenCalledTimes(happydomInternalNowCalls + calledTimes);
+    spy.mockRestore();
+  };
+}
+
 test('finds app JS filename', () => {
   expect.assertions(1);
   expect(jsFilename).toBeTruthy();
@@ -55,16 +80,22 @@ test('does not call any console methods (except 2 known calls)', async () => {
   expect(logs[1].message).toEqual([expect.stringMatching(/^Compile time: \d+\.\d\dms$/)]);
 });
 
-// TODO: Don't skip once we have a better way to mock performance.now().
-test.skip('does not call any performance methods (except performance.now for timing)', async () => {
+test('does not call any performance methods (except performance.now for timing)', async () => {
+  // expect.hasAssertions(); // variable number of assertions
+  // const performanceNowSpy = spyOn(global.performance, 'now');
+  // const check = performanceSpy(['now']);
+  // await load();
+  // expect(performanceNowSpy).toHaveBeenCalledTimes(2); // compile time start and end
+  // performanceNowSpy.mockClear();
+  // check();
+  // performanceNowSpy.mockRestore();
+
   expect.hasAssertions(); // variable number of assertions
-  const performanceNowSpy = spyOn(global.performance, 'now');
-  const check = performanceSpy();
+  const checkNowCalls = nowSpy();
+  const check = performanceSpy(['now']);
   await load();
-  expect(performanceNowSpy).toHaveBeenCalledTimes(2); // compile time start and end
-  performanceNowSpy.mockClear();
+  checkNowCalls(2); // compile time start and end
   check();
-  performanceNowSpy.mockRestore();
 });
 
 test('does not call fetch()', async () => {
