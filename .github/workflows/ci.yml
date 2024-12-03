@@ -2,7 +2,7 @@ name: ci
 on:
   push:
     branches: [master]
-    paths-ignore: ['**.md']
+    paths-ignore: ["**.md"]
   pull_request: {}
   workflow_dispatch: {}
 concurrency:
@@ -16,7 +16,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
         with:
-          bun-version: latest
+          # bun-version: latest
+          bun-version: canary # FIXME: Use latest when the "experimentalCss" option is released
       - run: bun install --frozen-lockfile
       - run: bun run build
       - run: bun run test --coverage-reporter=lcov --coverage-reporter=text
@@ -39,7 +40,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
         with:
-          bun-version: latest
+          # bun-version: latest
+          bun-version: canary # FIXME: Use latest when the "experimentalCss" option is released
       - run: bun install --frozen-lockfile
       - run: bun playwright install chromium
       - run: bun run build

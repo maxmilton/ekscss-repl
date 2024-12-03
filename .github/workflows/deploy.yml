@@ -25,7 +25,8 @@ jobs:
             firebase-
       - uses: oven-sh/setup-bun@v2
         with:
-          bun-version: latest
+          # bun-version: latest
+          bun-version: canary # FIXME: Use latest when the "experimentalCss" option is released
       - run: bun install --frozen-lockfile
       - run: bun run build
       - name: Deploy to firebase
