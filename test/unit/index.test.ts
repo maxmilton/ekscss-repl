@@ -42,6 +42,7 @@ describe('dist files', () => {
     ['google-touch-icon.png', 'image/png', 9873, 9875],
     ['humans.txt', 'text/plain;charset=utf-8', 100, 200],
     [indexCss, 'text/css;charset=utf-8', 5000, 7000],
+    [`${indexCss}.map`, 'application/json;charset=utf-8', 100, 10_000], // TODO: Adjust once we have real CSS source maps
     ['index.html', 'text/html;charset=utf-8', 600, 700],
     [indexJs, 'text/javascript;charset=utf-8', 8000, 12_000],
     [`${indexJs}.map`, 'application/json;charset=utf-8'],
