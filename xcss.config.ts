@@ -4,5 +4,5 @@ import { onBeforeBuild } from 'ekscss';
 // Generate references so #apply can be used in any file
 onBeforeBuild(preloadApply);
 
-// eslint-disable-next-line no-restricted-exports
-export { default } from '@ekscss/framework/config';
+// biome-ignore lint/performance/noBarrelFile: simple export
+export { default } from '@ekscss/framework/config'; // eslint-disable-line no-restricted-exports
