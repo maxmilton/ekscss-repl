@@ -1,5 +1,6 @@
 import { describe, expect, test } from 'bun:test';
 import { readdir } from 'node:fs/promises';
+import { validate } from '@maxmilton/test-utils/html';
 import { distPath, indexCSS, indexJS } from './files';
 
 test('index CSS file found', () => {
@@ -62,26 +63,34 @@ describe('dist files', () => {
     const distDir = await readdir('dist');
     expect(distDir).toHaveLength(distFiles.length);
   });
+
+  test.each(distFiles.filter(([filename]) => filename.endsWith('.html')))(
+    '%s contains valid HTML',
+    async (filename) => {
+      const file = Bun.file(`dist/${filename}`);
+      const html = await file.text();
+      const result = validate(html);
+      expect(result.valid).toBeTrue();
+    },
+  );
 });
 
-// TODO: HTML files should be valid HTML
-
-const html = await Bun.file(`${distPath}/index.html`).text();
+const indexHTML = await Bun.file(`${distPath}/index.html`).text();
 
 describe('index.html', () => {
   test('contains the correct title', () => {
     expect.assertions(1);
-    expect(html).toContain('<title>ekscss REPL</title>');
+    expect(indexHTML).toContain('<title>ekscss REPL</title>');
   });
 
   test('contains the correct CSS filename', () => {
     expect.assertions(1);
-    expect(html).toContain(`<link href=/${indexCSS} rel=stylesheet>`);
+    expect(indexHTML).toContain(`<link href=/${indexCSS} rel=stylesheet>`);
   });
 
   test('contains the correct JS filename', () => {
     expect.assertions(1);
-    expect(html).toContain(`<script src=/${indexJS} defer></script>`);
+    expect(indexHTML).toContain(`<script src=/${indexJS} defer></script>`);
   });
 });
 
