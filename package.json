@@ -39,7 +39,7 @@
     "eslint": "9.16.0",
     "eslint-plugin-security": "3.0.1",
     "eslint-plugin-unicorn": "56.0.1",
-    "happy-dom": "15.11.7",
+    "happy-dom": "17.1.4",
     "lightningcss": "1.28.2",
     "purgecss": "7.0.2",
     "stylelint": "16.11.0",
