@@ -230,7 +230,6 @@ const out = await Bun.build({
     '.svg': 'text',
   },
   plugins: [xcssPlugin(xcssConfig)],
-  experimentalCss: true,
   emitDCEAnnotations: true, // for terser
   minify: !dev,
   sourcemap: 'linked',
