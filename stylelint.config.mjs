@@ -5,8 +5,9 @@ export default {
   extends: ['stylelint-config-standard', '@maxmilton/stylelint-config'],
   ignoreFiles: ['*.bak/**', 'dist/**', 'node_modules/**'],
   rules: {
-    'import-notation': null,
+    'declaration-property-value-no-unknown': null,
     'function-no-unknown': null,
+    'import-notation': null,
     'media-query-no-invalid': null,
   },
 };
