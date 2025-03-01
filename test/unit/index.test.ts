@@ -29,7 +29,6 @@ describe('dist files', () => {
     ['humans.txt', 'text/plain;charset=utf-8', 100, 200],
     [indexCSS, 'text/css;charset=utf-8', 5000, 7000],
     // FIXME: Uncomment once bun supports CSS source maps.
-    // TODO: Adjust once we have real CSS source maps.
     // [`${indexCSS}.map`, 'application/json;charset=utf-8', 100, 10_000],
     ['index.html', 'text/html;charset=utf-8', 600, 700],
     [indexJS, 'text/javascript;charset=utf-8', 8000, 12_000],
@@ -39,7 +38,7 @@ describe('dist files', () => {
 
   for (const [filename, type, minBytes, maxBytes] of distFiles) {
     describe(filename, () => {
-      const file = Bun.file(`dist/${filename}`);
+      const file = Bun.file(`${distPath}/${filename}`);
 
       test('exists with correct type', () => {
         expect.assertions(3);
@@ -67,7 +66,7 @@ describe('dist files', () => {
   test.each(distFiles.filter(([filename]) => filename.endsWith('.html')))(
     '%s contains valid HTML',
     async (filename) => {
-      const file = Bun.file(`dist/${filename}`);
+      const file = Bun.file(`${distPath}/${filename}`);
       const html = await file.text();
       const result = validate(html);
       expect(result.valid).toBeTrue();

@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'bun:test';
 import { DECLARATION, MEDIA, compile, lookup, reduce, walk } from '@maxmilton/test-utils/css';
 import xcssConfig from '../../xcss.config';
-import { indexCSS } from './files';
+import { distPath, indexCSS } from './files';
 
 describe('xcss config', () => {
   test('contains only expected plugins', () => {
@@ -15,7 +15,7 @@ describe('xcss config', () => {
   });
 });
 
-const css = await Bun.file(`dist/${indexCSS}`).text();
+const css = await Bun.file(`${distPath}/${indexCSS}`).text();
 const ast = compile(css);
 
 test('compiled AST is not empty', () => {
