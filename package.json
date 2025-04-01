@@ -32,7 +32,7 @@
     "@maxmilton/stylelint-config": "0.1.2",
     "@maxmilton/test-utils": "0.0.8",
     "@playwright/test": "1.50.1",
-    "@types/bun": "1.2.4",
+    "@types/bun": "1.2.8",
     "@types/csso": "5.0.4",
     "@types/eslint-plugin-security": "3.0.0",
     "csso": "5.0.5",
