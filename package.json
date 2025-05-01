@@ -38,7 +38,7 @@
     "csso": "5.0.5",
     "eslint": "9.23.0",
     "eslint-plugin-security": "3.0.1",
-    "eslint-plugin-unicorn": "58.0.0",
+    "eslint-plugin-unicorn": "59.0.0",
     "happy-dom": "17.4.4",
     "lightningcss": "1.29.3",
     "purgecss": "7.0.2",
