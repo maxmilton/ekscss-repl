@@ -1,6 +1,5 @@
 import eslint from '@eslint/js';
 import mm from '@maxmilton/eslint-config';
-import security from 'eslint-plugin-security';
 import unicorn from 'eslint-plugin-unicorn';
 import ts from 'typescript-eslint';
 
@@ -11,16 +10,14 @@ export default ts.config(
   eslint.configs.recommended,
   ...ts.configs.strictTypeChecked,
   ...ts.configs.stylisticTypeChecked,
-  unicorn.configs['flat/recommended'],
+  unicorn.configs.recommended,
   mm.configs.recommended,
-  security.configs.recommended,
   {
     linterOptions: {
       reportUnusedDisableDirectives: ERROR,
     },
     languageOptions: {
       parserOptions: {
-        project: ['tsconfig.json', 'tsconfig.node.json'],
         projectService: {
           allowDefaultProject: ['*.mjs'],
         },
@@ -48,6 +45,6 @@ export default ts.config(
     },
   },
   {
-    ignores: ['*.bak', 'coverage/**', 'dist/**'],
+    ignores: ['coverage', 'dist'],
   },
 );
