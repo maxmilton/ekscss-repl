@@ -1,11 +1,7 @@
 *-lock.json*
 *-lock.yaml
-*.bak
 *.lock
 !bun.lock
-*.log
-*.zip
-/.firebase/
 /coverage/
 /dist/
 /node_modules/
