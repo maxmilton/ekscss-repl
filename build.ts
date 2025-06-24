@@ -137,6 +137,8 @@ async function buildHTML(artifacts: BuildArtifact[]) {
   const cssFile = basename(css.path);
   const jsFile = basename(js.path);
 
+  // nosemgrep: generic.secrets.gitleaks.generic-api-key.generic-api-key
+  const bugboxApiKey = 'AZdUwYn8cACA8WMnLa8QKQ';
   const html = `
     <!doctype html>
     <html lang=en>
@@ -148,7 +150,7 @@ async function buildHTML(artifacts: BuildArtifact[]) {
     <link href=/apple-touch-icon.png rel=apple-touch-icon>
     <title>ekscss REPL</title>
     <link href=/${cssFile} rel=stylesheet>
-    <script src=https://io.bugbox.app/v0/bugbox.js crossorigin data-key=AZdUwYn8cACA8WMnLa8QKQ data-release=${release} data-env=${String(process.env.NODE_ENV)} data-ekscss=${pkg.dependencies.ekscss}></script>
+    <script src=https://io.bugbox.app/v0/bugbox.js crossorigin data-key=${bugboxApiKey} data-release=${release} data-env=${String(process.env.NODE_ENV)} data-ekscss=${pkg.dependencies.ekscss}></script>
     <script src=/${basename(jsFile)} defer></script>
     <noscript>You need to enable JavaScript to run this app.</noscript>
   `
