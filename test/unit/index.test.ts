@@ -21,6 +21,7 @@ describe('dist files', () => {
   // "application/octet-stream". Bun.file() does not resolve symlinks so it's
   // safe to infer that all these files are therefore regular files.
   const distFiles: [filename: string, type: string, minBytes?: number, maxBytes?: number][] = [
+    ['_headers', 'application/octet-stream'],
     ['404.html', 'text/html;charset=utf-8', 300, 500],
     ['android-chrome-192x192.png', 'image/png', 1385, 1387],
     ['android-chrome-512x512.png', 'image/png', 3243, 3245],
