@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'bun:test';
-import { DECLARATION, MEDIA, compile, lookup, reduce, walk } from '@maxmilton/test-utils/css';
-import xcssConfig from '../../xcss.config';
-import { distPath, indexCSS } from './files';
+import { compile, DECLARATION, lookup, MEDIA, reduce, walk } from '@maxmilton/test-utils/css';
+import build from '../../dist/build-info.json' with { type: 'json' };
+import xcssConfig from '../../xcss.config.ts';
 
 describe('xcss config', () => {
   test('contains only expected plugins', () => {
@@ -15,7 +15,7 @@ describe('xcss config', () => {
   });
 });
 
-const css = await Bun.file(`${distPath}/${indexCSS}`).text();
+const css = await Bun.file(`dist/${build.css}`).text();
 const ast = compile(css);
 
 test('compiled AST is not empty', () => {
@@ -53,15 +53,28 @@ test('does not have any CSS variable declarations', () => {
 });
 
 // "@media (min-width:60.01rem)" and "@media (prefers-reduced-motion:reduce)"
-test('has exactly 2 @media queries', () => {
+// test('has exactly 2 @media queries', () => {
+//   expect.assertions(1);
+//   let found = 0;
+//   walk(ast, (element) => {
+//     if (element.type === MEDIA) {
+//       found += 1;
+//     }
+//   });
+//   expect(found).toBe(2);
+// });
+test('has exactly 2 unique @media queries', () => {
   expect.assertions(1);
-  let found = 0;
+  const mediaQueries = new Set<string>();
   walk(ast, (element) => {
     if (element.type === MEDIA) {
-      found += 1;
+      if (!Array.isArray(element.props)) {
+        throw new TypeError('Expected element.props to be an array');
+      }
+      mediaQueries.add(element.props[0]);
     }
   });
-  expect(found).toBe(2);
+  expect(mediaQueries).toHaveLength(2);
 });
 
 test('has a single ":root" selector', () => {

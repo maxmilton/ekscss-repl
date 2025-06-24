@@ -1,7 +1,7 @@
 import { afterEach, expect, spyOn, test } from 'bun:test';
 import { performanceSpy } from '@maxmilton/test-utils/spy';
 import { VirtualConsoleLogTypeEnum } from 'happy-dom';
-import { reset } from '../setup';
+import { reset } from '../setup.ts';
 
 afterEach(reset);
 
@@ -22,7 +22,6 @@ function nowSpy() {
   let happydomInternalNowCalls = 0;
 
   function now() {
-    // biome-ignore lint/suspicious/useErrorMessage: only used to get stack
     const callerLocation = new Error().stack!.split('\n')[3]; // eslint-disable-line unicorn/error-message
     if (callerLocation.includes('/node_modules/happy-dom/lib/')) {
       happydomInternalNowCalls++;
@@ -35,7 +34,6 @@ function nowSpy() {
   return /** check */ (calledTimes: number) => {
     // HACK: Workaround for happy-dom calling performance.now internally.
     //  ↳ https://github.com/search?q=repo%3Acapricorn86%2Fhappy-dom%20performance.now&type=code
-    // biome-ignore lint/suspicious/noMisplacedAssertion: only used within tests
     expect(spy).toHaveBeenCalledTimes(happydomInternalNowCalls + calledTimes);
     spy.mockRestore();
   };
@@ -76,7 +74,6 @@ test('does not call any console methods (except 2 known calls)', async () => {
   expect(logs[0].message[1]).toBeArray();
 
   expect(logs[1].type).toBe(VirtualConsoleLogTypeEnum.log);
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   expect(logs[1].message).toEqual([expect.stringMatching(/^Compile time: \d+\.\d\dms$/)]);
 });
 
