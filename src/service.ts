@@ -1,7 +1,7 @@
-import { type XCSSCompileResult, compile } from 'ekscss/dist/browser';
-import type { ConsoleComponent } from './components/Console';
-import type { EditorComponent } from './components/Editor';
-import { astPlugin } from './plugins';
+import { compile, type XCSSCompileResult } from 'ekscss/dist/browser';
+import type { ConsoleComponent } from './components/Console.ts';
+import type { EditorComponent } from './components/Editor.ts';
+import { astPlugin } from './plugins.ts';
 
 interface GlobalRefs {
   // src/components/Nav.ts

@@ -1,7 +1,7 @@
 import { append, h } from 'stage1';
-import { compile } from 'stage1/macro' assert { type: 'macro' };
-import { globalRefs } from '../service';
-import { Editor } from './Editor';
+import { compile } from 'stage1/macro' with { type: 'macro' };
+import { globalRefs } from '../service.ts';
+import { Editor } from './Editor.ts';
 
 type OutputComponent = HTMLDivElement;
 

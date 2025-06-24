@@ -1,40 +1,15 @@
 import './css/index.xcss';
 
-import { append, create, h, setupSyntheticEvent } from 'stage1';
-import { compile } from 'stage1/macro' assert { type: 'macro' };
-import type * as _trackx from 'trackx';
-import { Console } from './components/Console';
-import { Footer } from './components/Footer';
-import { Input } from './components/Input';
-import { Nav } from './components/Nav';
-import { Output } from './components/Output';
-import { run } from './service';
+import { append, create, h, setupSyntheticClick } from 'stage1';
+import { compile } from 'stage1/macro' with { type: 'macro' };
+import { Console } from './components/Console.ts';
+import { Footer } from './components/Footer.ts';
+import { Input } from './components/Input.ts';
+import { Nav } from './components/Nav.ts';
+import { Output } from './components/Output.ts';
+import { run } from './service.ts';
 
-declare global {
-  interface HTMLElement {
-    /** `stage1` synthetic click event handler. */
-    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-    __click?(event: MouseEvent): void | false | Promise<void>;
-  }
-
-  interface Window {
-    // Added by trackx CDN script in index.html
-    trackx?: typeof _trackx;
-  }
-
-  let trackx: typeof _trackx;
-}
-
-if (window.trackx) {
-  trackx.meta.release = process.env.APP_RELEASE;
-  trackx.meta.ekscss = process.env.EKSCSS_VERSION;
-
-  if (process.env.NODE_ENV !== 'production') {
-    trackx.meta.NODE_ENV = process.env.NODE_ENV ?? 'NULL';
-  }
-}
-
-setupSyntheticEvent('click');
+setupSyntheticClick();
 
 // TODO: Remove temporary warning (and its associated styles)
 append(

@@ -3,8 +3,8 @@
 import './Console.xcss';
 
 import { append, collect, create, h } from 'stage1';
-import { compile } from 'stage1/macro' assert { type: 'macro' };
-import { globalRefs } from '../service';
+import { compile } from 'stage1/macro' with { type: 'macro' };
+import { globalRefs } from '../service.ts';
 
 export type ConsoleComponent = HTMLDivElement & {
   log(...args: any[]): void;
@@ -17,7 +17,7 @@ interface Refs {
   o: HTMLDivElement;
 }
 
-const meta = compile(`
+const meta = compile<Refs>(`
   <div id=con>
     <h2>Console Output</h2>
     <div @o class="console code-block code"></div>
@@ -39,7 +39,7 @@ export function Console(): ConsoleComponent {
       append(line, output);
       output.scrollTo(0, output.scrollHeight);
 
-      // eslint-disable-next-line no-console, security/detect-object-injection
+      // eslint-disable-next-line no-console
       console[method](...args);
     };
 
