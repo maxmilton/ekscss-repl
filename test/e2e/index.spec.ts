@@ -15,8 +15,8 @@ import { type ConsoleMessage, expect, test } from '@playwright/test';
 //  - headings are visible
 
 test.beforeEach(async ({ context }) => {
-  // Mock trackx script with empty file
-  await context.route(/^https:\/\/cdn\.jsdelivr\.net\/npm\/trackx/, (route) =>
+  // Mock CDN script with empty file
+  await context.route(/^https:\/\/io\.bugbox\.app\/v0\/bugbox\.js/, (route) =>
     route.fulfill({ status: 200 }),
   );
 });
@@ -65,7 +65,8 @@ test('has no console calls (except 2 known calls) or unhandled errors', async ({
   expect(unhandledErrors).toHaveLength(0);
   expect(consoleMessages).toHaveLength(2);
   expect(consoleMessages[0].type()).toBe('log');
-  expect(consoleMessages[0].text()).toMatch(/^AST: \[.*]$/);
+  // Firefox prints "Array" instead of "[...]"
+  expect(consoleMessages[0].text()).toMatch(/^AST: (\[.*]|Array)$/);
 
   expect(consoleMessages[1].type()).toBe('log');
   expect(consoleMessages[1].text()).toMatch(/^Compile time: \d+\.\d\dms$/);
