@@ -9,6 +9,9 @@
     "skipLibCheck": true,
     "allowJs": false,
 
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+
     "strict": true,
     "allowUnreachableCode": false,
     "exactOptionalPropertyTypes": true,
@@ -25,9 +28,7 @@
     "*.config.ts",
     "*.d.ts",
     "build.ts",
-    "http.ts",
     "src",
     "test"
-  ],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  ]
 }
