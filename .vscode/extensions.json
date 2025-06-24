@@ -4,6 +4,7 @@
     "dbaeumer.vscode-eslint",
     "oven.bun-vscode",
     "stylelint.vscode-stylelint",
+    "redhat.vscode-yaml",
     "tekumara.typos-vscode"
   ]
 }
