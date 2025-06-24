@@ -7,7 +7,6 @@ import {
 let ast: Element[];
 
 onAfterBuild(() => {
-  // biome-ignore lint/suspicious/noConsoleLog: intentionally log the AST, even in production
   console.log('AST:', ast); // eslint-disable-line no-console
 });
 
