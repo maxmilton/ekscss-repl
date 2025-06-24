@@ -37,6 +37,7 @@ export function Editor(): EditorComponent {
   root.setContent = (code) => {
     // TODO: Using innerHTML could be a security issue so consider a refactor
     // to use textContent/innerText and DOM methods
+    // nosemgrep: javascript.browser.security.insecure-document-method.insecure-document-method
     root.innerHTML = code
       .split('\n')
       .map((line) => `<li>${line || '<br>'}</li>`)

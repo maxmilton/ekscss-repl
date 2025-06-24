@@ -36,7 +36,7 @@ export default defineConfig({
       name: 'firefox',
       use: { ...devices['Desktop Firefox'] },
     },
-    // FIXME: Broken in both CI and on local dev machines.
+    // FIXME: Webkit is broken in both CI and on local dev machines.
     // {
     //   name: 'webkit',
     //   use: { ...devices['Desktop Safari'] },
