@@ -1,16 +1,16 @@
+// import { validate } from '@maxmilton/test-utils/html';
 import { describe, expect, test } from 'bun:test';
 import { readdir } from 'node:fs/promises';
-import { validate } from '@maxmilton/test-utils/html';
-import { distPath, indexCSS, indexJS } from './files';
+import build from '../../dist/build-info.json' with { type: 'json' };
 
 test('index CSS file found', () => {
   expect.assertions(1);
-  expect(indexCSS).toBeDefined();
+  expect(build.css).toBeDefined();
 });
 
 test('index JS file found', () => {
   expect.assertions(1);
-  expect(indexJS).toBeDefined();
+  expect(build.js).toBeDefined();
 });
 
 describe('dist files', () => {
@@ -21,24 +21,27 @@ describe('dist files', () => {
   // "application/octet-stream". Bun.file() does not resolve symlinks so it's
   // safe to infer that all these files are therefore regular files.
   const distFiles: [filename: string, type: string, minBytes?: number, maxBytes?: number][] = [
-    ['app.webmanifest', 'application/manifest+json', 230, 250],
-    ['apple-touch-icon.png', 'image/png', 3706, 3708],
-    ['favicon.ico', 'image/x-icon', 4285, 4287],
-    ['favicon.svg', 'image/svg+xml', 400, 420],
-    ['google-touch-icon.png', 'image/png', 9873, 9875],
+    ['404.html', 'text/html;charset=utf-8', 300, 500],
+    ['android-chrome-192x192.png', 'image/png', 1385, 1387],
+    ['android-chrome-512x512.png', 'image/png', 3243, 3245],
+    ['apple-touch-icon.png', 'image/png', 1220, 1222],
+    ['build-info.json', 'application/json;charset=utf-8'],
+    ['favicon.ico', 'image/x-icon', 1149, 1151],
+    ['favicon.svg', 'image/svg+xml', 393, 395],
     ['humans.txt', 'text/plain;charset=utf-8', 100, 200],
-    [indexCSS, 'text/css;charset=utf-8', 5000, 7000],
-    // FIXME: Uncomment once bun supports CSS source maps.
+    [build.css, 'text/css;charset=utf-8', 5000, 7000],
+    // TODO: Uncomment once bun supports CSS source maps.
     // [`${indexCSS}.map`, 'application/json;charset=utf-8', 100, 10_000],
     ['index.html', 'text/html;charset=utf-8', 600, 700],
-    [indexJS, 'text/javascript;charset=utf-8', 8000, 12_000],
-    [`${indexJS}.map`, 'application/json;charset=utf-8'],
+    [build.js, 'text/javascript;charset=utf-8', 8000, 12_000],
+    [`${build.js}.map`, 'application/json;charset=utf-8'],
+    ['manifest.webmanifest', 'application/manifest+json', 300, 370],
     ['robots.txt', 'text/plain;charset=utf-8', 20, 30],
   ];
 
   for (const [filename, type, minBytes, maxBytes] of distFiles) {
     describe(filename, () => {
-      const file = Bun.file(`${distPath}/${filename}`);
+      const file = Bun.file(`dist/${filename}`);
 
       test('exists with correct type', () => {
         expect.assertions(3);
@@ -63,18 +66,19 @@ describe('dist files', () => {
     expect(distDir).toHaveLength(distFiles.length);
   });
 
-  test.each(distFiles.filter(([filename]) => filename.endsWith('.html')))(
-    '%s contains valid HTML',
-    async (filename) => {
-      const file = Bun.file(`${distPath}/${filename}`);
-      const html = await file.text();
-      const result = validate(html);
-      expect(result.valid).toBeTrue();
-    },
-  );
+  // TODO: Validate HTML once there is a better validator implementation.
+  // test.each(distFiles.filter(([filename]) => filename.endsWith('.html')))(
+  //   '%s contains valid HTML',
+  //   async (filename) => {
+  //     const file = Bun.file(`dist/${filename}`);
+  //     const html = await file.text();
+  //     const result = validate(html);
+  //     expect(result.valid).toBeTrue();
+  //   },
+  // );
 });
 
-const indexHTML = await Bun.file(`${distPath}/index.html`).text();
+const indexHTML = await Bun.file('dist/index.html').text();
 
 describe('index.html', () => {
   test('contains the correct title', () => {
@@ -84,21 +88,21 @@ describe('index.html', () => {
 
   test('contains the correct CSS filename', () => {
     expect.assertions(1);
-    expect(indexHTML).toContain(`<link href=/${indexCSS} rel=stylesheet>`);
+    expect(indexHTML).toContain(`<link href=/${build.css} rel=stylesheet>`);
   });
 
   test('contains the correct JS filename', () => {
     expect.assertions(1);
-    expect(indexHTML).toContain(`<script src=/${indexJS} defer></script>`);
+    expect(indexHTML).toContain(`<script src=/${build.js} defer></script>`);
   });
 });
 
 test('index CSS file has hash in filename', () => {
   expect.assertions(1);
-  expect(indexCSS).toMatch(/^index-[\da-z]+\.css$/);
+  expect(build.css).toMatch(/^index-[\da-z]+\.css$/);
 });
 
 test('index JS file has hash in filename', () => {
   expect.assertions(1);
-  expect(indexJS).toMatch(/^index-[\da-z]+\.js$/);
+  expect(build.js).toMatch(/^index-[\da-z]+\.js$/);
 });
