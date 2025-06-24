@@ -13,32 +13,26 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' && github.event_name != 'pull_request' }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    permissions:
+      contents: read
+      deployments: write
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0 # full history to get the last tagged git commit
       - uses: actions/cache@v4
         with:
-          path: .firebase
-          key: firebase-${{ github.run_id }}
+          path: .wrangler/state
+          key: wrangler-${{ github.run_id }}
           restore-keys: |
-            firebase-
+            wrangler-
       - uses: oven-sh/setup-bun@v2
         with:
-          # bun-version: latest
-          bun-version: canary # FIXME: Use latest when the "experimentalCss" option is released
+          bun-version: latest
       - run: bun install --frozen-lockfile
       - run: bun run build
-      - name: Deploy to firebase
-        run: |
-          curl -Lo ./firebase_bin https://firebase.tools/bin/linux/latest
-          chmod +x ./firebase_bin
-          ./firebase_bin deploy --only hosting
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-      # - name: Purge CDN
-      #   run: |
-      #     curl -X POST "https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLARE_ZONE }}/purge_cache" \
-      #     -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_AUTH }}" \
-      #     -H "Content-Type: application/json" \
-      #     --data '{"purge_everything":true}'
+      - uses: cloudflare/wrangler-action@v3
+        with:
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}

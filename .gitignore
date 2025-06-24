@@ -2,6 +2,7 @@
 *-lock.yaml
 *.lock
 !bun.lock
+/.wrangler
 /coverage/
 /dist/
 /node_modules/
