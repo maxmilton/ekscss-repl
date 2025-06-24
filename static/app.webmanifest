@@ -1,9 +1,0 @@
-{
-  "name": "ekscss REPL",
-  "short_name": "ekscss REPL",
-  "background_color": "#f5f8fa",
-  "theme_color": "#106ba3",
-  "display": "standalone",
-  "start_url": "/",
-  "icons": [{ "src": "/google-touch-icon.png", "sizes": "512x512" }]
-}
