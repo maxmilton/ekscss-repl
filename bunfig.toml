@@ -1,5 +1,11 @@
+telemetry = false
+
 [run]
 bun = true
+
+[install]
+auto = "disable"
+peer = true
 
 [test]
 preload = ["./test/setup.ts"]

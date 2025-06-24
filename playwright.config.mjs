@@ -1,4 +1,4 @@
-import { defineConfig } from '@playwright/test';
+import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
   testDir: 'test/e2e',
@@ -17,7 +17,6 @@ export default defineConfig({
     acceptDownloads: false,
     contextOptions: { strictSelectors: true },
     locale: 'en-US',
-    // offline: true,
     timezoneId: 'UTC',
     trace: 'on-first-retry',
   },
@@ -25,6 +24,22 @@ export default defineConfig({
     toHaveScreenshot: {
       scale: 'device',
       stylePath: 'test/e2e/screenshot.css',
+      maxDiffPixelRatio: 0.02, // allow for font rendering variance
     },
   },
+  projects: [
+    {
+      name: 'chromium',
+      use: { ...devices['Desktop Chrome'] },
+    },
+    {
+      name: 'firefox',
+      use: { ...devices['Desktop Firefox'] },
+    },
+    // FIXME: Broken in both CI and on local dev machines.
+    // {
+    //   name: 'webkit',
+    //   use: { ...devices['Desktop Safari'] },
+    // },
+  ],
 });
