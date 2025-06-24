@@ -10,7 +10,7 @@
 
 REPL web app. Live compile XCSS into CSS with [ekscss](https://github.com/maxmilton/ekscss).
 
-Try it: <https://ekscss-repl.web.app>
+Try it: <https://ekscss-repl.maxmilton.com>
 
 ### Technology
 
