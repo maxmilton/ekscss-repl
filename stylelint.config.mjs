@@ -2,10 +2,13 @@
 export default {
   reportInvalidScopeDisables: true,
   reportNeedlessDisables: true,
-  extends: ['stylelint-config-standard', '@maxmilton/stylelint-config'],
+  extends: [
+    'stylelint-config-standard',
+    '@maxmilton/stylelint-config',
+    '@maxmilton/stylelint-config/xcss',
+  ],
   ignoreFiles: ['dist/*', 'node_modules/**'],
   rules: {
-    'import-notation': null,
     'media-query-no-invalid': null,
   },
 };

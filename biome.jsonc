@@ -54,9 +54,6 @@
       "includes": ["build.ts"],
       "formatter": {
         "lineWidth": 100
-      },
-      "javascript": {
-        "globals": ["Bun"]
       }
     }
   ]

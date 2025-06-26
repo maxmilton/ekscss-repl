@@ -6,12 +6,6 @@ export default defineConfig({
   snapshotPathTemplate: 'test/e2e/__snapshots__/{testFilePath}/{arg}{ext}',
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
-  webServer: {
-    command: 'bun run serve',
-    port: 3000,
-    reuseExistingServer: !process.env.CI, // in CI throw if port is taken
-    // stdout: 'pipe',
-  },
   use: {
     baseURL: 'http://localhost:3000',
     acceptDownloads: false,
@@ -26,6 +20,12 @@ export default defineConfig({
       stylePath: 'test/e2e/screenshot.css',
       maxDiffPixelRatio: 0.02, // allow for font rendering variance
     },
+  },
+  webServer: {
+    command: 'bun run serve',
+    port: 3000,
+    reuseExistingServer: !process.env.CI, // throw in CI if port is taken
+    // stdout: 'pipe',
   },
   projects: [
     {
