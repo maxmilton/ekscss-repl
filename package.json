@@ -2,8 +2,8 @@
   "name": "ekscss-repl",
   "version": "0.0.32",
   "description": "REPL web app to live compile XCSS into CSS with ekscss",
-  "repository": "maxmilton/ekscss-repl",
-  "author": "Max Milton <max@happyhackers.xyz>",
+  "repository": "github:maxmilton/ekscss-repl",
+  "author": "Max Milton <max@2okki.com>",
   "license": "MIT",
   "private": true,
   "scripts": {
@@ -11,12 +11,15 @@
     "dev": "NODE_ENV=development bun build.ts",
     "lint": "bun lint:fmt && bun lint:css && bun lint:js && bun lint:ts",
     "lint:css": "stylelint '**/*.{css,xcss}'",
-    "lint:fmt": "biome check",
+    "lint:fmt": "dprint check",
     "lint:js": "eslint",
     "lint:ts": "tsc --noEmit",
     "serve": "wrangler dev --port 3000",
     "test": "bun test",
     "test:e2e": "playwright test"
+  },
+  "imports": {
+    "#*": "./src/*"
   },
   "dependencies": {
     "@ekscss/framework": "0.0.58",
