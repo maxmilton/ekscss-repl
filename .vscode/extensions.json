@@ -1,10 +1,16 @@
 {
   "recommendations": [
-    "biomejs.biome",
     "dbaeumer.vscode-eslint",
+    "dprint.dprint",
+    "MylesMurphy.prettify-ts",
     "oven.bun-vscode",
-    "stylelint.vscode-stylelint",
     "redhat.vscode-yaml",
-    "tekumara.typos-vscode"
-  ]
+    "stylelint.vscode-stylelint",
+    "tekumara.typos-vscode",
+    "yoavbls.pretty-ts-errors",
+  ],
+  "unwantedRecommendations": [
+    "biomejs.biome",
+    "esbenp.prettier-vscode",
+  ],
 }

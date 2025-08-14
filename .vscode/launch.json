@@ -2,11 +2,11 @@
   "version": "0.2.0",
   "configurations": [
     {
+      // NOTE: Use `bun --inspect` to open a debug port.
       "name": "Attach to Bun",
       "type": "bun",
       "request": "attach",
-      // use `bun --inspect` to open a debug port
-      "url": "ws://localhost:6499/"
+      "url": "ws://localhost:6499/",
     },
     {
       "name": "bun <CURRENT_FILE>",
@@ -18,10 +18,10 @@
       "args": [], // program arguments
       "cwd": "${workspaceFolder}",
       "env": {},
-      "strictEnv": false, // do not inherit env from the parent process
-      "watchMode": false, // same as bun --watch, or use "hot" for bun --hot
+      "strictEnv": false,
+      "watchMode": false,
       "stopOnEntry": false,
-      "noDebug": false // disable debugger (breakpoints will not be hit)
+      "noDebug": false, // disable debugger (breakpoints will not be hit)
     },
     {
       "name": "bun test <CURRENT_FILE>",
@@ -29,7 +29,7 @@
       "request": "launch",
       "runtimeArgs": ["test"],
       "program": "${file}",
-      "internalConsoleOptions": "openOnSessionStart"
+      "internalConsoleOptions": "openOnSessionStart",
     },
     {
       "name": "bun test (all)",
@@ -38,7 +38,7 @@
       "runtimeArgs": ["run", "test"],
       "program": "--", // HACK: Workaround for bun extension needing "program"
       "cwd": "${workspaceFolder}",
-      "internalConsoleOptions": "openOnSessionStart"
-    }
-  ]
+      "internalConsoleOptions": "openOnSessionStart",
+    },
+  ],
 }
