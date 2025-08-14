@@ -1,8 +1,9 @@
 *-lock.json*
 *-lock.yaml
 *.lock
-!bun.lock
-/.wrangler
+*.tsbuildinfo
+/.wrangler/
+!/bun.lock
 /coverage/
 /dist/
 /node_modules/

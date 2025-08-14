@@ -1,23 +1,23 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "ekscss-repl",
-  "compatibility_date": "2025-06-20",
+  "compatibility_date": "2025-08-13",
   "route": {
     "pattern": "ekscss-repl.maxmilton.com",
     "zone_name": "maxmilton.com",
-    "custom_domain": true
+    "custom_domain": true,
   },
   "preview_urls": true,
   "workers_dev": true,
   "assets": {
     "directory": "./dist",
     "html_handling": "drop-trailing-slash",
-    "not_found_handling": "404-page"
+    "not_found_handling": "404-page",
   },
   "upload_source_maps": true,
   "no_bundle": true,
   "observability": {
-    "enabled": true
+    "enabled": true,
   },
-  "send_metrics": false
+  "send_metrics": false,
 }

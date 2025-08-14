@@ -1,3 +1,3 @@
-Handemade by Max Milton <max@happycode.ltd>.
+Handmade by Max Milton <max@2okki.com>.
 
 Get the source code for this web app at https://github.com/maxmilton/ekscss-repl

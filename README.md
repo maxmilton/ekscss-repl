@@ -4,6 +4,7 @@
 [![Licence](https://badgen.net/github/license/maxmilton/ekscss-repl)](./LICENSE)
 
 <!-- TODO: Migrate to badgen.net once it supports qlty.sh -->
+
 [![Coverage %](https://qlty.sh/badges/41f298af-c6d0-47d3-a947-2a34811503f6/test_coverage.svg)](https://qlty.sh/gh/maxmilton/projects/ekscss-repl)
 
 # ekscss REPL
