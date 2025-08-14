@@ -1,13 +1,13 @@
-import '@maxmilton/test-utils/extend';
+import "@maxmilton/test-utils/extend";
 
-import { setupDOM } from '@maxmilton/test-utils/dom';
+import { setupDOM } from "@maxmilton/test-utils/dom";
 
 // HACK: Make imported .xcss files return empty to prevent test errors.
 Bun.plugin({
-  name: 'xcss',
+  name: "xcss",
   setup(build) {
     build.onLoad({ filter: /\.xcss$/ }, () => ({
-      contents: '',
+      contents: "",
       // loader: 'css',
     }));
   },
@@ -16,7 +16,7 @@ Bun.plugin({
 const noop = () => {};
 
 function setupMocks(): void {
-  // normally this is set by Bun.build
+  // Normally this is set by Bun.build
   // process.env.APP_RELEASE = '1.0.0';
 
   // @ts-expect-error - noop stub
@@ -31,14 +31,14 @@ function setupMocks(): void {
     const node = window.getSelection()?.anchorNode;
 
     switch (commandId) {
-      case 'defaultParagraphSeparator':
+      case "defaultParagraphSeparator":
         // TODO: Implement something useful here?
         break;
 
       // eslint-disable-next-line unicorn/switch-case-braces
-      case 'insertText': {
-        if (!node) throw new Error('No node selected for insertText');
-        if (!value) throw new Error('insertText missing value');
+      case "insertText": {
+        if (!node) throw new Error("No node selected for insertText");
+        if (!value) throw new Error("insertText missing value");
 
         // if (node.textContent) {
         //   node.textContent += value;

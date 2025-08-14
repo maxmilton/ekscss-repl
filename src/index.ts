@@ -1,13 +1,13 @@
-import './css/index.xcss';
+import "./css/index.xcss";
 
-import { append, create, h, setupSyntheticClick } from 'stage1';
-import { compile } from 'stage1/macro' with { type: 'macro' };
-import { Console } from './components/Console.ts';
-import { Footer } from './components/Footer.ts';
-import { Input } from './components/Input.ts';
-import { Nav } from './components/Nav.ts';
-import { Output } from './components/Output.ts';
-import { run } from './service.ts';
+import { append, create, h, setupSyntheticClick } from "stage1/fast";
+import { compile } from "stage1/macro" with { type: "macro" };
+import { Console } from "./components/Console.ts";
+import { Footer } from "./components/Footer.ts";
+import { Input } from "./components/Input.ts";
+import { Nav } from "./components/Nav.ts";
+import { Output } from "./components/Output.ts";
+import { run } from "./service.ts";
 
 setupSyntheticClick();
 
@@ -26,8 +26,8 @@ append(
   document.body,
 );
 
-const app = create('div');
-app.id = 'app';
+const app = create("div");
+app.id = "app";
 
 append(Nav(), app);
 append(Input(), app);

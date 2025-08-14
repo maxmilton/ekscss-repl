@@ -1,8 +1,7 @@
-import type { meta, send } from 'bugbox';
-import type { report } from 'bugbox/bugreport';
-import type { ONCLICK } from 'stage1';
+import type { meta, send } from "bugbox";
+import type { ONCLICK } from "stage1/fast";
 
-declare module 'bun' {
+declare module "bun" {
   interface Env {
     readonly APP_RELEASE: string;
     readonly EKSCSS_VERSION: string;
@@ -21,9 +20,9 @@ declare global {
     readonly bugbox?: {
       readonly meta: typeof meta;
       readonly send: typeof send;
-      readonly report: typeof report;
     };
   }
 
-  let bugbox: Window['bugbox'];
+  // eslint-disable-next-line vars-on-top
+  var bugbox: Window["bugbox"];
 }

@@ -1,9 +1,9 @@
 // Packages
-@import '@ekscss/framework';
-@import '@ekscss/framework/addon/pretty.xcss';
-@import '@ekscss/framework/addon/button.xcss';
-@import '@ekscss/framework/addon/alert.xcss';
-@import '@ekscss/framework/addon/code.xcss';
+@import "@ekscss/framework";
+@import "@ekscss/framework/addon/pretty.xcss";
+@import "@ekscss/framework/addon/button.xcss";
+@import "@ekscss/framework/addon/alert.xcss";
+@import "@ekscss/framework/addon/code.xcss";
 
 // Local
-@import './global.xcss';
+@import "./global.xcss";

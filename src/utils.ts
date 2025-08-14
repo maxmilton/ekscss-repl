@@ -13,7 +13,7 @@ export function debounce<T extends (...args: unknown[]) => unknown>(
   let timer: number | undefined;
 
   // eslint-disable-next-line func-names
-  return function (this: ThisParameterType<T>, ...args: Parameters<T>) {
+  return function(this: ThisParameterType<T>, ...args: Parameters<T>) {
     if (timer) clearTimeout(timer);
 
     timer = setTimeout(() => {

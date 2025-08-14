@@ -1,25 +1,25 @@
 /* eslint-disable no-await-in-loop, no-bitwise, no-console */
 
-import { basename } from 'node:path'; // eslint-disable-line unicorn/import-style
-import * as swc from '@swc/core';
-import type { BuildArtifact, BunPlugin } from 'bun';
-import type { XCSSCompileOptions } from 'ekscss';
-import * as xcss from 'ekscss';
-import * as lightningcss from 'lightningcss';
-import { PurgeCSS, type RawContent } from 'purgecss';
-import pkg from './package.json' with { type: 'json' };
-import xcssConfig from './xcss.config.ts';
+import * as swc from "@swc/core";
+import type { BuildArtifact, BunPlugin } from "bun";
+import type { CompileOptions } from "ekscss";
+import * as xcss from "ekscss";
+import * as lightningcss from "lightningcss";
+import { basename } from "node:path"; // eslint-disable-line unicorn/import-style
+import { PurgeCSS, type RawContent } from "purgecss";
+import pkg from "./package.json" with { type: "json" };
+import xcssConfig from "./xcss.config.mjs";
 
-const gitHash = Bun.spawnSync(['git', 'rev-parse', '--short', 'HEAD']).stdout.toString().trim();
-const isDirty = Bun.spawnSync(['git', 'diff', '--quiet']).exitCode !== 0;
+const gitHash = Bun.spawnSync(["git", "rev-parse", "--short", "HEAD"]).stdout.toString().trim();
+const isDirty = Bun.spawnSync(["git", "diff", "--quiet"]).exitCode !== 0;
 
 const mode = Bun.env.NODE_ENV;
-const dev = mode === 'development';
-const release = `v${pkg.version}-${gitHash}${isDirty ? '-dev' : ''}`;
+const dev = mode === "development";
+const release = `v${pkg.version}-${gitHash}${isDirty ? "-dev" : ""}`;
 
-export function xcssPlugin(config: XCSSCompileOptions): BunPlugin {
+export function xcssPlugin(config: CompileOptions): BunPlugin {
   return {
-    name: 'xcss',
+    name: "xcss",
     setup(build) {
       build.onLoad({ filter: /\.xcss$/ }, async (args) => {
         const source = await Bun.file(args.path).text();
@@ -29,14 +29,14 @@ export function xcssPlugin(config: XCSSCompileOptions): BunPlugin {
           plugins: config.plugins,
         });
         for (const warning of compiled.warnings) {
-          console.error('XCSS:', warning.message);
+          console.error("XCSS:", warning.message);
           if (warning.file) {
             console.log(
-              `  at ${[warning.file, warning.line, warning.column].filter(Boolean).join(':')}`,
+              `  at ${[warning.file, warning.line, warning.column].filter(Boolean).join(":")}`,
             );
           }
         }
-        return { contents: compiled.css, loader: 'css' };
+        return { contents: compiled.css, loader: "css" };
       });
     },
   };
@@ -51,46 +51,44 @@ async function minify(artifacts: BuildArtifact[]): Promise<void> {
   const content: RawContent[] = [];
 
   for (const artifact of artifacts) {
-    if (artifact.path.endsWith('.js')) {
+    if (artifact.path.endsWith(".js") || artifact.path.endsWith(".mjs")) {
       artifactsJs.push(artifact);
-    } else if (artifact.path.endsWith('.css')) {
+    } else if (artifact.path.endsWith(".css")) {
       artifactsCss.push(artifact);
     }
   }
 
   for (const artifact of artifactsJs) {
-    if (artifact.kind === 'entry-point' || artifact.kind === 'chunk') {
-      const source = await artifact.text();
-      const result = await swc.minify(source, {
-        ecma: 2020,
-        // module: true,
-        compress: {
-          comparisons: false,
-          negate_iife: false,
-          reduce_funcs: false,
-          passes: 2,
+    const source = await artifact.text();
+    const result = await swc.minify(source, {
+      ecma: 2020,
+      // module: true,
+      compress: {
+        comparisons: false,
+        negate_iife: false,
+        reduce_funcs: false,
+        passes: 2,
 
-          // XXX: Comment out to keep performance markers for debugging.
-          pure_funcs: ['performance.mark', 'performance.measure'],
+        // XXX: Comment out to keep performance markers for debugging.
+        pure_funcs: ["performance.mark", "performance.measure"],
+      },
+      format: {
+        wrap_func_args: true,
+        wrap_iife: true,
+      },
+      mangle: {
+        props: {
+          regex: String.raw`^\$\$`,
         },
-        format: {
-          wrap_func_args: true,
-          wrap_iife: true,
-        },
-        mangle: {
-          props: {
-            regex: String.raw`^\$\$`,
-          },
-        },
-        sourceMap: Boolean(artifact.sourcemap),
-      });
+      },
+      sourceMap: Boolean(artifact.sourcemap),
+    });
 
-      await Bun.write(artifact.path, result.code);
-      if (artifact.sourcemap && result.map) {
-        await Bun.write(artifact.sourcemap.path, result.map);
-      }
-      content.push({ extension: '.js', raw: result.code });
+    await Bun.write(artifact.path, result.code);
+    if (artifact.sourcemap && result.map) {
+      await Bun.write(artifact.sourcemap.path, result.map);
     }
+    content.push({ extension: ".js", raw: result.code });
   }
 
   for (const artifact of artifactsCss) {
@@ -99,8 +97,8 @@ async function minify(artifacts: BuildArtifact[]): Promise<void> {
     const [purged] = await purgecss.purge({
       content,
       css: [{ raw: source }],
-      safelist: ['html', 'body'],
-      blocklist: ['object'],
+      safelist: ["html", "body"],
+      blocklist: ["object"],
       sourceMap: Boolean(artifact.sourcemap),
     });
     const minified = lightningcss.transform({
@@ -129,16 +127,16 @@ async function minify(artifacts: BuildArtifact[]): Promise<void> {
 }
 
 async function buildHTML(artifacts: BuildArtifact[]) {
-  const js = artifacts.find((a) => a.kind === 'entry-point' && a.path.endsWith('.js'));
-  const css = artifacts.find((a) => a.kind === 'asset' && a.path.endsWith('.css'));
-  if (!js) throw new Error('Could not find JS artifact');
-  if (!css) throw new Error('Could not find CSS artifact');
+  const js = artifacts.find((a) => a.kind === "entry-point" && a.path.endsWith(".js"));
+  const css = artifacts.find((a) => a.kind === "asset" && a.path.endsWith(".css"));
+  if (!js) throw new Error("Could not find JS artifact");
+  if (!css) throw new Error("Could not find CSS artifact");
 
   const cssFile = basename(css.path);
   const jsFile = basename(js.path);
 
-  // nosemgrep: generic.secrets.gitleaks.generic-api-key.generic-api-key
-  const bugboxApiKey = 'AZdUwYn8cACA8WMnLa8QKQ';
+  // nosemgrep: generic-api-key
+  const bugboxApiKey = "AZdUwYn8cACA8WMnLa8QKQ";
   const html = `
     <!doctype html>
     <html lang=en>
@@ -150,12 +148,14 @@ async function buildHTML(artifacts: BuildArtifact[]) {
     <link href=/apple-touch-icon.png rel=apple-touch-icon>
     <title>ekscss REPL</title>
     <link href=/${cssFile} rel=stylesheet>
-    <script src=https://io.bugbox.app/v0/bugbox.js crossorigin data-key=${bugboxApiKey} data-release=${release} data-env=${String(process.env.NODE_ENV)} data-ekscss=${pkg.dependencies.ekscss}></script>
+    <script src=https://io.bugbox.app/v0/bugbox.js crossorigin data-key=${bugboxApiKey} data-release=${release} data-env=${
+    String(process.env.NODE_ENV)
+  } data-ekscss=${pkg.dependencies.ekscss}></script>
     <script src=/${basename(jsFile)} defer></script>
     <noscript>You need to enable JavaScript to run this app.</noscript>
   `
     .trim()
-    .replace(/\n\s+/g, '\n'); // remove leading whitespace
+    .replace(/\n\s+/g, "\n"); // remove leading whitespace
   const html404 = `
     <!doctype html>
     <html lang=en>
@@ -170,57 +170,55 @@ async function buildHTML(artifacts: BuildArtifact[]) {
       <p>The resource you are looking for does not exist.</p>
   `
     .trim()
-    .replace(/\n\s+/g, '\n'); // remove leading whitespace
-  await Bun.write('dist/index.html', html);
-  await Bun.write('dist/404.html', html404);
+    .replace(/\n\s+/g, "\n"); // remove leading whitespace
+  await Bun.write("dist/index.html", html);
+  await Bun.write("dist/404.html", html404);
 
   return { cssFile, jsFile };
 }
 
-console.time('prebuild');
+console.time("prebuild");
 await Bun.$`rm -rf dist`;
 await Bun.$`cp -r static dist`;
-console.timeEnd('prebuild');
+console.timeEnd("prebuild");
 
-console.time('build');
+console.time("build");
 const out = await Bun.build({
-  entrypoints: ['src/index.ts'],
-  outdir: 'dist',
-  naming: dev ? '[dir]/[name].[ext]' : '[dir]/[name]-[hash].[ext]',
-  target: 'browser',
+  entrypoints: ["src/index.ts"],
+  outdir: "dist",
+  naming: dev ? "[dir]/[name].[ext]" : "[dir]/[name]-[hash].[ext]",
+  target: "browser",
   // format: 'iife',
   define: {
-    'process.env.APP_RELEASE': JSON.stringify(release),
-    'process.env.EKSCSS_VERSION': JSON.stringify(pkg.dependencies.ekscss),
-    'process.env.NODE_ENV': JSON.stringify(mode),
+    "process.env.APP_RELEASE": JSON.stringify(release),
+    "process.env.EKSCSS_VERSION": JSON.stringify(pkg.dependencies.ekscss),
+    "process.env.NODE_ENV": JSON.stringify(mode),
   },
   loader: {
-    '.svg': 'text',
+    ".svg": "text",
   },
   plugins: [xcssPlugin(xcssConfig)],
   emitDCEAnnotations: true,
   minify: !dev,
-  sourcemap: 'linked',
+  sourcemap: "linked",
 });
-console.timeEnd('build');
-console.log(out);
-if (!out.success) throw new AggregateError(out.logs, 'Build failed');
+console.timeEnd("build");
 
-console.time('html');
+console.time("html");
 const out2 = await buildHTML(out.outputs);
-console.timeEnd('html');
+console.timeEnd("html");
 
 if (!dev) {
-  console.time('minify');
+  console.time("minify");
   await minify(out.outputs);
-  console.timeEnd('minify');
+  console.timeEnd("minify");
 }
 
-console.time('build-info');
+console.time("build-info");
 await Bun.write(
-  'dist/build-info.json',
+  "dist/build-info.json",
   JSON.stringify({
-    ref: Bun.spawnSync(['git', 'describe', '--always', '--dirty=-dev', '--broken'])
+    ref: Bun.spawnSync(["git", "describe", "--always", "--dirty=-dev", "--broken"])
       .stdout.toString()
       .trim(),
     mode,
@@ -228,4 +226,4 @@ await Bun.write(
     js: out2.jsFile,
   }),
 );
-console.timeEnd('build-info');
+console.timeEnd("build-info");

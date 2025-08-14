@@ -1,19 +1,19 @@
-import { describe, expect, test } from 'bun:test';
-import wrangler from '../../wrangler.jsonc' with { type: 'json' };
+import { describe, expect, test } from "bun:test";
+import wrangler from "../../wrangler.jsonc" with { type: "jsonc" };
 
-describe('static site', () => {
-  test('does not contain a worker', () => {
+describe("static site", () => {
+  test("does not contain a worker", () => {
     expect.assertions(1);
-    expect(wrangler).not.toHaveProperty('main');
+    expect(wrangler).not.toHaveProperty("main");
   });
 
-  test('contains an assets directory', () => {
+  test("contains an assets directory", () => {
     expect.assertions(1);
-    expect(wrangler).toHaveProperty('assets.directory', './dist');
+    expect(wrangler).toHaveProperty("assets.directory", "./dist");
   });
 
-  test('will upload source maps', () => {
+  test("will upload source maps", () => {
     expect.assertions(1);
-    expect(wrangler).toHaveProperty('upload_source_maps', true);
+    expect(wrangler).toHaveProperty("upload_source_maps", true);
   });
 });

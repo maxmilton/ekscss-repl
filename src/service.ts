@@ -1,7 +1,7 @@
-import { compile, type XCSSCompileResult } from 'ekscss/dist/browser';
-import type { ConsoleComponent } from './components/Console.ts';
-import type { EditorComponent } from './components/Editor.ts';
-import { astPlugin } from './plugins.ts';
+import { compile, type CompileResult } from "ekscss/dist/browser";
+import type { ConsoleComponent } from "./components/Console.ts";
+import type { EditorComponent } from "./components/Editor.ts";
+import { astPlugin } from "./plugins.ts";
 
 interface GlobalRefs {
   // src/components/Nav.ts
@@ -19,15 +19,15 @@ export const globalRefs: GlobalRefs = {};
 
 export function run(): void {
   const src = globalRefs.input.getContent();
-  let compiled: XCSSCompileResult;
+  let compiled: CompileResult;
 
   try {
     const t0 = performance.now();
 
     compiled = compile(src, {
-      rootDir: '.',
-      from: 'input.xcss',
-      to: '',
+      rootDir: ".",
+      from: "input.xcss",
+      to: "",
       map: false,
       // TODO: Allow setting globals via a config.
       //  ↳ Maybe use a tab based UI, with the first tab being "Options" which
@@ -47,7 +47,7 @@ export function run(): void {
     globalRefs.console.log(`Compile time: ${(t1 - t0).toFixed(2)}ms`);
   } catch (error) {
     globalRefs.console.error(error);
-    globalRefs.output.setContent('');
+    globalRefs.output.setContent("");
     return;
   }
 
@@ -57,9 +57,11 @@ export function run(): void {
 
     if (warning.file) {
       globalRefs.console.log(
-        `  at ${[warning.file, warning.line, warning.column]
-          .filter(Boolean)
-          .join(':')}`,
+        `  at ${
+          [warning.file, warning.line, warning.column]
+            .filter(Boolean)
+            .join(":")
+        }`,
       );
     }
   }
@@ -68,14 +70,14 @@ export function run(): void {
     // highlight potential code issues
     const cssHighlighted = compiled.css.replace(
       /null|undefined|UNDEFINED|INVALID|NaN|#apply:/g,
-      '<strong class=red3>$&</strong>',
+      "<strong class=red3>$&</strong>",
     );
 
     // TODO: Editor#setContent uses set innerHTML which could be a security
     // issue; consider a refactor to use innerText and DOM methods.
     globalRefs.output.setContent(cssHighlighted);
   } else {
-    globalRefs.console.warn('Compile result empty');
-    globalRefs.output.setContent('');
+    globalRefs.console.warn("Compile result empty");
+    globalRefs.output.setContent("");
   }
 }

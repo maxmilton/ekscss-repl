@@ -12,20 +12,20 @@
 #app {
   display: grid;
   grid-template:
-    'nav'
-    'in'
-    'out'
-    'con'
-    'foot';
+    "nav"
+    "in"
+    "out"
+    "con"
+    "foot";
   gap: 1em;
   height: 100%;
 
   @media ${x.media.l} {
     grid-template:
-      'nav nav'
-      'in out'
-      'in con'
-      'foot foot';
+      "nav nav"
+      "in out"
+      "in con"
+      "foot foot";
   }
 }
 
