@@ -1,8 +1,8 @@
-import { append, h } from 'stage1';
-import { compile } from 'stage1/macro' with { type: 'macro' };
-import { globalRefs, run } from '../service.ts';
-import { debounce } from '../utils.ts';
-import { Editor } from './Editor.ts';
+import { globalRefs, run } from "#service.ts";
+import { debounce } from "#utils.ts";
+import { append, h } from "stage1/fast";
+import { compile } from "stage1/macro" with { type: "macro" };
+import { Editor } from "./Editor.ts";
 
 type InputComponent = HTMLDivElement;
 
@@ -42,7 +42,7 @@ body {
     if (globalRefs.auto.checked) run();
   });
 
-  append((globalRefs.input = editor), root);
+  append(globalRefs.input = editor, root);
 
   return root;
 }

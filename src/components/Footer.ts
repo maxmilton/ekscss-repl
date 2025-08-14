@@ -1,6 +1,6 @@
-import { h } from 'stage1';
-import { compile } from 'stage1/macro' with { type: 'macro' };
-import { interpolate } from '../macros.ts' with { type: 'macro' };
+import { interpolate } from "#macros.ts" with { type: "macro" };
+import { h } from "stage1/fast";
+import { compile } from "stage1/macro" with { type: "macro" };
 
 type FooterComponent = HTMLElement;
 

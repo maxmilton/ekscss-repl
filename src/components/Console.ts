@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import './Console.xcss';
+import "./Console.xcss";
 
-import { append, collect, create, h } from 'stage1';
-import { compile } from 'stage1/macro' with { type: 'macro' };
-import { globalRefs } from '../service.ts';
+import { globalRefs } from "#service.ts";
+import { append, collect, create, h } from "stage1/fast";
+import { compile } from "stage1/macro" with { type: "macro" };
 
 export type ConsoleComponent = HTMLDivElement & {
   log(...args: any[]): void;
@@ -14,41 +14,39 @@ export type ConsoleComponent = HTMLDivElement & {
 };
 
 interface Refs {
-  o: HTMLDivElement;
+  output: HTMLDivElement;
 }
 
 const meta = compile<Refs>(`
   <div id=con>
     <h2>Console Output</h2>
-    <div @o class="console code-block code"></div>
+    <div @output class="console code-block code"></div>
   </div>
 `);
 const view = h<ConsoleComponent>(meta.html);
 
 export function Console(): ConsoleComponent {
   const root = view;
-  const refs = collect<Refs>(root, meta.k, meta.d);
-  const output = refs.o;
+  const refs = collect<Refs>(root, meta.d);
+  const output = refs[meta.ref.output];
 
-  const print =
-    (method: 'log' | 'warn' | 'error', color?: string) =>
-    (...args: unknown[]) => {
-      const line = create('div');
-      if (color) line.className = color;
-      line.textContent = args.toString();
-      append(line, output);
-      output.scrollTo(0, output.scrollHeight);
+  const print = (method: "log" | "warn" | "error", color?: string) => (...args: unknown[]) => {
+    const line = create("div");
+    if (color) line.className = color;
+    line.textContent = args.toString();
+    append(line, output);
+    output.scrollTo(0, output.scrollHeight);
 
-      // eslint-disable-next-line no-console
-      console[method](...args);
-    };
+    // eslint-disable-next-line no-console
+    console[method](...args);
+  };
 
-  root.log = print('log');
-  root.warn = print('warn', 'gold4');
-  root.error = print('error', 'red5');
+  root.log = print("log");
+  root.warn = print("warn", "gold4");
+  root.error = print("error", "red5");
 
   root.clear = () => {
-    output.textContent = '';
+    output.textContent = "";
   };
 
   // append(output, root);

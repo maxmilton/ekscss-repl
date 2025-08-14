@@ -1,8 +1,8 @@
-import './Nav.xcss';
+import "./Nav.xcss";
 
-import { collect, h, ONCLICK } from 'stage1';
-import { compile } from 'stage1/macro' with { type: 'macro' };
-import { globalRefs, run } from '../service.ts';
+import { globalRefs, run } from "#service.ts";
+import { collect, h, ONCLICK } from "stage1/fast";
+import { compile } from "stage1/macro" with { type: "macro" };
 
 type NavComponent = HTMLDivElement;
 
@@ -31,14 +31,14 @@ const view = h<NavComponent>(meta.html);
 
 export function Nav(): NavComponent {
   const root = view;
-  const refs = collect<Refs>(root, meta.k, meta.d);
+  const refs = collect<Refs>(root, meta.d);
 
-  globalRefs.auto = refs.auto;
+  globalRefs.auto = refs[meta.ref.auto];
 
-  refs.compile[ONCLICK] = run;
+  refs[meta.ref.compile][ONCLICK] = run;
 
-  refs.clear[ONCLICK] = () => {
-    globalRefs.output.setContent('');
+  refs[meta.ref.clear][ONCLICK] = () => {
+    globalRefs.output.setContent("");
     globalRefs.console.clear();
   };
 
