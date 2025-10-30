@@ -1,20 +1,19 @@
 import js from "@eslint/js";
 import mm from "@maxmilton/eslint-config";
 import unicorn from "eslint-plugin-unicorn";
+import { defineConfig } from "eslint/config";
 import ts from "typescript-eslint";
 
-const OFF = 0;
-const ERROR = 2;
-
-export default ts.config(
+export default defineConfig(
   js.configs.recommended,
   ts.configs.strictTypeChecked,
   ts.configs.stylisticTypeChecked,
+  // @ts-expect-error - broken upstream types
   unicorn.configs.recommended,
   mm.configs.recommended,
   {
     linterOptions: {
-      reportUnusedDisableDirectives: ERROR,
+      reportUnusedDisableDirectives: "error",
     },
     languageOptions: {
       parserOptions: {
@@ -23,14 +22,13 @@ export default ts.config(
       },
     },
     rules: {
-      "no-plusplus": OFF, // byte savings
-      quotes: [ERROR, "double", { avoidEscape: true }],
-      "unicorn/prefer-add-event-listener": OFF,
-      "unicorn/prefer-at": OFF, // bad browser support
-      "unicorn/prefer-dom-node-append": OFF,
-      "unicorn/prefer-global-this": OFF, // prefer to clearly separate Bun and DOM
-      "unicorn/prefer-query-selector": OFF,
-      "unicorn/switch-case-braces": [ERROR, "avoid"], // byte savings
+      "no-plusplus": "off", // byte savings
+      "unicorn/prefer-add-event-listener": "off",
+      "unicorn/prefer-at": "off", // bad browser support
+      "unicorn/prefer-dom-node-append": "off",
+      "unicorn/prefer-global-this": "off", // prefer to clearly separate Bun and DOM
+      "unicorn/prefer-query-selector": "off",
+      "unicorn/switch-case-braces": ["error", "avoid"], // byte savings
     },
   },
   { ignores: ["coverage", "dist"] },
