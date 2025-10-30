@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "ekscss-repl",
-  "compatibility_date": "2025-08-13",
+  "compatibility_date": "2025-10-14",
   "route": {
     "pattern": "ekscss-repl.maxmilton.com",
     "zone_name": "maxmilton.com",
