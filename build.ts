@@ -25,6 +25,7 @@ export function xcssPlugin(config: CompileOptions): BunPlugin {
         const source = await Bun.file(args.path).text();
         const compiled = xcss.compile(source, {
           from: args.path,
+          functions: config.functions,
           globals: config.globals,
           plugins: config.plugins,
         });
@@ -42,6 +43,7 @@ export function xcssPlugin(config: CompileOptions): BunPlugin {
   };
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function minify(artifacts: BuildArtifact[]): Promise<void> {
   const artifactsJs: BuildArtifact[] = [];
   const artifactsCss: BuildArtifact[] = [];
@@ -73,7 +75,6 @@ async function minify(artifacts: BuildArtifact[]): Promise<void> {
         pure_funcs: ["performance.mark", "performance.measure"],
       },
       format: {
-        wrap_func_args: true,
         wrap_iife: true,
       },
       mangle: {
@@ -210,7 +211,8 @@ console.timeEnd("html");
 
 if (!dev) {
   console.time("minify");
-  await minify(out.outputs);
+  // FIXME: Uncomment once bun build artifact path bug is fixed.
+  // await minify(out.outputs);
   console.timeEnd("minify");
 }
 
