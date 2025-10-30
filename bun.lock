@@ -16,7 +16,7 @@
         "@playwright/test": "1.54.2",
         "@swc/core": "1.13.3",
         "@types/bun": "1.2.20",
-        "bugbox": "0.0.3",
+        "bugbox": "0.0.4",
         "dprint": "0.50.1",
         "eslint": "9.33.0",
         "eslint-plugin-unicorn": "60.0.0",
@@ -332,7 +332,7 @@
 
     "browserslist": ["browserslist@4.25.2", "", { "dependencies": { "caniuse-lite": "^1.0.30001733", "electron-to-chromium": "^1.5.199", "node-releases": "^2.0.19", "update-browserslist-db": "^1.1.3" }, "bin": { "browserslist": "cli.js" } }, "sha512-0si2SJK3ooGzIawRu61ZdPCO1IncZwS8IzuX73sPZsXW6EQ/w/DAfPyKI8l1ETTCr2MnvqWitmlCUxgdul45jA=="],
 
-    "bugbox": ["bugbox@0.0.3", "", {}, "sha512-ePPCfY7lNj2Us6BILB6R5lcjwljRZQAKsHZrkrerWtZNjMAZJbxiyoCMqhIfEsurJzdUoBLYAjR8hd4LLKsIjA=="],
+    "bugbox": ["bugbox@0.0.4", "", {}, "sha512-4zbC0m231N8erah/B6tXh2Sdj0ria6SAPx0nWGcJIO7aNN0ufAwL0wjcI/SxYrSZzOUcQwdskh5AwIwHchvoKg=="],
 
     "builtin-modules": ["builtin-modules@5.0.0", "", {}, "sha512-bkXY9WsVpY7CvMhKSR6pZilZu9Ln5WDrKVBUXf2S443etkmEO4V58heTecXcUIsNsi4Rx8JUO4NfX1IcQl4deg=="],
 

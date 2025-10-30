@@ -34,7 +34,7 @@
     "@playwright/test": "1.54.2",
     "@swc/core": "1.13.3",
     "@types/bun": "1.2.20",
-    "bugbox": "0.0.3",
+    "bugbox": "0.0.4",
     "dprint": "0.50.1",
     "eslint": "9.33.0",
     "eslint-plugin-unicorn": "60.0.0",
