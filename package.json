@@ -45,6 +45,6 @@
     "stylelint-config-standard": "39.0.0",
     "typescript": "5.9.2",
     "typescript-eslint": "8.39.1",
-    "wrangler": "4.29.1"
+    "wrangler": "4.45.2"
   }
 }
