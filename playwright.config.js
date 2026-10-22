@@ -24,10 +24,9 @@ export default defineConfig({
     },
   },
   webServer: {
-    command: "bun run serve",
-    port: 3000,
+    command: "bun test/server.ts",
+    url: "http://localhost:3000/",
     reuseExistingServer: !process.env.CI, // throw in CI if port is taken
-    // stdout: "pipe",
   },
   projects: [
     {
