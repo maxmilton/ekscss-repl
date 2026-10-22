@@ -164,6 +164,7 @@ async function buildHTML(artifacts: BuildArtifact[]) {
     } data-ekscss=${pkg.dependencies.ekscss}></script>
     <script src=/${basename(jsFile)} defer></script>
     <noscript>You need to enable JavaScript to run this app.</noscript>
+    </html>
   `
     .trim()
     .replace(/\n\s+/gu, "\n"); // remove leading whitespace
@@ -179,6 +180,8 @@ async function buildHTML(artifacts: BuildArtifact[]) {
     <body class=ph3>
       <h1>404 Not Found</h1>
       <p>The resource you are looking for does not exist.</p>
+    </body>
+    </html>
   `
     .trim()
     .replace(/\n\s+/gu, "\n"); // remove leading whitespace
