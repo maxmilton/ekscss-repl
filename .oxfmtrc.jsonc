@@ -1,0 +1,9 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "ignorePatterns": [],
+  "jsdoc": { "lineWrappingStyle": "balance" },
+  "sortImports": { "newlinesBetween": false },
+  "sortPackageJson": { "sortScripts": true },
+  "sortTailwindcss": true,
+  "experimentalOperatorPosition": "start",
+}

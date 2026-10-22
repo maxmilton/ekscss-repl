@@ -4,7 +4,8 @@ export default defineConfig({
   testDir: "test/e2e",
   testMatch: "test/e2e/**/*.spec.ts",
   snapshotPathTemplate: "test/e2e/__snapshots__/{testFilePath}/{arg}{ext}",
-  forbidOnly: !!process.env.CI,
+  failOnFlakyTests: Boolean(process.env.CI),
+  forbidOnly: Boolean(process.env.CI),
   retries: process.env.CI ? 1 : 0,
   use: {
     baseURL: "http://localhost:3000",
@@ -18,7 +19,8 @@ export default defineConfig({
     toHaveScreenshot: {
       scale: "device",
       stylePath: "test/e2e/screenshot.css",
-      maxDiffPixelRatio: 0.02, // allow for font rendering variance
+      // TODO: Use 0.02 once we have a good way to do cross-platform snapshots.
+      maxDiffPixelRatio: 0.1, // allow for font rendering variance
     },
   },
   webServer: {
@@ -36,7 +38,7 @@ export default defineConfig({
       name: "firefox",
       use: { ...devices["Desktop Firefox"] },
     },
-    // FIXME: Webkit is broken in both CI and on local dev machines. Create a
+    // TODO: Webkit is broken in both CI and on local dev machines. Create a
     // docker image for playwright to achieve a more consistent environment.
     // {
     //   name: "webkit",

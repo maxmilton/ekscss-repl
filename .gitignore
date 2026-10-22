@@ -1,9 +1,11 @@
 *-lock.json*
 *-lock.yaml
+*.bak
 *.lock
-*.tsbuildinfo
-/.wrangler/
 !/bun.lock
+/.dev.vars*
+/.env.local
+/.wrangler/
 /coverage/
 /dist/
 /node_modules/

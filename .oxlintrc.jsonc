@@ -1,0 +1,68 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "extends": [
+    "./node_modules/@maxmilton/oxlint-config/recommended.json",
+    "./node_modules/@maxmilton/oxlint-config/stage1.json",
+  ],
+  "options": {
+    "maxWarnings": 20,
+    "reportUnusedDisableDirectives": "error",
+    "respectEslintDisableDirectives": false,
+    "typeAware": true,
+  },
+  "categories": {
+    "correctness": "error",
+    "suspicious": "warn",
+    "pedantic": "warn",
+    "perf": "error",
+    "style": "warn",
+    "restriction": "error",
+    "nursery": "warn",
+  },
+  "env": {
+    "builtin": true,
+    "es2026": true, // TODO: es2027 once in oxc.
+    "bun": true,
+    "commonjs": false,
+    "browser": true,
+  },
+  "rules": {
+    "eslint/prefer-destructuring": "off",
+    "typescript/promise-function-async": "off",
+    "typescript/strict-boolean-expressions": "off", // too pedantic
+  },
+  "overrides": [
+    {
+      "files": ["apps/*/src/components/**"],
+      "rules": {
+        "unicorn/filename-case": ["error", { "case": "pascalCase" }],
+      },
+    },
+    {
+      "files": ["test/**/*.test.ts", "test/**/*.spec.ts"],
+      "rules": {
+        "eslint/no-warning-comments": "off",
+        "promise/prefer-await-to-callbacks": "off",
+        "typescript/no-unsafe-type-assertion": "off",
+        "unicorn/consistent-function-scoping": "off", // tests may define scoped helpers
+      },
+    },
+    {
+      "files": ["test/unit/**", "test/setup.ts"],
+      "env": {
+        "node": true,
+      },
+      "globals": {
+        "$console": "readonly",
+        "happyDOM": "readonly",
+      },
+    },
+    {
+      "files": ["test/e2e/**"],
+      "plugins": ["vitest"],
+      "rules": {
+        "vitest/consistent-test-filename": ["error", { "pattern": ".*\\.spec\\.ts$" }],
+      },
+    },
+  ],
+}
