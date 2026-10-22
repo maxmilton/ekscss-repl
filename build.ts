@@ -1,14 +1,14 @@
-/* eslint-disable no-await-in-loop, no-bitwise, no-console */
+// oxlint-disable no-bitwise
 
+import { basename } from "node:path";
 import * as swc from "@swc/core";
 import type { BuildArtifact, BunPlugin } from "bun";
 import type { CompileOptions } from "ekscss";
 import * as xcss from "ekscss";
 import * as lightningcss from "lightningcss";
-import { basename } from "node:path"; // eslint-disable-line unicorn/import-style
 import { PurgeCSS, type RawContent } from "purgecss";
 import pkg from "./package.json" with { type: "json" };
-import xcssConfig from "./xcss.config.mjs";
+import xcssConfig from "./xcss.config.js";
 
 const gitHash = Bun.spawnSync(["git", "rev-parse", "--short", "HEAD"]).stdout.toString().trim();
 const isDirty = Bun.spawnSync(["git", "diff", "--quiet"]).exitCode !== 0;
@@ -21,7 +21,7 @@ export function xcssPlugin(config: CompileOptions): BunPlugin {
   return {
     name: "xcss",
     setup(build) {
-      build.onLoad({ filter: /\.xcss$/ }, async (args) => {
+      build.onLoad({ filter: /\.xcss$/u }, async (args) => {
         const source = await Bun.file(args.path).text();
         const compiled = xcss.compile(source, {
           from: args.path,
@@ -43,10 +43,15 @@ export function xcssPlugin(config: CompileOptions): BunPlugin {
   };
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function minify(artifacts: BuildArtifact[]): Promise<void> {
   const artifactsJs: BuildArtifact[] = [];
   const artifactsCss: BuildArtifact[] = [];
+  // NOTE: Don't use artifact.sourcemap; bun mispairs it with the next element
+  // of outputs[] — when the build emits a CSS asset that's the CSS artifact,
+  // and writing to it clobbers the CSS. Look up the map artifact by path
+  // instead. Remove once https://github.com/oven-sh/bun/pull/33588 lands.
+  // Also see my issue: https://github.com/oven-sh/bun/issues/37184
+  const sourcemaps = new Map<string, BuildArtifact>();
 
   const encoder = new TextEncoder();
   const purgecss = new PurgeCSS();
@@ -57,10 +62,13 @@ async function minify(artifacts: BuildArtifact[]): Promise<void> {
       artifactsJs.push(artifact);
     } else if (artifact.path.endsWith(".css")) {
       artifactsCss.push(artifact);
+    } else if (artifact.kind === "sourcemap") {
+      sourcemaps.set(artifact.path, artifact);
     }
   }
 
   for (const artifact of artifactsJs) {
+    const sourcemap = sourcemaps.get(`${artifact.path}.map`);
     const source = await artifact.text();
     const result = await swc.minify(source, {
       ecma: 2020,
@@ -71,7 +79,7 @@ async function minify(artifacts: BuildArtifact[]): Promise<void> {
         reduce_funcs: false,
         passes: 2,
 
-        // XXX: Comment out to keep performance markers for debugging.
+        // NOTE: Comment out to keep performance markers for debugging.
         pure_funcs: ["performance.mark", "performance.measure"],
       },
       format: {
@@ -82,25 +90,26 @@ async function minify(artifacts: BuildArtifact[]): Promise<void> {
           regex: String.raw`^\$\$`,
         },
       },
-      sourceMap: Boolean(artifact.sourcemap),
+      sourceMap: Boolean(sourcemap),
     });
 
     await Bun.write(artifact.path, result.code);
-    if (artifact.sourcemap && result.map) {
-      await Bun.write(artifact.sourcemap.path, result.map);
+    if (sourcemap && result.map) {
+      await Bun.write(sourcemap.path, result.map);
     }
     content.push({ extension: ".js", raw: result.code });
   }
 
   for (const artifact of artifactsCss) {
     const filename = basename(artifact.path);
+    const sourcemap = sourcemaps.get(`${artifact.path}.map`);
     const source = await artifact.text();
     const [purged] = await purgecss.purge({
       content,
       css: [{ raw: source }],
       safelist: ["html", "body"],
       blocklist: ["object"],
-      sourceMap: Boolean(artifact.sourcemap),
+      sourceMap: Boolean(sourcemap),
     });
     const minified = lightningcss.transform({
       filename,
@@ -116,13 +125,14 @@ async function minify(artifacts: BuildArtifact[]): Promise<void> {
       },
       include: lightningcss.Features.Nesting | lightningcss.Features.MediaQueries,
       exclude: lightningcss.Features.LogicalProperties | lightningcss.Features.LightDark,
-      sourceMap: Boolean(artifact.sourcemap),
+      sourceMap: Boolean(sourcemap),
+      // oxlint-disable-next-line typescript/no-non-null-assertion
       inputSourceMap: purged.sourceMap!,
     });
     if (minified.warnings.length > 0) console.error(minified.warnings);
     await Bun.write(artifact.path, minified.code);
-    if (artifact.sourcemap && minified.map) {
-      await Bun.write(artifact.sourcemap.path, minified.map);
+    if (sourcemap && minified.map) {
+      await Bun.write(sourcemap.path, minified.map);
     }
   }
 }
@@ -150,13 +160,13 @@ async function buildHTML(artifacts: BuildArtifact[]) {
     <title>ekscss REPL</title>
     <link href=/${cssFile} rel=stylesheet>
     <script src=https://io.bugbox.app/v0/bugbox.js crossorigin data-key=${bugboxApiKey} data-release=${release} data-env=${
-    String(process.env.NODE_ENV)
-  } data-ekscss=${pkg.dependencies.ekscss}></script>
+      process.env.NODE_ENV
+    } data-ekscss=${pkg.dependencies.ekscss}></script>
     <script src=/${basename(jsFile)} defer></script>
     <noscript>You need to enable JavaScript to run this app.</noscript>
   `
     .trim()
-    .replace(/\n\s+/g, "\n"); // remove leading whitespace
+    .replace(/\n\s+/gu, "\n"); // remove leading whitespace
   const html404 = `
     <!doctype html>
     <html lang=en>
@@ -171,7 +181,7 @@ async function buildHTML(artifacts: BuildArtifact[]) {
       <p>The resource you are looking for does not exist.</p>
   `
     .trim()
-    .replace(/\n\s+/g, "\n"); // remove leading whitespace
+    .replace(/\n\s+/gu, "\n"); // remove leading whitespace
   await Bun.write("dist/index.html", html);
   await Bun.write("dist/404.html", html404);
 
@@ -211,8 +221,7 @@ console.timeEnd("html");
 
 if (!dev) {
   console.time("minify");
-  // FIXME: Uncomment once bun build artifact path bug is fixed.
-  // await minify(out.outputs);
+  await minify(out.outputs);
   console.timeEnd("minify");
 }
 
