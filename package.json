@@ -1,7 +1,10 @@
 {
   "name": "ekscss-repl",
   "version": "0.0.32",
+  "private": true,
   "description": "REPL web app to live compile XCSS into CSS with ekscss",
+  "license": "MIT",
+  "author": "Max Milton <max@2okki.com>",
   "repository": "github:maxmilton/ekscss-repl",
   "type": "module",
   "scripts": {

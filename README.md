@@ -1,7 +1,7 @@
 [![CI status](https://badgen.net/github/checks/maxmilton/ekscss-repl?label=ci)](https://github.com/maxmilton/ekscss-repl/actions)
 [![Coverage %](https://badgen.net/codeclimate/coverage/MaxMilton/ekscss-repl)](https://codeclimate.com/github/maxmilton/ekscss-repl)
 [![Latest tag](https://badgen.net/github/tag/maxmilton/ekscss-repl)](https://github.com/maxmilton/ekscss-repl/tags)
-[![Licence](https://badgen.net/github/license/maxmilton/ekscss-repl)](./LICENSE)
+[![Licence](https://badgen.net/github/license/maxmilton/ekscss-repl)](LICENSE)
 
 <!-- TODO: Migrate to badgen.net once it supports qlty.sh -->
 
@@ -29,10 +29,6 @@ Please report any bugs you encounter on the [GitHub issue tracker](https://githu
 
 ## License
 
-MIT license. See [LICENSE](https://github.com/maxmilton/ekscss-repl/blob/master/LICENSE).
+[MIT License](LICENSE) · © [Max Milton](https://maxmilton.com)
 
 The [repeat button icon](https://github.com/twitter/twemoji/blob/master/assets/svg/1f501.svg) is from [twitter/twemoji](https://github.com/twitter/twemoji) which is licensed CC-BY 4.0.
-
----
-
-© 2025 [Max Milton](https://maxmilton.com)
