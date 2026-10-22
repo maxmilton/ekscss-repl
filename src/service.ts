@@ -52,16 +52,11 @@ export function run(): void {
   }
 
   for (const warning of compiled.warnings) {
-    // eslint-disable-next-line @typescript-eslint/no-base-to-string
-    globalRefs.console.warn(`Warning: ${String(warning.message || warning)}`);
+    globalRefs.console.warn(`Warning: ${typeof warning === "string" ? warning : warning.message}`);
 
     if (warning.file) {
       globalRefs.console.log(
-        `  at ${
-          [warning.file, warning.line, warning.column]
-            .filter(Boolean)
-            .join(":")
-        }`,
+        `  at ${[warning.file, warning.line, warning.column].filter(Boolean).join(":")}`,
       );
     }
   }
@@ -69,7 +64,7 @@ export function run(): void {
   if (compiled.css) {
     // highlight potential code issues
     const cssHighlighted = compiled.css.replace(
-      /null|undefined|UNDEFINED|INVALID|NaN|#apply:/g,
+      /null|undefined|UNDEFINED|INVALID|NaN|#apply:/gu,
       "<strong class=red3>$&</strong>",
     );
 

@@ -1,6 +1,5 @@
-// import { validate } from '@maxmilton/test-utils/html';
 import { describe, expect, test } from "bun:test";
-import { readdir } from "node:fs/promises";
+import { validate } from "@maxmilton/test-utils/html";
 import build from "../../dist/build-info.json" with { type: "json" };
 
 test("index CSS file found", () => {
@@ -14,10 +13,10 @@ test("index JS file found", () => {
 });
 
 describe("dist files", () => {
-  // FIXME: The bun file type is just inferred from the file extension, not the
-  // underlying file data... so that part of this test is not very useful.
+  // TODO: Remove the file MIME type checks? Bun inferrs it from the file
+  // extension, not the actual file data, so the usefulness is questionable.
 
-  // XXX: Files with unknown type (e.g., symlinks) fall back to the default
+  // NOTE: Files of unknown type (e.g., symlinks) fall back to the default
   // "application/octet-stream". Bun.file() does not resolve symlinks so it's
   // safe to infer that all these files are therefore regular files.
   const distFiles: [filename: string, type: string, minBytes?: number, maxBytes?: number][] = [
@@ -40,43 +39,44 @@ describe("dist files", () => {
     ["robots.txt", "text/plain;charset=utf-8", 20, 30],
   ];
 
-  for (const [filename, type, minBytes, maxBytes] of distFiles) {
-    describe(filename, () => {
-      const file = Bun.file(`dist/${filename}`);
+  describe.each(distFiles)("%s", (filename, type, minBytes, maxBytes) => {
+    const file = Bun.file(`dist/${filename}`);
 
-      test("exists with correct type", () => {
-        expect.assertions(3);
-        expect(file.exists()).resolves.toBeTruthy();
-        expect(file.size).toBeGreaterThan(0);
-        expect(file.type).toBe(type); // TODO: Keep this? Type seems to be resolved from the file extension, not the file data.
-      });
-
-      if (minBytes != null && maxBytes != null) {
-        test("is within expected file size limits", () => {
-          expect.assertions(2);
-          expect(file.size).toBeGreaterThan(minBytes);
-          expect(file.size).toBeLessThan(maxBytes);
-        });
-      }
+    test("exists with correct MIME type", () => {
+      expect.assertions(3);
+      expect(file.exists()).resolves.toBeTrue();
+      expect(file.size).toBeGreaterThan(0);
+      expect(file.type).toBe(type);
     });
-  }
 
-  test("contains no extra files", async () => {
-    expect.assertions(1);
-    const distDir = await readdir("dist");
-    expect(distDir).toHaveLength(distFiles.length);
+    if (typeof minBytes === "number" && typeof maxBytes === "number") {
+      test("is within expected file size limits", () => {
+        expect.assertions(2);
+        expect(file.size).toBeGreaterThan(minBytes);
+        expect(file.size).toBeLessThan(maxBytes);
+      });
+    }
   });
 
-  // TODO: Validate HTML once there is a better validator implementation.
-  // test.each(distFiles.filter(([filename]) => filename.endsWith('.html')))(
-  //   '%s contains valid HTML',
-  //   async (filename) => {
-  //     const file = Bun.file(`dist/${filename}`);
-  //     const html = await file.text();
-  //     const result = validate(html);
-  //     expect(result.valid).toBeTrue();
-  //   },
-  // );
+  test("contains no unexpected files", () => {
+    expect.assertions(1);
+    const expectedFiles = new Set(distFiles.map(([filename]) => filename));
+    const actualFiles = new Set(
+      new Bun.Glob("**").scanSync({ cwd: "dist", dot: true, onlyFiles: false }),
+    );
+    expect(actualFiles.difference(expectedFiles)).toBeEmpty();
+  });
+
+  test.each(distFiles.filter(([filename]) => filename.endsWith(".html")))(
+    "%s contains valid HTML",
+    async (filename) => {
+      expect.assertions(1);
+      const file = Bun.file(`dist/${filename}`);
+      const html = await file.text();
+      const result = validate(html);
+      expect(result.valid).toBeTrue();
+    },
+  );
 });
 
 const indexHTML = await Bun.file("dist/index.html").text();
@@ -100,10 +100,10 @@ describe("index.html", () => {
 
 test("index CSS file has hash in filename", () => {
   expect.assertions(1);
-  expect(build.css).toMatch(/^index-[\da-z]+\.css$/);
+  expect(build.css).toMatch(/^index-[\da-z]+\.css$/u);
 });
 
 test("index JS file has hash in filename", () => {
   expect.assertions(1);
-  expect(build.js).toMatch(/^index-[\da-z]+\.js$/);
+  expect(build.js).toMatch(/^index-[\da-z]+\.js$/u);
 });

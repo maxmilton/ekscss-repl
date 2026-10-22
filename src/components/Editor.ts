@@ -1,16 +1,15 @@
 import "./Editor.xcss";
-
 import { clone, h } from "stage1/fast";
 import { compile } from "stage1/macro" with { type: "macro" };
 
 export type EditorComponent = HTMLOListElement & {
   /** `autofocus` global attribute for `contenteditable` element. */
   autofocus?: boolean;
-  setContent(code: string): void;
-  getContent(): string;
+  setContent: (code: string) => void;
+  getContent: () => string;
 };
 
-const meta = compile(`
+const meta = compile(/*html*/ `
   <ol
     contenteditable=true
     class="editor w100 mt0 code"
@@ -23,14 +22,14 @@ const view = h<EditorComponent>(meta.html);
 export function Editor(): EditorComponent {
   const root = clone(view);
 
-  // eslint-disable-next-line @typescript-eslint/no-deprecated
+  // oxlint-disable-next-line typescript/no-deprecated
   document.execCommand("defaultParagraphSeparator", false, "li");
 
   // Convert rich content to plain text when pasting
   root.onpaste = (event) => {
     event.preventDefault();
     const text = event.clipboardData?.getData("text/plain");
-    // eslint-disable-next-line @typescript-eslint/no-deprecated
+    // oxlint-disable-next-line typescript/no-deprecated
     document.execCommand("insertText", false, text);
   };
 
@@ -45,7 +44,7 @@ export function Editor(): EditorComponent {
   };
 
   // Use innerText instead of textContent here so we also get \n etc.
-  // eslint-disable-next-line unicorn/prefer-dom-node-text-content
+  // oxlint-disable-next-line unicorn/prefer-dom-node-text-content
   root.getContent = () => root.innerText;
 
   return root;

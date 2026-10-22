@@ -16,7 +16,9 @@ import { type ConsoleMessage, expect, test } from "@playwright/test";
 
 test.beforeEach(async ({ context }) => {
   // Mock CDN script with empty file
-  await context.route(/^https:\/\/io\.bugbox\.app\/v0\/bugbox\.js/, (route) => route.fulfill({ status: 200 }));
+  await context.route(/^https:\/\/io\.bugbox\.app\/v0\/bugbox\.js/u, (route) =>
+    route.fulfill({ status: 200 }),
+  );
 });
 
 test("repl app", async ({ page }) => {
@@ -64,8 +66,8 @@ test("has no console calls (except 2 known calls) or unhandled errors", async ({
   expect(consoleMessages).toHaveLength(2);
   expect(consoleMessages[0].type()).toBe("log");
   // Firefox prints "Array" instead of "[...]"
-  expect(consoleMessages[0].text()).toMatch(/^AST: (\[.*]|Array)$/);
+  expect(consoleMessages[0].text()).toMatch(/^AST: (?:\[.*\]|Array)$/u);
 
   expect(consoleMessages[1].type()).toBe("log");
-  expect(consoleMessages[1].text()).toMatch(/^Compile time: \d+\.\d\dms$/);
+  expect(consoleMessages[1].text()).toMatch(/^Compile time: \d+\.\d\dms$/u);
 });

@@ -1,11 +1,11 @@
-import { globalRefs } from "#service.ts";
 import { append, h } from "stage1/fast";
 import { compile } from "stage1/macro" with { type: "macro" };
+import { globalRefs } from "#/service.ts";
 import { Editor } from "./Editor.ts";
 
 type OutputComponent = HTMLDivElement;
 
-const meta = compile(`
+const meta = compile(/*html*/ `
   <div id=out>
     <h2>Build Result</h2>
   </div>
@@ -20,7 +20,7 @@ export function Output(): OutputComponent {
   editor.className = `${editor.className} editor-wrap`;
   editor.title = "read only";
 
-  append(globalRefs.output = editor, root);
+  append((globalRefs.output = editor), root);
 
   return root;
 }

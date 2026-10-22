@@ -1,18 +1,19 @@
 import type { meta, send } from "bugbox";
 import type { ONCLICK } from "stage1/fast";
 
-declare module "bun" {
-  interface Env {
-    readonly APP_RELEASE: string;
-    readonly EKSCSS_VERSION: string;
-  }
-}
-
 declare global {
+  namespace NodeJS {
+    interface ProcessEnv {
+      readonly CI?: string;
+      readonly APP_RELEASE: string;
+      readonly EKSCSS_VERSION: string;
+    }
+  }
+
   interface HTMLElement {
     /** `stage1` synthetic click event handler. */
-    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-    [ONCLICK]?(event: Event): false | void | Promise<void>;
+    // oxlint-disable-next-line typescript/no-invalid-void-type typescript/prefer-readonly-parameter-types
+    [ONCLICK]?: (event: Event) => false | void | Promise<void>;
   }
 
   interface Window {
@@ -23,6 +24,5 @@ declare global {
     };
   }
 
-  // eslint-disable-next-line vars-on-top
   var bugbox: Window["bugbox"];
 }

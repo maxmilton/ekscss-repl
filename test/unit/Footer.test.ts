@@ -2,11 +2,9 @@
 //  ↳ https://github.com/oven-sh/bun/issues/3641
 //  ↳ https://github.com/oven-sh/bun/issues/3832
 
-$console.warn("Not implemented");
-
-// import { cleanup, render } from "@maxmilton/test-utils/dom";
 // import { afterEach, expect, test } from "bun:test";
-// import { Footer } from "../../src/components/Footer.ts";
+// import { cleanup, render } from "@maxmilton/test-utils/dom";
+// import { Footer } from "#/components/Footer.ts";
 
 // afterEach(cleanup);
 
@@ -34,5 +32,10 @@ $console.warn("Not implemented");
 // test("contains the app release version number", () => {
 //   expect.assertions(1);
 //   const rendered = render(Footer());
-//   expect(rendered.container.innerHTML).toMatch(/v\d+\.\d+\.\d+/);
+//   expect(rendered.container.innerHTML).toMatch(/v\d+\.\d+\.\d+/u);
 // });
+
+// oxlint-disable-next-line unicorn/require-module-specifiers
+export {};
+
+$console.warn("FIXME: Footer tests are disabled");

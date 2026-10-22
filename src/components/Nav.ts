@@ -1,8 +1,7 @@
 import "./Nav.xcss";
-
-import { globalRefs, run } from "#service.ts";
 import { collect, h, ONCLICK } from "stage1/fast";
 import { compile } from "stage1/macro" with { type: "macro" };
+import { globalRefs, run } from "#/service.ts";
 
 type NavComponent = HTMLDivElement;
 
@@ -12,7 +11,7 @@ interface Refs {
   clear: HTMLButtonElement;
 }
 
-const meta = compile<Refs>(`
+const meta = compile<Refs>(/*html*/ `
   <div id=nav class="dfc pv1 ph3">
     <h1 id=logo class=mv0>ekscss REPL</h1>
 
@@ -31,7 +30,7 @@ const view = h<NavComponent>(meta.html);
 
 export function Nav(): NavComponent {
   const root = view;
-  const refs = collect<Refs>(root, meta.d);
+  const refs = collect(root, meta.d);
 
   globalRefs.auto = refs[meta.ref.auto];
 

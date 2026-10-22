@@ -1,5 +1,5 @@
-import { cleanup, render } from "@maxmilton/test-utils/dom";
 import { afterEach, expect, test } from "bun:test";
+import { cleanup, render } from "@maxmilton/test-utils/dom";
 import { Nav } from "../../src/components/Nav.ts";
 
 afterEach(cleanup);

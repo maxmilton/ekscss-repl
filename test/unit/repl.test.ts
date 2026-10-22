@@ -1,5 +1,5 @@
-import { performanceSpy } from "@maxmilton/test-utils/spy";
 import { afterEach, expect, spyOn, test } from "bun:test";
+import { performanceSpy } from "@maxmilton/test-utils/spy";
 import { VirtualConsoleLogTypeEnum } from "happy-dom";
 import { reset } from "../setup.ts";
 
@@ -7,12 +7,12 @@ afterEach(reset);
 
 // Build adds a hash to the filename so we need to find the file path.
 const html = await Bun.file("dist/index.html").text();
-const jsFilename = /index.*\.js/.exec(html)?.[0];
-const MODULE_PATH = Bun.resolveSync(`../../dist/${jsFilename!}`, import.meta.dir);
+const jsFilename = /index.*\.js/u.exec(html)?.[0];
+const MODULE_PATH = Bun.resolveSync(`../../dist/${jsFilename}`, import.meta.dir);
 
 async function load() {
-  Loader.registry.delete(MODULE_PATH);
-  await import(MODULE_PATH);
+  // Cache-bust the dynamic import so each test gets a fresh module instance.
+  await import(`${MODULE_PATH}?bust=${Bun.nanoseconds()}`);
   await happyDOM.waitUntilComplete();
 }
 
@@ -22,16 +22,17 @@ function nowSpy() {
   let happydomInternalNowCalls = 0;
 
   function now() {
-    const callerLocation = new Error().stack!.split("\n")[3]; // eslint-disable-line unicorn/error-message
+    // oxlint-disable-next-line typescript/no-non-null-assertion unicorn/error-message
+    const callerLocation = new Error().stack!.split("\n")[3];
     if (callerLocation.includes("/node_modules/happy-dom/lib/")) {
-      happydomInternalNowCalls++;
+      happydomInternalNowCalls += 1;
     }
     return originalNow();
   }
 
   const spy = spyOn(performance, "now").mockImplementation(now);
 
-  return /** check */ (calledTimes: number) => {
+  return /** Check */ (calledTimes: number) => {
     // HACK: Workaround for happy-dom calling performance.now internally.
     //  ↳ https://github.com/search?q=repo%3Acapricorn86%2Fhappy-dom%20performance.now&type=code
     expect(spy).toHaveBeenCalledTimes(happydomInternalNowCalls + calledTimes);
@@ -74,7 +75,7 @@ test("does not call any console methods (except 2 known calls)", async () => {
   expect(logs[0].message[1]).toBeArray();
 
   expect(logs[1].type).toBe(VirtualConsoleLogTypeEnum.log);
-  expect(logs[1].message).toEqual([expect.stringMatching(/^Compile time: \d+\.\d\dms$/)]);
+  expect(logs[1].message).toEqual([expect.stringMatching(/^Compile time: \d+\.\d\dms$/u)]);
 });
 
 test("does not call any performance methods (except performance.now for timing)", async () => {

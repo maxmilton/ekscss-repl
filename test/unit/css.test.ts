@@ -1,7 +1,7 @@
-import { compile, DECLARATION, lookup, MEDIA, reduce, walk } from "@maxmilton/test-utils/css";
 import { describe, expect, test } from "bun:test";
+import { compile, DECLARATION, lookup, MEDIA, reduce, walk } from "@maxmilton/test-utils/css";
 import build from "../../dist/build-info.json" with { type: "json" };
-import xcssConfig from "../../xcss.config.mjs";
+import xcssConfig from "../../xcss.config.js";
 
 describe("xcss config", () => {
   test("contains only expected plugins", () => {
@@ -37,7 +37,7 @@ test("does not contain any comments", () => {
   expect.assertions(4);
   expect(css).not.toInclude("/*");
   expect(css).not.toInclude("*/");
-  expect(css).not.toMatch(/(?<!:)\/\//); // "//" but not "://" (URL protocol)
+  expect(css).not.toMatch(/(?<!:)\/\//u); // "//" but not "://" (URL protocol)
   expect(css).not.toInclude("<!");
 });
 
@@ -45,6 +45,7 @@ test("does not have any CSS variable declarations", () => {
   expect.assertions(1);
   let found = 0;
   walk(ast, (element) => {
+    // oxlint-disable-next-line vitest/no-conditional-in-test
     if (element.type === DECLARATION && (element.props as string).startsWith("--")) {
       found += 1;
     }
@@ -67,7 +68,9 @@ test("has exactly 2 unique @media queries", () => {
   expect.assertions(1);
   const mediaQueries = new Set<string>();
   walk(ast, (element) => {
+    // oxlint-disable-next-line vitest/no-conditional-in-test
     if (element.type === MEDIA) {
+      // oxlint-disable-next-line vitest/no-conditional-in-test
       if (!Array.isArray(element.props)) {
         throw new TypeError("Expected element.props to be an array");
       }
@@ -89,6 +92,7 @@ test(".con class has max-width of 50rem", () => {
   expect(elements).toBeArray();
   expect(elements?.length).toBeGreaterThan(0);
   expect(elements?.[0].props).toContain(".con");
+  // oxlint-disable-next-line typescript/no-non-null-assertion
   const styles = reduce(elements!);
   expect(styles).toHaveProperty("max-width", "50rem");
 });
@@ -105,11 +109,9 @@ const wellKnownSelectors = [
   ".editor",
 ];
 
-for (const selector of wellKnownSelectors) {
-  test(`has ${selector} styles`, () => {
-    expect.assertions(2);
-    const elements = lookup(ast, selector);
-    expect(elements).toBeArray();
-    expect(elements?.length).toBeGreaterThan(0);
-  });
-}
+test.each(wellKnownSelectors)("has %s styles", (selector) => {
+  expect.assertions(2);
+  const elements = lookup(ast, selector);
+  expect(elements).toBeArray();
+  expect(elements?.length).toBeGreaterThan(0);
+});

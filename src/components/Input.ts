@@ -1,12 +1,12 @@
-import { globalRefs, run } from "#service.ts";
-import { debounce } from "#utils.ts";
 import { append, h } from "stage1/fast";
 import { compile } from "stage1/macro" with { type: "macro" };
+import { globalRefs, run } from "#/service.ts";
+import { debounce } from "#/utils.ts";
 import { Editor } from "./Editor.ts";
 
 type InputComponent = HTMLDivElement;
 
-const meta = compile(`
+const meta = compile(/*html*/ `
   <div id=in>
     <h2>Source Code</h2>
   </div>
@@ -17,7 +17,7 @@ export function Input(): InputComponent {
   const root = view;
   const editor = Editor();
   editor.autofocus = true;
-  editor.setContent(`/**
+  editor.setContent(/*css*/ `/**
 * Sample XCSS Styles
 * Try modify this code to see the build result live!
 */
@@ -33,7 +33,7 @@ body {
   color: \${x.color.red};
 }
 
-\${x.fn.each(x.color, (name, value) => xcss\`
+\${fn.each(x.color, (name, value) => xcss\`
   .\${name} { color: \${value}; }
 \`)}
 `);
@@ -42,7 +42,7 @@ body {
     if (globalRefs.auto.checked) run();
   });
 
-  append(globalRefs.input = editor, root);
+  append((globalRefs.input = editor), root);
 
   return root;
 }
